@@ -43,14 +43,9 @@ Operating System: (e.g., Linux, macOS, Windows)
 Software: Docker, Java, Maven
 
 ### Tech-Stack: 
-Frontend: 
-  - React: https://react.dev
-
-Backend:
-  - Springboot: https://start.spring.io/
-
-Database:
-  - PostgreSQL: https://postgresql.org
+  - React (Frontend) https://react.dev
+  - Springboot (Backend): https://start.spring.io/
+  - PostgreSQL (Database): https://postgresql.org
 
 Ports: (e.g., port 8080, if applicable)
 
