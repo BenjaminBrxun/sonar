@@ -11,18 +11,16 @@ Provide a general introduction to your project. Describe the purpose, goals, and
 ## Team
 List the team members involved in the project:
 
-Team Leader: [Name] Till Patron
+Team Leader: 
+- Till Patron
 
-Members: [Name1], [Name2], [Name3]
+Members:
 - Fabian Serves
 - Max van Lier
 - Nils Palberg
 - Micha keiten
 - Benjamin Braun
 - Patrick Drechsel
-(Expand this list as necessary)
-
-
 
 ## Quickstart
 
