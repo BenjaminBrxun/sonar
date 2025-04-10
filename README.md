@@ -45,8 +45,10 @@ Software: Docker, Java, Maven
 # Tech-Stack: 
 Frontend: 
   - React: https://react.dev
+
 Backend:
   - Springboot: https://start.spring.io/
+
 Database:
   - PostgreSQL: https://postgresql.org
 
