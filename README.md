@@ -42,7 +42,7 @@ Operating System: (e.g., Linux, macOS, Windows)
 
 Software: Docker, Java, Maven
 
-Tech Stack
+Tech Stack: 
   - Frontend: https://react.dev
   - Backend: https://start.spring.io/
   - Database: https://postgresql.org
