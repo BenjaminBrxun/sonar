@@ -48,7 +48,7 @@ Ports: (e.g., port 8080, if applicable)
 
 Provide step-by-step instructions on how to clone the repository, install the project, and configure it:
 
-0. Tech Stack
+1. Tech Stack
   - Frontend: https://react.dev
   - Backend: https://start.spring.io/
   - Database: https://postgresql.org
@@ -58,12 +58,12 @@ Provide step-by-step instructions on how to clone the repository, install the pr
 $ git clone https://github.com/YourRepository.git
 ```
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
 ```bash,ignore
 $ cd ProjectName
 ```
 
-3. Adjust configuration files:
+4. Adjust configuration files:
 
 Modify configuration files (e.g., `.env`, `application.properties`) as required.
 
