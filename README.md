@@ -42,6 +42,9 @@ Operating System: (e.g., Linux, macOS, Windows)
 
 Software: Docker, Java, Maven
 
+Prototyp: [Figma Prototyp]([https://example.com](https://www.figma.com/proto/G1wOTb3iaOJeZSlVaQ27tN/SWT1-Prototype?page-id=132%3A558&node-id=153-560&viewport=343%2C-544%2C0.44&t=oGkMymRAoTJUZyHt-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=153%3A560&show-proto-sidebar=1))
+Passwort: swt1
+
 ### Tech-Stack: 
   - React (Frontend) https://react.dev
   - Springboot (Backend): https://start.spring.io/
