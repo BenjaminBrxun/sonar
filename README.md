@@ -42,7 +42,7 @@ Operating System: (e.g., Linux, macOS, Windows)
 
 Software: Docker, Java, Maven
 
-# Tech-Stack: 
+### Tech-Stack: 
 Frontend: 
   - React: https://react.dev
 
