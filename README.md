@@ -12,15 +12,15 @@ Provide a general introduction to your project. Describe the purpose, goals, and
 List the team members involved in the project:
 
 Team Leader: 
-- Till Patron
+- Till Patron (Backend-Experte)
 
 Members:
-- Fabian Serves
-- Max van Lier
-- Nils Palberg
-- Micha keiten
-- Benjamin Braun
-- Patrick Drechsel
+- Fabian Serves (Architektur-Experte)
+- Max van Lier (Infrastruktur-Experte)
+- Nils Palberg (UML-Experte)
+- Micha keiten (Projektleiter)
+- Benjamin Braun (SCRUM-Experte)
+- Patrick Drechsel (Frontend-Experte)
 
 ## Quickstart
 
