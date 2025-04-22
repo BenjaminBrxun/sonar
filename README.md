@@ -68,8 +68,29 @@ $ cd ProjectName
 
 3. Adjust configuration files:
 
-Modify configuration files (e.g., `.env`, `application.properties`) as required.
+[//]: # (Modify configuration files &#40;e.g., `.env`, `application.properties`&#41; as required.)
 
+Im Verzeichnis `sonar` muss vor dem ersten Starten ein neues Verzeichnis mit dem Namen `.env` erstellt werden.
+In diesem Verzeichnis wird die Datei `credentials.env` erstellt.
+In dieser Datei werden jetzt die Werte für `POSTGRES_USER` und `POSTGRES_PASSWORD` gesetzt.
+
+Zum Starten des Sonar-Backends ist eine Konfiguration der Login-Daten für die PostgreSQL-Datenbank nötig.
+Im Folgenden ist eine bebilderte Anleitung:
+
+Über das Menü `Edit Configuration` können die Umgebungsvariablen, die zum Starten der Anwendung benötigt werden,
+gesetzt werden.
+
+![Edit Configuration](documentation/images/config_screen.png)
+
+Mit einem Click auf `Modify options` erscheint das folgende Dropdown-Menü, in welchem `Envorinment variables` angeklickt
+werden muss.
+
+![Dropdown Menu](documentation/images/dropdown.png)
+
+Anschließend werden die Werte für `SPRING_DATASOURCE_USERNAME` und `SPRING_DATA_PASSWORD` gesetzt.
+Diese Werte müssen denen aus der `sonar/.env/credentials.env` entsprechen.
+
+![Environment variables](documentation/images/env_input.png)
 
 ## Running the Project
 
