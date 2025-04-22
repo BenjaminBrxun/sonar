@@ -113,9 +113,16 @@ $ ./mvnw spring-boot:run
 ## Project structure
 Provide an overview of the directory structure to help contributors navigate the project:
 ```bash,ignore
-ProjectName/
-├── project_one/        # Description of this subproject
-├── docs/               # Documentation
-├── tests/              # Test cases
-└── README.md           # This file
+Sonar/
+├── sonar/                     # Description of this subproject
+  ├── docker-compose.yaml      # File to start whole application
+  ├── sonar-backend            # Backend for Sonar application
+    ├── src/main/              # Source code
+    ├── src/test/              # Test cases
+  ├── herne-backend            # Dummy Backend
+    ├── src/main/              # Source code
+    ├── src/test/              # Test cases
+  ├── sonar-frontend           # WebApp
+├── documentation/             # Documentation
+└── README.md                  # This file
 ```
