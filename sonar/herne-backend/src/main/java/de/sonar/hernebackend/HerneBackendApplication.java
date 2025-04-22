@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendHerneApplication {
+public class HerneBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendHerneApplication.class, args);
+		System.out.println("Herne Backend");
+		SpringApplication.run(HerneBackendApplication.class, args);
 	}
 
 }

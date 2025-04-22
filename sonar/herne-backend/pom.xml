@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.sonar</groupId>
-	<artifactId>backend-herne</artifactId>
+	<artifactId>herne-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend-herne</name>
-	<description>Backend Herne</description>
+	<name>herne-backend</name>
+	<description>Herne Backend</description>
 	<url/>
 	<licenses>
 		<license/>
