@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SonarApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Sonar");
 		SpringApplication.run(SonarApplication.class, args);
 	}
 
