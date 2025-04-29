@@ -5,8 +5,9 @@
  _.____`. | |   | |[ `.-. |    / ___ \     |  __ /    
 | \____) |\  `-'  / | | | |  _/ /   \ \_  _| |  \ \_  
  \______.' `.___.' [___||__]|____| |____||____| |___|
-```                                        
+
 Soziales Online Aktivitäten Register
+```                                        
 
 ## Team
 List the team members involved in the project:
