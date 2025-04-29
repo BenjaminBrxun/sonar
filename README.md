@@ -1,12 +1,12 @@
-# Template repository for the Software Engineering lecture
 
-> [!IMPORTANT]
-> Replace this README with a detailed description of your project, your team, and instructions on how to run it.
-
-> [!IMPORTANT]
-> If you choose to keep your repository private, make sure to invite all your team members and teaching staff. Ask for their usernames if needed.
-
-Provide a general introduction to your project. Describe the purpose, goals, and the technologies used. Explain the value your project offers.
+  ______     ___                  _       _______     
+.' ____ \  .'   `.               / \     |_   __ \    
+| (___ \_|/  .-.  \ _ .--.      / _ \      | |__) |   
+ _.____`. | |   | |[ `.-. |    / ___ \     |  __ /    
+| \____) |\  `-'  / | | | |  _/ /   \ \_  _| |  \ \_  
+ \______.' `.___.' [___||__]|____| |____||____| |___| 
+                                                      
+Soziales Online Aktivitäten Register
 
 ## Team
 List the team members involved in the project:
@@ -123,6 +123,7 @@ Sonar/
     ├── src/main/              # Source code
     ├── src/test/              # Test cases
   ├── sonar-frontend           # WebApp
+  ├── mqqt-broker              # MQTT Broker
 ├── documentation/             # Documentation
 └── README.md                  # This file
 ```
