@@ -128,3 +128,19 @@ Sonar/
 ├── documentation/             # Documentation
 └── README.md                  # This file
 ```
+
+## Git Workflow
+
+- Es wird für jede User Story ein eigener feature-Branch erstellt
+- Unteraufgaben (Sub issues) werden in die jeweiligen feature-Branches der User-Story zusammengeführt
+- Erst wenn die Defintion of Done einer User-Story erfüllt ist, wird der feature-Branch in den main-Branch gemerged
+
+### Branch Naming
+- feature/[Ticket-Nr z.B. 20]-[Ticket-Name]
+- e.g.: feature/20-datenmodell
+
+Andere namings:
+- bugfix/...
+- e.g.: bugfix/22-anwendung-stürzt-beim-starten-über-docker-compose-ab
+- documentation/...
+- e.g.: documentation/24-architektur-diagramm-um-authentication-provider-ergänzen
