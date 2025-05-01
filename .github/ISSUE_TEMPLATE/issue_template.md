@@ -1,5 +1,5 @@
 ---
-name: Blank issue
+name: Sub issue
 about: A sub-issue that is part of a user-story 
 labels: 'issue'
 ---
