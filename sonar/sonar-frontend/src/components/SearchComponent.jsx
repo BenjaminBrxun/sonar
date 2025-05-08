@@ -4,7 +4,6 @@ import {TextField} from "@mui/material";
 import "@fontsource/roboto/800.css";
 
 export function SearchComponent({sendDataToParent}) {
-    const [data, setData] = useState(false);
 
     const [query, setQuery] = useState("");
 
@@ -13,9 +12,9 @@ export function SearchComponent({sendDataToParent}) {
     }
 
     useEffect(() => {
-            const timeOutId = setTimeout(() => console.log("Nach nem Delay: " + query), 500);
-            return () => clearTimeout(timeOutId);
-        },[query]);
+        const timeOutId = setTimeout(() => console.debug("Inserted search after delay: " + query), 500);
+        return () => clearTimeout(timeOutId);
+    }, [query]);
 
     return (
         <div style={{
@@ -30,10 +29,7 @@ export function SearchComponent({sendDataToParent}) {
                 <CancelIcon
                     sx={{color: '#FABB22', fontSize: 45, margin: '15px', position: 'absolute', zIndex: 100}}
                     onClick={() => {
-                        console.log('before assignment');
-                        console.log('before handleClick()');
                         handleClick();
-                        console.log('after assignment');
                     }}
                 />
                 <div className='cross-background' style={{
@@ -67,9 +63,12 @@ export function SearchComponent({sendDataToParent}) {
                         variant="outlined"
                         fullWidth
                         label="Eventsuche"
-                        onChange={(e) => {setQuery(e.target.value)}}
+                        onChange={(e) => {
+                            setQuery(e.target.value)
+                        }}
                     />
-                    <p style={{color: 'black', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Roboto'}}>Geht natürlich noch nicht :)</p>
+                    <p style={{color: 'black', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Roboto'}}>Geht
+                        natürlich noch nicht :)</p>
                 </div>
             </div>
         </div>

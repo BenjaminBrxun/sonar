@@ -7,7 +7,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import React, {Component} from "react";
 
 
-export const MuiBottomNavigation = () => {
+export const BottomNavigation = () => {
     const state = {showSearch: false}
 
 

@@ -1,8 +1,7 @@
 import CancelIcon from '@mui/icons-material/Cancel';
-import React, {useState} from "react";
+import React from "react";
 
 export function FilterComponent({sendDataToParent}) {
-    const [data, setData] = useState(false);
 
     function handleClick() {
         sendDataToParent(true);
@@ -21,10 +20,7 @@ export function FilterComponent({sendDataToParent}) {
                 <CancelIcon
                     sx={{color: '#FABB22', fontSize: 45, margin: '15px', position: 'absolute', zIndex: 100}}
                     onClick={() => {
-                        console.log('before assignment');
-                        console.log('before handleClick()');
                         handleClick();
-                        console.log('after assignment');
                     }}
                 />
                 <div className='cross-background' style={{

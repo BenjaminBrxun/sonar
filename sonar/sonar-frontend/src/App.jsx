@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import {TitleBar} from './components/TitleBar.jsx'
 import {InteractiveMap} from './components/InteractiveMap.jsx'
@@ -19,18 +19,15 @@ function App() {
     const [page, setPage] = useState("map")
 
     const [dataFromChild, setDataFromChild] = useState(false);
-    console.log(dataFromChild);
 
     function handleDataFromChild(data) {
         setDataFromChild(data);
-        console.log('Data from child: ' + dataFromChild);
         setPage("map");
         setDataFromChild(false);
-        console.log('Updated data from child: ' + dataFromChild);
     }
 
     function _toggle(newPage) {
-        if(page === newPage || dataFromChild) {
+        if (page === newPage || dataFromChild) {
             setPage("map");
             setDataFromChild(false);
         } else {
@@ -41,14 +38,21 @@ function App() {
     return (
         <>
             <TitleBar/>
-            <div style={{position:'absolute', top: 0, zIndex: -2, overflowY: 'hidden'}}><InteractiveMap/></div>
-            {page === "search" && !dataFromChild && <SearchComponent sendDataToParent={handleDataFromChild}/> }
+            <div style={{position: 'absolute', top: 0, zIndex: -2, overflowY: 'hidden'}}><InteractiveMap/></div>
+            {page === "search" && !dataFromChild && <SearchComponent sendDataToParent={handleDataFromChild}/>}
             {page === "filter" && !dataFromChild && <FilterComponent sendDataToParent={handleDataFromChild}/>}
             {page === "list" && !dataFromChild && <ListComponent sendDataToParent={handleDataFromChild}/>}
             {page === "favorites" && !dataFromChild && <FavoritesComponent sendDataToParent={handleDataFromChild}/>}
             {page === "login" && !dataFromChild && <LoginComponent sendDataToParent={handleDataFromChild}/>}
 
-            <div style={{width: '100%', position: 'absolute', bottom: '2%', display: 'flex', justifyContent: 'center', zIndex: 0}}>
+            <div style={{
+                width: '100%',
+                position: 'absolute',
+                bottom: '2%',
+                display: 'flex',
+                justifyContent: 'center',
+                zIndex: 0
+            }}>
                 <BottomNavigation sx={{
                     borderRadius: '22px',
                 }}

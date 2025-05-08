@@ -1,10 +1,7 @@
-import {useState} from "react";
 import logo from "../assets/logo.png";
 import LanguageIcon from '@mui/icons-material/Language';
-import {IconContext} from "react-icons";
 
 export const TitleBar = () => {
-    const [value, setValue] = useState(0)
     return (
         <div style={{width: '100%', position: 'absolute', top: '2%', display: 'flex', justifyContent: 'center'}}>
             <div style={{
