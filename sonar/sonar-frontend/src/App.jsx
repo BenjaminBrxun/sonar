@@ -2,17 +2,17 @@ import React, {useState} from 'react'
 import './App.css'
 import {TitleBar} from './components/TitleBar.jsx'
 import {InteractiveMap} from './components/InteractiveMap.jsx'
-import {SearchComponent} from './components/SearchComponent.jsx'
-import {FilterComponent} from './components/FilterComponent.jsx'
+import {SearchComponent} from './components/search/SearchComponent.jsx'
+import {FilterComponent} from './components/filter/FilterComponent.jsx'
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ListIcon from '@mui/icons-material/List';
 import TuneIcon from '@mui/icons-material/Tune';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LoginIcon from '@mui/icons-material/Login';
-import {FavoritesComponent} from "./components/FavoritesComponent.jsx";
-import {ListComponent} from "./components/ListComponent.jsx";
-import {LoginComponent} from "./components/LoginComponent.jsx";
+import {FavoritesComponent} from "./components/bookmark/FavoritesComponent.jsx";
+import {ListComponent} from "./components/list/ListComponent.jsx";
+import {LoginComponent} from "./components/profile/LoginComponent.jsx";
 
 
 function App() {
@@ -38,24 +38,15 @@ function App() {
     return (
         <>
             <TitleBar/>
-            <div style={{position: 'absolute', top: 0, zIndex: -2, overflowY: 'hidden'}}><InteractiveMap/></div>
+            <div className="interactive-map"><InteractiveMap/></div>
             {page === "search" && !dataFromChild && <SearchComponent sendDataToParent={handleDataFromChild}/>}
             {page === "filter" && !dataFromChild && <FilterComponent sendDataToParent={handleDataFromChild}/>}
             {page === "list" && !dataFromChild && <ListComponent sendDataToParent={handleDataFromChild}/>}
             {page === "favorites" && !dataFromChild && <FavoritesComponent sendDataToParent={handleDataFromChild}/>}
             {page === "login" && !dataFromChild && <LoginComponent sendDataToParent={handleDataFromChild}/>}
 
-            <div style={{
-                width: '100%',
-                position: 'absolute',
-                bottom: '2%',
-                display: 'flex',
-                justifyContent: 'center',
-                zIndex: 0
-            }}>
-                <BottomNavigation sx={{
-                    borderRadius: '22px',
-                }}
+            <div className="bottom-nav-container">
+                <BottomNavigation className="bar"
                 >
                     <BottomNavigationAction label='Search' icon={<SearchIcon/>}
                                             onClick={() => {
@@ -72,6 +63,7 @@ function App() {
                 </BottomNavigation>
             </div>
         </>
+
     )
 }
 

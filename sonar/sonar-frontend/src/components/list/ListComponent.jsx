@@ -1,6 +1,6 @@
 import CancelIcon from '@mui/icons-material/Cancel';
 import React from "react";
-import {EventComponent} from "./EventComponent.jsx";
+import {EventComponent} from "../../model/EventComponent.jsx";
 
 
 export function ListComponent({sendDataToParent}) {

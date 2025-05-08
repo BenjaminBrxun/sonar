@@ -1,0 +1,65 @@
+.title-bar {
+    width: 95vw;
+    height: 7vh;
+    background: white;
+    border-radius: 10% / 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title {
+    color: black;
+    font-weight: bold;
+    font-size: 7vw;
+}
+
+.sonar-logo {
+    max-height: 100%;
+}
+
+.lan-selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2vh;
+}
+
+.icon {
+    color: black;
+    font-size: 8vw;
+}
+
+.dropdown {
+    background-color: white;
+    color: black;
+    border: none;
+    font-weight: bold;
+    font-size: 5vw;
+}
+
+.interactive-map {
+    position: absolute;
+    top: 0;
+    z-index: -2;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.bottom-nav-container {
+    width: 100%;
+    position: absolute;
+    bottom: 2%;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+
+    .bar {
+        border-radius: 10% / 80%;
+    }
+}

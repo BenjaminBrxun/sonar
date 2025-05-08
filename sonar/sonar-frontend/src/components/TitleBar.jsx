@@ -1,29 +1,19 @@
 import logo from "../assets/logo.png";
 import LanguageIcon from '@mui/icons-material/Language';
+import './Style.css'
 
-export const TitleBar = () => {
+export function TitleBar() {
     return (
-        <div style={{width: '100%', position: 'absolute', top: '2%', display: 'flex', justifyContent: 'center'}}>
-            <div style={{
-                width: '95%',
-                height: '56px',
-                background: 'white',
-                borderRadius: '20px',
-                alignItems: 'center',
-                display: 'flex'
-            }}>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <img style={{width: '12%', margin: '10px'}} src={logo} alt={"Wappen der Stadt Herne"}/>
-                    <p style={{color: 'black', fontWeight: 'bold', fontSize: 28}}>HERNEBUZZ</p>
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '15px'}}>
-                    <LanguageIcon sx={{color: 'black', fontSize: 40}}/>
-                    <select
-                        style={{background: 'white', color: 'black', border: 'none', fontWeight: 'bold', fontSize: 18}}>
-                        <option value="DE">DE</option>
-                        <option value="EN">EN</option>
-                    </select>
-                </div>
+        <div className="title-bar">
+            <img className="sonar-logo" src={logo} alt={"Wappen der Stadt Herne"}/>
+            <p className="title">HERNEBUZZ</p>
+            <div className="lan-selection">
+                <LanguageIcon className="icon"/>
+                <select
+                    className="dropdown">
+                    <option value="DE">DE</option>
+                    <option value="EN">EN</option>
+                </select>
             </div>
         </div>
     )
