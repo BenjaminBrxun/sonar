@@ -12,3 +12,8 @@ RUN mvn clean package -DskipTests
 # Run the application
 # You should replace the executable name to the correct one
 CMD ["java", "-jar", "target/sonar-0.0.1-SNAPSHOT.jar"]
+
+
+
+### In zukunft productionproduction environment ###
+# - leicht, sicher und schnell

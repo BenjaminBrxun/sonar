@@ -1,8 +1,104 @@
+#####################################################
+# Dieses Docker Compose file enthaelt drei Server
+#    Sonar Server
+#     - sonar-db
+#     - sonar-backend
+#     - soanr-frontend
+#    MQTT Server
+#    Herne Server
+#####################################################
+
 services:
-  db:
-    image: 'postgres:13.1-alpine'
-    container_name: db
+
+  ### Server Sonar ###
+  sonar-db:
+    image: postgres:13.1-alpine
+    container_name: sonar-db
     env_file:
       - .env/credentials.env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U sonar -d sonar" ]                   # DB_USER & DB_PASSWORD muessen noch ersetzt werden!
+      interval: 5s
+      timeout: 3s
+      retries: 3
     ports:
       - "5432:5432"
+    volumes:
+      - sonar-db-data:/var/lib/postgresql/data
+    networks:
+      - sonar-net
+    restart: unless-stopped
+
+
+  sonar-backend:
+    build:
+      context: ./sonar-backend
+      dockerfile: Dockerfile
+    depends_on:
+      sonar-db:
+        condition: service_healthy
+    container_name: sonar-backend
+    env_file:
+      - .env/credentials.env
+    environment:
+      ALPINE_DATABASE_MODE: "external"
+      ALPINE_DATABASE_URL: "jdbc:postgresql://postgres:5432/dtrack"
+      ALPINE_DATABASE_DRIVER: "org.postgresql.Driver"
+    ports:
+      - "8081:8080"
+    networks:
+      - sonar-net
+    restart: unless-stopped
+
+
+  sonar-frontend:
+    build:
+      context: ./sonar-frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - sonar-backend
+    container_name: sonar-frontend
+    ports:
+      - "8080:80"
+    networks:
+      - sonar-net
+    restart: unless-stopped
+
+
+
+  ### Server MQTT Broker ###
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - mqtt-net
+
+
+
+  ### Server Herne ###
+  herne-backend:
+    build:
+      context: ./herne-backend
+      dockerfile: Dockerfile
+    container_name: herne-backend
+    ports:
+      - "9091:9090"
+    networks:
+      - herne-net
+
+
+
+networks:
+  sonar-net:
+  mqtt-net:
+  herne-net:
+
+volumes:
+  sonar_db_data:
