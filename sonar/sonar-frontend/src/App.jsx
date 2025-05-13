@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './App.css'
-import {TitleBar} from './components/TitleBar.jsx'
-import {InteractiveMap} from './components/InteractiveMap.jsx'
+import {TitleBar} from './components/overlay/TitleBar.jsx'
+import {InteractiveMap} from './components/interactivemap/InteractiveMap.jsx'
 import {SearchComponent} from './components/search/SearchComponent.jsx'
 import {FilterComponent} from './components/filter/FilterComponent.jsx'
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
@@ -36,7 +36,7 @@ function App() {
     }
 
     return (
-        <>
+        <div style={{width:'100vw',height:'100vh'}}>
             <TitleBar/>
             <div className="interactive-map"><InteractiveMap/></div>
             {page === "search" && !dataFromChild && <SearchComponent sendDataToParent={handleDataFromChild}/>}
@@ -46,23 +46,20 @@ function App() {
             {page === "login" && !dataFromChild && <LoginComponent sendDataToParent={handleDataFromChild}/>}
 
             <div className="bottom-nav-container">
-                <BottomNavigation className="bar"
-                >
+                <BottomNavigation className="bar">
                     <BottomNavigationAction label='Search' icon={<SearchIcon/>}
-                                            onClick={() => {
-                                                _toggle("search");
-                                            }}></BottomNavigationAction>
+                                            onClick={() => _toggle("search")}/>
                     <BottomNavigationAction label='List' icon={<ListIcon/>}
-                                            onClick={() => _toggle("list")}></BottomNavigationAction>
+                                            onClick={() => _toggle("list")}/>
                     <BottomNavigationAction label='Filter' icon={<TuneIcon/>}
-                                            onClick={() => _toggle("filter")}></BottomNavigationAction>
+                                            onClick={() => _toggle("filter")}/>
                     <BottomNavigationAction label='Favorites' icon={<BookmarkIcon/>}
-                                            onClick={() => _toggle("favorites")}></BottomNavigationAction>
+                                            onClick={() => _toggle("favorites")}/>
                     <BottomNavigationAction label='Login' icon={<LoginIcon/>}
-                                            onClick={() => _toggle("login")}></BottomNavigationAction>
+                                            onClick={() => _toggle("login")}/>
                 </BottomNavigation>
             </div>
-        </>
+        </div>
 
     )
 }

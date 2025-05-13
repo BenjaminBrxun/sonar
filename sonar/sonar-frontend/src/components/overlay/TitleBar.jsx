@@ -1,6 +1,6 @@
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 import LanguageIcon from '@mui/icons-material/Language';
-import './Style.css'
+import "./Overlay.scss"
 
 export function TitleBar() {
     return (
