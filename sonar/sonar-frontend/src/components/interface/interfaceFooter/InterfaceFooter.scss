@@ -1,0 +1,64 @@
+@use "../../../assets/scss/_variables.scss" as var;
+
+.sonar-footer {
+  $padding: 15px;
+
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 $padding;
+
+  &_inner {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var.color(theme, light);
+    box-sizing: border-box;
+    padding: $padding;
+    border-radius: 30px;
+    min-height: 70px;
+    max-height: 70px;
+  }
+
+  &_menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 100%;
+    width: 100%;
+    &-seperator {
+      width: 2px;
+      background-color: var.color(theme, seperator);
+    }
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease-in-out;
+      outline: none;
+      border: 0;
+      box-sizing: border-box;
+      padding: 15px;
+      background-color: var.color(theme, light);
+      @media(max-width: 350px) {
+        padding: 10px;
+      }
+      &:hover {
+        background-color: var.color(theme, accent);
+      }
+      &.active {
+        background-color: var.color(theme, accent);
+      }
+    }
+  }
+
+}

@@ -1,0 +1,25 @@
+// COLORS
+$accent: #FABB22;
+$primary: #000000;
+$secondary: #fff;
+
+// FUNCTION USAGE: color(theme, light);
+$colors: (
+        theme: (
+                base: $primary,
+                dark: $primary,
+                light: $secondary,
+                accent: $accent,
+                seperator: #D9D9D9,
+        ),
+        font: (
+                base: #000,
+                green: #007C31,
+                violet: #9747FF,
+                white: #fff,
+        ),
+);
+@function color($base, $shade: base) {
+  $color: map-get(map-get($colors, $base), $shade);
+  @return $color;
+}

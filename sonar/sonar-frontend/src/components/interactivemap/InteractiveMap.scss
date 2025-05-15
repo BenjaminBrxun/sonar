@@ -1,4 +1,8 @@
-.map {
-  width: 100vw;
-  height: 100vh;
+.sonar-map_image {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
