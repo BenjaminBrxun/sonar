@@ -1,4 +1,14 @@
+.sonar-body {
+  overflow: hidden;
+}
 
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
 
 .bottom-nav-container {
   width: 100%;
