@@ -1,3 +1,4 @@
+@use "sass:map";
 // COLORS
 $accent: #FABB22;
 $primary: #000000;
@@ -20,6 +21,6 @@ $colors: (
         ),
 );
 @function color($base, $shade: base) {
-  $color: map-get(map-get($colors, $base), $shade);
+  $color: map.get(map.get($colors, $base), $shade);
   @return $color;
 }

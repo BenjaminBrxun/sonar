@@ -41,6 +41,7 @@
       margin: 0;
       font-size: 2rem;
       font-weight: 700;
+      color: var.color(theme, dark);
     }
   }
 
@@ -57,15 +58,17 @@
     .sonar-icon {
       width: 1.4em;
       height: 2em;
+      color: var.color(theme, dark);
     }
 
     select {
       outline: none;
       border: none;
       font-size: 1.2rem;
+      font-weight: bold;
       cursor: pointer;
+      background-color: var.color(theme, light);
+      color: var.color(theme, dark);
     }
-
   }
-
 }

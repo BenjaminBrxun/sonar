@@ -49,6 +49,7 @@
       box-sizing: border-box;
       padding: 15px;
       background-color: var.color(theme, light);
+      color: var.color(theme, dark);
       @media(max-width: 350px) {
         padding: 10px;
       }
