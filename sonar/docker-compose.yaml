@@ -40,10 +40,6 @@ services:
     container_name: sonar-backend
     env_file:
       - .env/credentials.env
-    environment:
-      ALPINE_DATABASE_MODE: "external"
-      ALPINE_DATABASE_URL: "jdbc:postgresql://sonar-db:5432/${POSTGRES_DB}"
-      ALPINE_DATABASE_DRIVER: "org.postgresql.Driver"
     ports:
       - "8081:8080"
     networks:
