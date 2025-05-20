@@ -1,0 +1,24 @@
+# Maven build output
+target/
+
+# IDE & tooling
+.idea/
+*.iml
+*.log
+*.swp
+*.bak
+
+# Git & VCS
+.git/
+.gitignore
+
+# Environment & credentials
+.env
+*.keystore
+*.pem
+*.crt
+*.key
+
+# OS & editor junk
+.DS_Store
+Thumbs.db
