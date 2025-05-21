@@ -1,4 +1,4 @@
-FROM maven:3.9.9-eclipse-temurin-24-alpine
+FROM maven:3.9.9-eclipse-temurin-21-alpine
 
 # Set the working directory
 WORKDIR /app
@@ -11,4 +11,9 @@ RUN mvn clean package -DskipTests
 
 # Run the application
 # You should replace the executable name to the correct one
-CMD ["java", "-jar", "target/project_one-1.0-SNAPSHOT-shaded.jar"]
+CMD ["java", "-jar", "target/sonar-0.0.1-SNAPSHOT.jar"]
+
+
+
+### In zukunft productionproduction environment ###
+# - leicht, sicher und schnell
