@@ -6,11 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @MappedSuperclass
 public abstract class BasicUser {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+
     private long id;
     private String name;
     private String firstname;

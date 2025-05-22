@@ -13,12 +13,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="administrativeUser")
+@Entity
 public class AdministrativeUser {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-
     private long id;
 
 }

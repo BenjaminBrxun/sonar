@@ -8,11 +8,13 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity(name = "user")
+@Entity
 public class User extends BasicUser {
 
     private String username;
+
     private Date birth_date;
+
     @OneToOne
     private InterestsProfile profile;
 }

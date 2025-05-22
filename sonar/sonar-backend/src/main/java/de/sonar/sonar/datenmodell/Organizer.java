@@ -8,10 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name="organizer")
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Organizer extends BasicUser {
     private String organisation;
 }

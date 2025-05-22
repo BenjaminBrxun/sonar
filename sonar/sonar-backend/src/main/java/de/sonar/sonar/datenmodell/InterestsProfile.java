@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity(name="interests-profile")
+@Entity
 public class InterestsProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
