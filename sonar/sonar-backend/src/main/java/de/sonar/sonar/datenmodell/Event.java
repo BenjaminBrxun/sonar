@@ -23,8 +23,8 @@ public class Event {
     @ManyToMany
     private List<Category> categories;
 
-    private Date start_date;
-    private Date end_date;
+    private Date startDate;
+    private Date endDate;
 
     @OneToOne
     private Organizer applicant;

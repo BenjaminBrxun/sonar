@@ -19,7 +19,7 @@ public class InterestsProfile {
     private List<Category> interests;
 
     @ManyToMany
-    private List<Event> participated_events;
+    private List<Event> participatedEvents;
 
     @ManyToMany
     private List<Event> favorites;

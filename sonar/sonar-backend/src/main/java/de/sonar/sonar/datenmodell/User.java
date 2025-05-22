@@ -13,7 +13,7 @@ public class User extends BasicUser {
 
     private String username;
 
-    private Date birth_date;
+    private Date birthDate;
 
     @OneToOne
     private InterestsProfile profile;

@@ -17,7 +17,7 @@ public class Address {
     private User user;
     private String ort;
     private String street;
-    private String house_number;
+    private String houseNumber;
     private String plz;
     private String district;
 
