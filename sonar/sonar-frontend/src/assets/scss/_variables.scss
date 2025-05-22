@@ -1,4 +1,5 @@
 @use "sass:map";
+
 // COLORS
 $accent: #FABB22;
 $primary: #000000;
@@ -24,3 +25,6 @@ $colors: (
   $color: map.get(map.get($colors, $base), $shade);
   @return $color;
 }
+
+// SIZES
+$appWidth: 400px;

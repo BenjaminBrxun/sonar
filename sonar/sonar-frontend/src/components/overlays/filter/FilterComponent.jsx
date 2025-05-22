@@ -1,6 +1,6 @@
 import React from "react";
 import "./FilterComponent.scss"
-import {BaseComponent} from "../base/BaseComponent.jsx";
+import {BaseComponent} from "../../base/BaseComponent.jsx";
 
 export function FilterComponent({sendDataToParent}) {
     return (
