@@ -1,0 +1,23 @@
+.sonar-body {
+  overflow: hidden;
+}
+
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.bottom-nav-container {
+  width: 100%;
+  position: absolute;
+  bottom: 2%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  .bar {
+    border-radius: 10% / 80%;
+  }
+}
