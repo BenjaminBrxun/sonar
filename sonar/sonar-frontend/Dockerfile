@@ -1,5 +1,5 @@
 ### build environment ###
-FROM node:18-alpine AS builder
+FROM node:18-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -19,9 +19,9 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy built React files to NGINX web directory
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=build /app/nginx /etc/nginx/conf.d
 # Copy nginx configuration files to replace the default configuration
-COPY --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80

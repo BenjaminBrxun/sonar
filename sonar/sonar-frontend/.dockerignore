@@ -1,0 +1,27 @@
+# Build output
+node_modules/
+dist/
+build/
+.cache/
+
+# Environment files
+.env
+.env.*.local
+
+# Logs
+*.log
+
+# Testing & coverage
+coverage/
+*.test.*
+*.spec.*
+
+# Git & IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
