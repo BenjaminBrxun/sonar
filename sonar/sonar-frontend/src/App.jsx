@@ -3,7 +3,7 @@ import './App.scss'
 import {InterfaceHeader} from './components/interface/interfaceHeader/InterfaceHeader.jsx'
 import {InterfaceFooter} from './components/interface/interfaceFooter/InterfaceFooter.jsx'
 import {InteractiveMap} from "./components/interactivemap/InteractiveMap.jsx";
-import {SonarEvent} from "./model/sonarevent/SonarEvent.jsx";
+//import {SonarEvent} from "./model/sonarevent/SonarEvent.jsx";
 
 
 function App() {
@@ -12,12 +12,6 @@ function App() {
         <div className="sonar-body">
             <InterfaceHeader/>
             <div className="card-container">
-                <SonarEvent/>
-                <SonarEvent/>
-                <SonarEvent/>
-                <SonarEvent/>
-                <SonarEvent/>
-                <SonarEvent/>
 
             </div>
             <InteractiveMap/>
