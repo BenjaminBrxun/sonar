@@ -2,6 +2,10 @@ package de.sonar.sonar.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public class EventRepository extends JpaRepository<Event, Long> {
-    
+public interface EventRepository extends JpaRepository<Event, Long> {
+    public Event findByName(String name);
+
+    List<Event> findAllByAdress(Adress adress);
+
+
 }

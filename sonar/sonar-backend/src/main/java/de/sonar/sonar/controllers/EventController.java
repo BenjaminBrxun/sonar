@@ -1,5 +1,6 @@
 package de.sonar.sonar.controllers;
 
+import de.sonar.sonar.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
