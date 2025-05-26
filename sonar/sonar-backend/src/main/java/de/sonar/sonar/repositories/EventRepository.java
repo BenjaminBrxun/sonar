@@ -12,7 +12,7 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByNameContainingIgnoreCase(String name);
 
-    List<Event> findAllByCategories_Name(List<String> categories);
+    //List<Event> findAllByCategories_Name(List<String> categories);
 
     Event save(Event event); // Müsste hier nicht stehen, macht SpringBoot automatisch!
 

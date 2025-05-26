@@ -21,11 +21,11 @@ public class EventController {
     public List<Event> events(@PathVariable String name) {
         return eventService.findAllByName(name);
     }
-
+/*
     @GetMapping("/filter/{categories}")
     public List<Event> events(@PathVariable List<String> categories) {
         return eventService.findAllByCategories(categories);
-    }
+    }*/
     @GetMapping
     public String test() {
         return "test";

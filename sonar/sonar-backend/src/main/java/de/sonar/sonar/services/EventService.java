@@ -20,11 +20,11 @@ public class EventService {
     public List<Event> findAllByName(String name) {
         return eventRepository.findAllByNameContainingIgnoreCase(name);
     }
-
+/*
     public List<Event> findAllByCategories(List<String> categories) {
         return eventRepository.findAllByCategories_Name(categories);
     }
-
+*/
     public Event save(Event event) {
         return eventRepository.save(event);
     }
