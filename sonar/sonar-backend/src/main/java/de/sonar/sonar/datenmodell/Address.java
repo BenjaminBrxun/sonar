@@ -1,24 +1,20 @@
 package de.sonar.sonar.datenmodell;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
+@Builder
 public class Address {
 
-    @OneToOne
-    private User user;
-    private String ort;
+    private String city;
     private String street;
     private String houseNumber;
-    private String plz;
+    private String postcode;
     private String district;
 
 }
