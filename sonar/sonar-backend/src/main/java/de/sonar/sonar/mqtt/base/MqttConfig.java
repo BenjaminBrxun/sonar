@@ -17,11 +17,7 @@ import org.springframework.messaging.MessageHandler;
 /**
  * Mqtt config
  * <p>
- * With this config it is possible to implement a request-reply model (without queues)
- * <p>
- * For an implementation example go to:
- * - MqttPublisher
- * - MqttSubscriber
+ * This config is according to a request-reply model (without queues)
  */
 @Configuration
 @Slf4j
