@@ -138,3 +138,6 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
+
+# Mosquitto DB must be ignored, because its always updated when local tested
+mosquitto.db
