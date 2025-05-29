@@ -115,8 +115,7 @@ public class MqttConfig {
     public MessageHandler mqttReplyOutbound(
             MqttPahoClientFactory factory,
             JsonPahoMessageConverter converter) {
-        var handler = new MqttPahoMessageHandler(
-                "responsePublisherClient", factory);
+        var handler = new MqttPahoMessageHandler("responsePublisherClient", factory);
         handler.setDefaultTopic("reply/topic");
         handler.setAsync(true);
         handler.setDefaultQos(1);

@@ -15,10 +15,14 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    public JsonPahoMessageConverter() {
+        this.setPayloadAsBytes(true);
+    }
+
     @Override
     protected byte[] messageToMqttBytes(Message<?> message) {
         Object payload = message.getPayload();
-        if (!(payload instanceof MqttRequest<?>)) {
+        if (!(payload instanceof MqttRequest<?>) && !(payload instanceof MqttResponse<?>)) {
             return super.messageToMqttBytes(message);
         }
         try {
@@ -31,8 +35,6 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     @Override
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
-        // Todo: Hier ist ein Fehler, es kommt aber schon was an. :)
-        log.info("Received message: {}", mqttMessage.toString());
         try {
             return objectMapper.readValue(mqttMessage.toString(), MqttRequest.class);
         } catch (IOException e) {
