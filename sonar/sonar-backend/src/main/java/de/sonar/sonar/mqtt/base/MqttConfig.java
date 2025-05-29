@@ -33,7 +33,6 @@ public class MqttConfig {
         MqttConnectOptions options = new MqttConnectOptions();
         options.setServerURIs(new String[]{mqttServerUri});
         options.setAutomaticReconnect(true);
-        options.setKeepAliveInterval(30);
         options.setUserName("guest");
         options.setPassword("guest".toCharArray());
         factory.setConnectionOptions(options);
