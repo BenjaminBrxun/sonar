@@ -7,6 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.Message;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
@@ -34,7 +35,8 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
         log.info("Received message: {}", mqttMessage.toString());
         try {
             return objectMapper.readValue(mqttMessage.toString(), MqttRequest.class);
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
+            log.error("Could not deserialize MQTT message.", e);
             return super.mqttBytesToPayload(mqttMessage);
         }
     }
