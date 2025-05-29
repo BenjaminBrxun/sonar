@@ -30,12 +30,12 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     @Override
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
-        byte[] bytes = mqttMessage.getPayload();
+        // Todo: Hier ist ein Fehler, es kommt aber schon was an. :)
+        log.info("Received message: {}", mqttMessage.toString());
         try {
-            String json = new String(bytes, StandardCharsets.UTF_8);
-            return objectMapper.readValue(json, MqttResponse.class);
-        } catch (Exception e) {
-            throw new InvalidResponseStateException("Response payload could not be deserialized from JSON:");
+            return objectMapper.readValue(mqttMessage.toString(), MqttRequest.class);
+        } catch (JsonProcessingException e) {
+            return super.mqttBytesToPayload(mqttMessage);
         }
     }
 
