@@ -1,2 +1,74 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
+.sonar-eventcard{
+    min-height: 450px;
+    max-width: 345px;
+    z-index: 5;
+    margin-bottom: 20px;
+    border-radius: 30px !important;
+}
+
+.sonar-eventcard_top-icon {
+    background: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+}
+.sonar-eventcard_top-details{
+    background: white;
+    width: 80px;
+    height: 36px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 45%;
+}
+.sonar-eventcard_top-icons {
+    position: relative;
+    z-index: 5;
+
+}
+
+.sonar-eventcard_media {
+    position: relative;
+    top: -52px;
+    max-height: 300px;
+}
+
+.sonar-eventcard_header{
+    height: 50px;
+    z-index: 10;
+}
+
+.sonar-eventcard_content{
+    height: 400px;
+}
+
+.sonar-eventcard_content_text {
+    position: relative;
+    bottom: 50px;
+    padding: 10px 20px 0 20px;
+
+}
+
+.sonar-eventcard_content_text-title{
+    color: green;
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.sonar-eventcard_content_text-date{
+    color: black;
+    font-size: 15px;
+    margin: 0;
+    font-weight: bold;
+}
+.sonar-eventcard_content_text-costs{
+    color: rebeccapurple;
+    font-size: 15px;
+    margin: 0;
+    font-weight: bolder;
+}

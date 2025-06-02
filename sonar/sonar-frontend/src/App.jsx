@@ -14,6 +14,9 @@ function App() {
             <InterfaceHeader/>
             <div className="sonar-content card-container">
                 <EventCardModule/>
+                <EventCardModule/>
+                <EventCardModule/>
+                <EventCardModule/>
             </div>
             <InteractiveMap/>
             <InterfaceFooter/>
