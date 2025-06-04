@@ -1,6 +1,5 @@
-package de.sonar.sonar.datenmodell;
+package de.sonar.hernebackend.datenmodell;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
 public class Address {
 
-    @OneToOne
     private User user;
 
     private String city;

@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.example.hello;
+package de.sonar.sonar.mqtt.example;
 
 import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
 import de.sonar.sonar.mqtt.base.service.AbstractMqttRequesterService;

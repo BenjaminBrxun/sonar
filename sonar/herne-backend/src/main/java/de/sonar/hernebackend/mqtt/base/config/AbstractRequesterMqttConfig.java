@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base.config;
+package de.sonar.hernebackend.mqtt.base.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
