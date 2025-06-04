@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.example;
+package de.sonar.sonar.mqtt.example.hello;
 
 import de.sonar.sonar.mqtt.base.AbstractMqttRequesterService;
 import lombok.extern.slf4j.Slf4j;

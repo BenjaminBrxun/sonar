@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.example;
+package de.sonar.sonar.mqtt.example.hello;
 
 import de.sonar.sonar.mqtt.base.config.AbstractRequesterMqttConfig;
 import org.springframework.context.annotation.Configuration;
