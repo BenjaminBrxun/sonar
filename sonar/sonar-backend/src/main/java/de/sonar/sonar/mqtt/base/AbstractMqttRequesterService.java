@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public abstract class AbstractMqttRequesterService<RequestType, ResponseType> {
 
+    protected abstract String getTopic();
+
     @Value("${mqtt.communication.timeout.millis}")
     private long timeoutMillis;
 
@@ -34,8 +36,8 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> {
 
         MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
                 request,
-                "request/topic",
-                "reply/topic",
+                "request/topic/" + getTopic(),
+                "reply/topic/" + getTopic(),
                 requestId
         );
 

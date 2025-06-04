@@ -33,7 +33,6 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
         }
     }
 
-    // Todo: das hier ist noch doof, ansonsten klappt alles :D
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
         try {
             String json = new String(mqttMessage.getPayload(), StandardCharsets.UTF_8);
@@ -46,7 +45,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
             }
 
         } catch (IOException e) {
-            log.error("Could not deserialize MQTT message.", e);
+            log.error("Could not deserialize MQTT message. Try to deserialize with default implementation.", e);
             return super.mqttBytesToPayload(mqttMessage);
         }
     }

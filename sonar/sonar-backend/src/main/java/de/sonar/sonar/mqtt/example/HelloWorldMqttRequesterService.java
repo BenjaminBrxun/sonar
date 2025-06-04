@@ -15,9 +15,13 @@ public class HelloWorldMqttRequesterService extends AbstractMqttRequesterService
         super(mqttRequestOutboundChannel);
     }
 
+    @Override
+    protected String getTopic() {
+        return "hello-world";
+    }
+
     public void helloWorld() {
         String response = this.sendRequest("Hello World!");
         log.info("Received response: {}", response);
     }
-
 }
