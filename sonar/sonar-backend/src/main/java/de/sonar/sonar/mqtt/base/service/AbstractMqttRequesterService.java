@@ -1,7 +1,10 @@
-package de.sonar.sonar.mqtt.base;
+package de.sonar.sonar.mqtt.base.service;
 
+import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
@@ -18,9 +21,10 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttRequesterService<RequestType, ResponseType> {
+public abstract class AbstractMqttRequesterService<RequestType, ResponseType> implements InitializingBean {
 
-    protected abstract String getTopic();
+    @Getter
+    private String topic;
 
     @Value("${mqtt.communication.timeout.millis}")
     private long timeoutMillis;
@@ -29,6 +33,19 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> {
 
     private final MessageChannel mqttRequestOutboundChannel;
 
+    @Override
+    public void afterPropertiesSet() {
+        RegisterRequesterMqttConfig config =
+                this.getClass().getAnnotation(RegisterRequesterMqttConfig.class);
+
+        if (config != null) {
+            this.topic = config.topic();
+        } else {
+            throw new IllegalStateException(
+                    "Service is missing @RegisterRequesterMqttConfig annotation: " + this.getClass().getName());
+        }
+    }
+
     public ResponseType sendRequest(RequestType request) {
         UUID requestId = UUID.randomUUID();
         CompletableFuture<ResponseType> future = new CompletableFuture<>();
@@ -36,6 +53,7 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> {
 
         MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
                 request,
+                (Class<RequestType>) request.getClass(),
                 "request/topic/" + getTopic(),
                 "reply/topic/" + getTopic(),
                 requestId

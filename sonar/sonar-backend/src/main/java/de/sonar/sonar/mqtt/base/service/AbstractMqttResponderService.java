@@ -1,7 +1,10 @@
-package de.sonar.sonar.mqtt.base;
+package de.sonar.sonar.mqtt.base.service;
 
+import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
+import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -11,9 +14,20 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttResponderService<RequestType, ResponseType> {
+public abstract class AbstractMqttResponderService<RequestType, ResponseType> implements InitializingBean {
 
     private final MessageChannel mqttReplyOutboundChannel;
+
+    @Override
+    public void afterPropertiesSet() {
+        RegisterResponderMqttConfig config =
+                this.getClass().getAnnotation(RegisterResponderMqttConfig.class);
+
+        if (config == null) {
+            throw new IllegalStateException(
+                    "Service is missing @RegisterResponderMqttConfig annotation: " + this.getClass().getName());
+        }
+    }
 
     @ServiceActivator(inputChannel = "mqttRequestInboundChannel")
     public void handleRequest(Message<MqttRequest<RequestType>> message) {
@@ -37,6 +51,7 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> {
         Message<MqttResponse<ResponseType>> responseMessage = new GenericMessage<>(
                 new MqttResponse<>(
                         response,
+                        (Class<ResponseType>) response.getClass(),
                         responseTopic,
                         requestId
                 ));

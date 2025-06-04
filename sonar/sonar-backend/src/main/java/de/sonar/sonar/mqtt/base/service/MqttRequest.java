@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base;
+package de.sonar.sonar.mqtt.base.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,8 @@ import java.util.UUID;
 public class MqttRequest<RequestType> {
 
     private RequestType payload;
+
+    private Class<RequestType> payloadType;
 
     private String requestTopic;
 

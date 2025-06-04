@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base;
+package de.sonar.sonar.mqtt.base.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,8 @@ import java.util.UUID;
 public class MqttResponse<ResponseType> {
 
     private ResponseType payload;
+
+    private Class<ResponseType> payloadType;
 
     private String responseTopic;
 

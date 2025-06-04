@@ -1,6 +1,5 @@
 package de.sonar.sonar.mqtt.base.config;
 
-import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Value;

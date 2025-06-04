@@ -1,6 +1,5 @@
 package de.sonar.sonar.mqtt.base.config;
 
-import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.channel.DirectChannel;

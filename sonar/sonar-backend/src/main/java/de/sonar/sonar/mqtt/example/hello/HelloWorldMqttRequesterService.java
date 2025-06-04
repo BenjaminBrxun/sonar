@@ -1,7 +1,7 @@
 package de.sonar.sonar.mqtt.example.hello;
 
-import de.sonar.sonar.mqtt.base.AbstractMqttRequesterService;
 import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
+import de.sonar.sonar.mqtt.base.service.AbstractMqttRequesterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageChannel;
@@ -15,11 +15,6 @@ public class HelloWorldMqttRequesterService extends AbstractMqttRequesterService
     @Autowired
     protected HelloWorldMqttRequesterService(MessageChannel mqttRequestOutboundChannel) {
         super(mqttRequestOutboundChannel);
-    }
-
-    @Override
-    protected String getTopic() {
-        return "hello-world";
     }
 
     public void helloWorld() {
