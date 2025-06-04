@@ -11,6 +11,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MqttRequest<RequestType> {
 
+    private final String messageType = "REQUEST";
+
     private RequestType payload;
 
     private Class<RequestType> payloadType;

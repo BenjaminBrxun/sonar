@@ -11,6 +11,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MqttResponse<ResponseType> {
 
+    private final String messageType = "RESPONSE";
+
     private ResponseType payload;
 
     private Class<ResponseType> payloadType;
