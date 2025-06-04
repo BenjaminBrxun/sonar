@@ -2,11 +2,13 @@ package de.sonar.sonar.mqtt.example.hello;
 
 import de.sonar.sonar.mqtt.base.AbstractMqttResponderService;
 import de.sonar.sonar.mqtt.base.InvalidResponseStateException;
+import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
 
 @Service
+@RegisterResponderMqttConfig(topic = "hello-world")
 public class HelloWorldYouTooMqttResponderService extends AbstractMqttResponderService<String, String> {
 
     @Autowired
