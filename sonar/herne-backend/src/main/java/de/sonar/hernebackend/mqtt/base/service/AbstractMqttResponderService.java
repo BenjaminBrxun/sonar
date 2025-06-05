@@ -29,7 +29,7 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
 
     }
 
-    @ServiceActivator(inputChannel = "mqttReplyOutboundChannel")
+    @ServiceActivator(inputChannel = "mqttRequestInboundChannel")
     public void handleRequest(Message<MqttRequest<RequestType>> message) {
         if (message == null) {
             throw new InvalidRequestStateException("Message is null.");
