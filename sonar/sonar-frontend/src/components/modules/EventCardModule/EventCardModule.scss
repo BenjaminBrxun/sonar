@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     position: relative;
-    left: 0%;
+    left: 0;
 }
 .sonar-eventcard_top-details{
     background: white;
@@ -39,15 +39,20 @@
     z-index: 5;
 }
 
-.sonar-eventcard_tag-icon {
-    background: forestgreen;
+.sonar-eventcard_tag-icon{
     max-width: 200px;
     height: auto;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     position: relative;
-    left: 0%;
+    left: 0;
+}
+.sonar-eventcard_tag-icon-date{
+    background: orange;
+}
+.sonar-eventcard_tag-icon-registration{
+    background: forestgreen;
 }
 
 .sonar-eventcard_tag-icon > label{

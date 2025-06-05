@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import Typography from '@mui/material/Typography';
+//import Typography from '@mui/material/Typography';
 import "./EventCardModule.scss";
 import eventCardImage from '../../../assets/images/event-mocks/gaming.png';
 
@@ -28,10 +28,10 @@ export default function EventCardModule() {
                         </div>
                     </CardActions>
                     <CardActions className="sonar-eventcard_tags">
-                        <div className="sonar-eventcard_tag-icon">
+                        <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
                             <label>Heudde</label>
                         </div>
-                        <div className="sonar-eventcard_tag-icon">
+                        <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
                             <label>Ausjebuucht</label>
                         </div>
                     </CardActions>
