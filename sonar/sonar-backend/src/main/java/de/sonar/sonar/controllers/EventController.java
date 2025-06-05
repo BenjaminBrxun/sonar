@@ -2,10 +2,13 @@ package de.sonar.sonar.controllers;
 
 import de.sonar.sonar.datenmodell.Event;
 import de.sonar.sonar.services.EventService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,11 +24,11 @@ public class EventController {
     public List<Event> events(@PathVariable String name) {
         return eventService.findAllByName(name);
     }
-/*
+
     @GetMapping("/filter/{categories}")
     public List<Event> events(@PathVariable List<String> categories) {
         return eventService.findAllByCategories(categories);
-    }*/
+    }
     @GetMapping
     public String test() {
         return "test";
@@ -33,5 +36,9 @@ public class EventController {
     @PostMapping("/event")
     public Event createEvent(@RequestBody Event event) {
         return eventService.save(event);
+    }
+    @GetMapping("/filter/{startDate}-{endDate}")
+    public List<Event> events(@PathVariable Long startDateInMilliseconds, @PathVariable @Nullable Long endDateInMilliseconds) {
+        return eventService.events(startDateInMilliseconds, endDateInMilliseconds);
     }
 }

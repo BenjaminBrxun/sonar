@@ -19,7 +19,7 @@ public class Event {
 
     private long id;
     private String name;
-    /*@Embedded
+    @Embedded
     private Address address;
 
     @ManyToMany
@@ -33,6 +33,6 @@ public class Event {
 
     @ManyToOne
     private AdministrativeUser processor;
-    */private String status;
+    private String status;
 
 }

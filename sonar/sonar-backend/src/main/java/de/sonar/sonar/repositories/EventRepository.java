@@ -6,14 +6,16 @@ import de.sonar.sonar.datenmodell.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByNameContainingIgnoreCase(String name);
 
-    //List<Event> findAllByCategories_Name(List<String> categories);
+    List<Event> findAllByCategories(List<String> categories);
 
     Event save(Event event); // Müsste hier nicht stehen, macht SpringBoot automatisch!
 
+    List<Event> findAllByStartDateBetween(Date startDate, Date endDate);
 }
