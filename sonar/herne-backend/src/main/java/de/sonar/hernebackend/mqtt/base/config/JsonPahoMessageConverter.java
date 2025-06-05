@@ -39,14 +39,15 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
         try {
             String json = new String(mqttMessage.getPayload(), StandardCharsets.UTF_8);
-            log.info("Deserializing MQTT message: {}", json);
+            String fixedPackegePathJson = json.replace("de.sonar.sonar.datenmodell.", "de.sonar.hernebackend.datenmodell.");
+            log.info("Deserializing MQTT message: {}", fixedPackegePathJson);
 
-            String messageType = extractMessageType(json);
+            String messageType = extractMessageType(fixedPackegePathJson);
 
             if ("REQUEST".equalsIgnoreCase(messageType)) {
-                return objectMapper.readValue(json, MqttRequest.class);
+                return objectMapper.readValue(fixedPackegePathJson, MqttRequest.class);
             } else if ("RESPONSE".equalsIgnoreCase(messageType)) {
-                return objectMapper.readValue(json, MqttResponse.class);
+                return objectMapper.readValue(fixedPackegePathJson, MqttResponse.class);
             } else {
                 throw new InvalidRequestStateException("Unknown message type in MQTT payload.");
             }
