@@ -37,8 +37,13 @@ public class EventController {
     public Event createEvent(@RequestBody Event event) {
         return eventService.save(event);
     }
-    @GetMapping("/filter/{startDate}-{endDate}")
-    public List<Event> events(@PathVariable Long startDateInMilliseconds, @PathVariable @Nullable Long endDateInMilliseconds) {
-        return eventService.events(startDateInMilliseconds, endDateInMilliseconds);
+    @GetMapping("/date")
+    public List<Event> events(@RequestParam Long startDate, @RequestParam @Nullable Long endDate) {
+        return eventService.events(startDate, endDate);
+    }
+
+    @GetMapping("/filter")
+    public List<Event> events(@RequestParam List<String> categories, @RequestParam Long startDate, @RequestParam @Nullable Long endDate) {
+        return eventService.events(categories, startDate, endDate);
     }
 }

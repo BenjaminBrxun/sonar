@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import de.sonar.sonar.datenmodell.Event;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class EventService {
 
     /**
      * Schnittstelle für die Abfrage von Events mit entsprechenden Kategorien.
+     *
      * @param categoryIds die IDs der Kategorien, für die die Events gesucht werden.
      * @return die Liste der Events, die die entsprechenden Kategorien haben.
      */
@@ -35,10 +37,26 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public List<Event> events(Date startDate, Date endDate) {
-        if (endDate == null) {
-            endDate = new Date("2099-12-31T23:59:59.069+00:00");
+    public List<Event> events(Long startDateInMilliseconds, Long endDateInMilliseconds) {
+        Date startDate = new Date(startDateInMilliseconds);
+        Date endDate;
+        if (endDateInMilliseconds == null) {
+            endDate = new Date(4102444799000l);
+        } else {
+            endDate = new Date(endDateInMilliseconds);
         }
+
         return eventRepository.findAllByStartDateBetween(startDate, endDate);
+    }
+
+    public List<Event> events(List<String> categories, Long startDateInMilliseconds, Long endDateInMilliseconds) {
+        Date startDate = new Date(startDateInMilliseconds);
+        Date endDate;
+        if (endDateInMilliseconds == null) {
+            endDate = new Date(4102444799000l);
+        } else {
+            endDate = new Date(endDateInMilliseconds);
+        }
+       return eventRepository.findAllByStartDateBetweenAndCategories(startDate, endDate, categories);
     }
 }

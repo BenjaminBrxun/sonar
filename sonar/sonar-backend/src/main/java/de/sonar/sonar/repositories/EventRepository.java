@@ -18,4 +18,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Event save(Event event); // Müsste hier nicht stehen, macht SpringBoot automatisch!
 
     List<Event> findAllByStartDateBetween(Date startDate, Date endDate);
+    List<Event> findAllByStartDateBetweenAndCategories(Date startDate, Date endDate, List<String> categories);
 }
