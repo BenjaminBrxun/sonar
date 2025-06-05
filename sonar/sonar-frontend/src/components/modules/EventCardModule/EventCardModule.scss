@@ -18,6 +18,12 @@
     position: relative;
     left: 0;
 }
+.sonar-eventcard_top-icon > button{
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50px;
+}
 .sonar-eventcard_top-details{
     background: white;
     width: 80px;
@@ -27,6 +33,11 @@
     justify-content: center;
     position: relative;
     left: 49%;
+}
+.sonar-eventcard_top-details > button{
+    width: 80px;
+    height: 36px;
+    border-radius: 50px;
 }
 .sonar-eventcard_top-icons {
     position: relative;
