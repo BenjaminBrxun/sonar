@@ -40,7 +40,7 @@ public abstract class AbstractResponderMqttConfig {
             JsonPahoMessageConverter converter) {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
-                        applicationName + "_requestReceiverClient_" + getTopic(), factory, applicationName + "_request/topic/" + getTopic());
+                        applicationName + "_requestReceiverClient_" + getTopic(), factory, "request/topic/" + getTopic());
         adapter.setConverter(converter);
         return adapter;
     }
@@ -64,7 +64,7 @@ public abstract class AbstractResponderMqttConfig {
             MqttPahoClientFactory factory,
             JsonPahoMessageConverter converter) {
         MqttPahoMessageHandler handler = new MqttPahoMessageHandler(
-                "responsePublisherClient_" + getTopic(), factory);
+                applicationName + "_responsePublisherClient_" + getTopic(), factory);
         handler.setAsync(true);
         handler.setDefaultTopic("reply/topic/" + getTopic());
         handler.setConverter(converter);
