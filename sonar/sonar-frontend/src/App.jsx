@@ -13,10 +13,12 @@ function App() {
         <div className="sonar-body">
             <InterfaceHeader/>
             <div className="sonar-content card-container">
+                <div className="sonar-content-buffer-begin"></div>
                 <EventCardModule/>
                 <EventCardModule/>
                 <EventCardModule/>
                 <EventCardModule/>
+                <div className="sonar-content-buffer-end"></div>
             </div>
             <InteractiveMap/>
             <InterfaceFooter/>
