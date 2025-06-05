@@ -8,7 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Typography from '@mui/material/Typography';
 import "./EventCardModule.scss";
-import eventCardImage from '../../../assets/images/event-mocks/family.png';
+import eventCardImage from '../../../assets/images/event-mocks/gaming.png';
 
 export default function EventCardModule() {
     return (
@@ -27,6 +27,14 @@ export default function EventCardModule() {
                             <Button size="small">Details</Button>
                         </div>
                     </CardActions>
+                    <CardActions className="sonar-eventcard_tags">
+                        <div className="sonar-eventcard_tag-icon">
+                            <label>Heudde</label>
+                        </div>
+                        <div className="sonar-eventcard_tag-icon">
+                            <label>Ausjebuucht</label>
+                        </div>
+                    </CardActions>
                 </div>
 
                 <div className="sonar-eventcard_content">
@@ -35,7 +43,6 @@ export default function EventCardModule() {
                         <CardMedia className="sonar-eventcard_media"
                                    component="img"
                                    alt="family"
-                                   height="340"
                                    image={eventCardImage}
                         />
                         <div className="sonar-eventcard_content_text">
