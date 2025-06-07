@@ -1,6 +1,6 @@
 import React from "react";
 import "./ListComponent.scss"
-import {BaseComponent} from "../base/BaseComponent.jsx";
+import {BaseComponent} from "../../base/BaseComponent.jsx";
 
 
 export function ListComponent({sendDataToParent}) {

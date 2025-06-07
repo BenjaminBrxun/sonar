@@ -1,6 +1,7 @@
 import logo from "../../../assets/images/logo.png";
-import LanguageIcon from '@mui/icons-material/Language';
 import "./InterfaceHeader.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 
 export function InterfaceHeader() {
     return (
@@ -14,7 +15,7 @@ export function InterfaceHeader() {
 
                 <div className="sonar-header_lang">
                     <label className="sonar-header_dropdown-label" for="sonar-header_lang-select">
-                        <LanguageIcon className="sonar-icon"/>
+                        <FontAwesomeIcon icon={faGlobe} />
                     </label>
                     <select
                         className="sonar-header_dropdown" id="sonar-header_lang-select">

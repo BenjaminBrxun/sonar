@@ -1,9 +1,14 @@
 import "./InterfaceFooter.scss"
-import SearchIcon from '@mui/icons-material/Search';
-import ListIcon from '@mui/icons-material/List';
-import TuneIcon from '@mui/icons-material/Tune';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import LoginIcon from '@mui/icons-material/Login';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faArrowRightToBracket,
+    faBarsStaggered,
+    faBookmark,
+    faMagnifyingGlass,
+    faSliders
+} from "@fortawesome/free-solid-svg-icons";
+
 
 export function InterfaceFooter() {
     return (
@@ -13,31 +18,31 @@ export function InterfaceFooter() {
                 <ul className="sonar-footer_menu">
                     <li className="sonar-footer_menu-item">
                         <button className="sonar-footer_menu-button">
-                            <SearchIcon/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button className="sonar-footer_menu-button">
-                            <ListIcon/>
+                            <FontAwesomeIcon icon={faBarsStaggered} />
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button className="sonar-footer_menu-button">
-                            <TuneIcon/>
+                            <FontAwesomeIcon icon={faSliders} />
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button className="sonar-footer_menu-button">
-                            <BookmarkIcon/>
+                            <FontAwesomeIcon icon={faBookmark} />
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button className="sonar-footer_menu-button">
-                            <LoginIcon/>
+                            <FontAwesomeIcon icon={faArrowRightToBracket} />
                         </button>
                     </li>
                 </ul>
