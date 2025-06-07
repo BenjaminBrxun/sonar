@@ -65,9 +65,17 @@ public class DatabaseSeeder implements CommandLineRunner {
         Organizer applicant2 = Organizer.builder()
                 .organisation("AWO Dortmund")
                 .build();
+        Organizer applicant3 = Organizer.builder()
+                .organisation("AWO Herne")
+                .build();
+        Organizer applicant4 = Organizer.builder()
+                .organisation("Tanz- und Turnclub Herne")
+                .build();
 
         organizerRepository.save(applicant1);
         organizerRepository.save(applicant2);
+        organizerRepository.save(applicant3);
+        organizerRepository.save(applicant4);
 
         AdministrativeUser administrativeUser1 = AdministrativeUser.builder().build();
         AdministrativeUser administrativeUser2 = AdministrativeUser.builder().build();
@@ -99,10 +107,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         Event event3 = Event.builder()
                 .name("Ferienlager")
                 .address(address2)
-                .categories(categoryList2)
+                .categories(categoryList3)
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749751200000l))
-                .applicant(applicant2)
+                .applicant(applicant3)
                 .processor(administrativeUser2)
                 .status("offen")
                 .build();
@@ -113,7 +121,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .categories(categoryList1)
                 .startDate(new Date(1749119967000l))
                 .endDate(new Date(1749148767000l))
-                .applicant(applicant2)
+                .applicant(applicant4)
                 .processor(administrativeUser1)
                 .status("offen")
                 .build();

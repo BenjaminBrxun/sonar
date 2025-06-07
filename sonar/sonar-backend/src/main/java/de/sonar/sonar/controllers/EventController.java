@@ -33,6 +33,8 @@ public class EventController {
     public String test() {
         return "test";
     }
+
+    // TODO: Hinzufügen von Events scheitert ggf. am Organizer / Applicant
     @PostMapping("/event")
     public Event createEvent(@RequestBody Event event) {
         return eventService.save(event);
