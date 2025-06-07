@@ -6,11 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-//import Typography from '@mui/material/Typography';
 import "./EventCardModule.scss";
-import eventCardImage from '../../../assets/images/event-mocks/gaming.png';
 
-export default function EventCardModule() {
+export default function EventCardModule({title, date, costs, image}) {
+
+    // Diese Funktion codiert einen Base64 String wieder als Bilddatei
+    function dataToImage(data) {
+        return Buffer.from(data, 'binary').toString('base64');
+    }
+
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
@@ -43,17 +47,17 @@ export default function EventCardModule() {
                         <CardMedia className="sonar-eventcard_media"
                                    component="img"
                                    alt="family"
-                                   image={eventCardImage}
+                                   image={image}
                         />
                         <div className="sonar-eventcard_content_text">
                             <p className="sonar-eventcard_content_text-title">
-                                Skateboard Workshop für Jugendliche
+                                {title}
                             </p>
                             <p className="sonar-eventcard_content_text-date">
-                                Datum: 03.04.2025 14:00-16:00 Uhr
+                                Datum: {date}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
-                                Kostenlos (Ab 6 Jahren)
+                                {costs}
                             </p>
                         </div>
                     </CardContent>
