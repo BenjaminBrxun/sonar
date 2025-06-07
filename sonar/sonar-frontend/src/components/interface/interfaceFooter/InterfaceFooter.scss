@@ -2,7 +2,7 @@
 
 .sonar-footer {
   $padding: 15px;
-
+  z-index: 2;
   position: fixed;
   bottom: 30px;
   left: 0;
@@ -46,10 +46,15 @@
       transition: all 0.5s ease-in-out;
       outline: none;
       border: 0;
+      border-radius: 16px;
       box-sizing: border-box;
       padding: 15px;
       background-color: var.color(theme, light);
       color: var.color(theme, dark);
+      svg {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
       @media(max-width: 350px) {
         padding: 10px;
       }

@@ -3,7 +3,7 @@
 
 .sonar-header {
   $padding: 15px;
-
+  z-index: 2;
   position: fixed;
   top: 30px;
   left: 0;
@@ -53,6 +53,11 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      svg {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
     }
 
     .sonar-icon {
