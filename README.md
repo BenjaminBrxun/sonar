@@ -108,7 +108,7 @@ Starting the server
 $ ./init-db.sh
 
 # Start the project
-$ ./mvnw spring-boot:run
+$ ./mvnw spring-boot:run (npm run dev)
 ```
 
 ## Project structure
