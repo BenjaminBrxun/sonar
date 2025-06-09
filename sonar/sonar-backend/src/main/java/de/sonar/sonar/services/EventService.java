@@ -1,12 +1,10 @@
 package de.sonar.sonar.services;
 
-import de.sonar.sonar.datenmodell.Category;
+import de.sonar.sonar.datenmodell.Event;
 import de.sonar.sonar.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import de.sonar.sonar.datenmodell.Event;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +55,22 @@ public class EventService {
         } else {
             endDate = new Date(endDateInMilliseconds);
         }
-       return eventRepository.findAllByStartDateBetweenAndCategories(startDate, endDate, categories);
+        return eventRepository.findAllByStartDateBetweenAndCategories(startDate, endDate, categories);
+    }
+
+    public List<Event> events(Long startDateInMilliseconds, Long endDateInMilliseconds, List<String> categories, String name) {
+        Date startDate;
+        Date endDate;
+        if (startDateInMilliseconds == null) {
+            startDate = new Date();
+        } else {
+            startDate = new Date(startDateInMilliseconds);
+        }
+        if (endDateInMilliseconds == null) {
+            endDate = new Date(4102444799000L);
+        } else {
+            endDate = new Date(endDateInMilliseconds);
+        }
+        return eventRepository.findAllByStartDateBetweenAndCategoriesAndNameContainingIgnoreCase(startDate, endDate, categories, name);
     }
 }

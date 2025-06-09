@@ -19,4 +19,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findAllByStartDateBetween(Date startDate, Date endDate);
     List<Event> findAllByStartDateBetweenAndCategories(Date startDate, Date endDate, List<String> categories);
+
+    List<Event> findAllByStartDateBetweenAndCategoriesAndNameContainingIgnoreCase(Date startDate, Date endDate, List<String> categories, String name);
 }

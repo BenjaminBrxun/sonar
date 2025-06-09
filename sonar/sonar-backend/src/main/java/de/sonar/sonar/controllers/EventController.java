@@ -48,4 +48,9 @@ public class EventController {
     public List<Event> events(@RequestParam List<String> categories, @RequestParam Long startDate, @RequestParam @Nullable Long endDate) {
         return eventService.events(categories, startDate, endDate);
     }
+
+    @GetMapping("/filter")
+    public List<Event> events(@RequestParam @Nullable List<String> categories, @RequestParam @Nullable Long startDate, @RequestParam @Nullable Long endDate, @RequestParam @Nullable String name) {
+        return eventService.events(startDate, endDate, categories, name);
+    }
 }
