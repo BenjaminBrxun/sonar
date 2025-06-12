@@ -1,43 +1,43 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
 .sonar-eventcard{
-    min-height: 450px;
-    max-width: 345px;
+    min-height: 64vh; //450px
+    max-width: 22vw; //345px
     z-index: 5;
-    margin-bottom: 20px;
+    margin-bottom: 7%; //20px
     border-radius: 30px !important;
 }
 
 .sonar-eventcard_top-icon {
     background: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 50px;
+    width: 2.3vw; //36px
+    height: 2.3vw; //36px
+    border-radius: 100%; //50px
     display: flex;
     justify-content: center;
     position: relative;
     left: 0;
 }
 .sonar-eventcard_top-icon > button{
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 50px;
+    width: 2.3vw; //36px
+    height: 2.3vw; //36px
+    min-width: 2.3vw; //36px
+    border-radius: 100%; //50px
 }
 .sonar-eventcard_top-details{
     background: white;
-    width: 80px;
-    height: 36px;
-    border-radius: 50px;
+    width: 5vw; //80px
+    height: 2.3vw; //36px
+    border-radius: 3vh; //50px
     display: flex;
     justify-content: center;
     position: relative;
     left: 49%;
 }
 .sonar-eventcard_top-details > button{
-    width: 80px;
-    height: 36px;
-    border-radius: 50px;
+    width: 5vw; //80px
+    height: 2.3vw; // 36px
+    border-radius: 3vh; //50px
 }
 .sonar-eventcard_top-icons {
     position: relative;
@@ -51,13 +51,21 @@
 }
 
 .sonar-eventcard_tag-icon{
-    max-width: 200px;
+    max-width: 10vw; //200px
     height: auto;
-    border-radius: 6px;
+    border-radius: 1vh; //6px
     display: flex;
     justify-content: center;
     position: relative;
     left: 0;
+    label{
+        font-size: 2.2vh; //15px
+        margin: 0.3vh 0.33vw 0.3vh 0.33vw; //2px 5px 2px 5px
+        font-weight: bolder;
+        color: white;
+        max-width: 9vw;
+        overflow: hidden;
+    }
 }
 .sonar-eventcard_tag-icon-date{
     background: orange;
@@ -66,53 +74,46 @@
     background: forestgreen;
 }
 
-.sonar-eventcard_tag-icon > label{
-    font-size: 15px;
-    margin: 2px 5px 2px 5px;
-    font-weight: bolder;
-    color: white;
-}
-
 .sonar-eventcard_media {
     position: relative;
-    top: -66px;
-    left: -16px;
-    height: 300px;
-    width: 345px !important;
+    top: -10vh; //-66px
+    left: -1.1vw; //-16px
+    height: 42.5vh; //300px
+    width: 22.1vw !important; //345px !imp
 }
 
 .sonar-eventcard_header{
-    height: 50px;
+    height: 7vh; //50px
     z-index: 10;
 }
 
 .sonar-eventcard_content{
-    height: 400px;
+    height: 56.8vh; //400px
     padding: 0 !important;
 }
 
 .sonar-eventcard_content_text {
     position: relative;
-    bottom: 50px;
-    padding: 10px 20px 0 20px;
+    bottom: 7vh; //50px
+    padding: 1.4vh 1.3vw 0 1.3vw; //10px 20px 0 20px
 
 }
 
 .sonar-eventcard_content_text-title{
     color: green;
-    margin: 0 0 8px 0;
-    font-size: 20px;
+    margin: 0 0 1.1vh 0; // 0 0 8px 0
+    font-size: 2.8vh; //20px
     font-weight: bolder;
 }
 .sonar-eventcard_content_text-date{
     color: black;
-    font-size: 15px;
+    font-size: 2.1vh; //15px
     margin: 0;
     font-weight: bold;
 }
 .sonar-eventcard_content_text-costs{
     color: rebeccapurple;
-    font-size: 15px;
+    font-size: 2.1vh; //15px
     margin: 0;
     font-weight: bolder;
 }

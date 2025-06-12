@@ -18,7 +18,6 @@ export default function EventCardModule({title, date, costs, image}) {
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
-
                 <div className="sonar-eventcard_header">
                     <CardActions className="sonar-eventcard_top-icons">
                         <div className="sonar-eventcard_top-icon">
