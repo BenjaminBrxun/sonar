@@ -6,6 +6,7 @@
     z-index: 5;
     margin-bottom: 20px;
     border-radius: 30px !important;
+    position: relative;
 }
 
 .sonar-eventcard_top-icon {
@@ -103,18 +104,21 @@
     margin: 0 0 8px 0;
     font-size: 20px;
     font-weight: bolder;
+    z-index: 5;
 }
 .sonar-eventcard_content_text-date{
     color: black;
     font-size: 15px;
     margin: 0;
     font-weight: bold;
+    z-index: 5;
 }
 .sonar-eventcard_content_text-costs{
     color: rebeccapurple;
     font-size: 15px;
     margin: 0;
     font-weight: bolder;
+    z-index: 5;
 }
 .sonar-eventcard_container{
     //width: 315px;
