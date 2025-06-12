@@ -9,8 +9,7 @@ import {
     faSliders
 } from "@fortawesome/free-solid-svg-icons";
 
-
-export function InterfaceFooter() {
+export function InterfaceFooter({ onFilterClick}) {
     return (
         <div className="sonar-footer">
             <div className="sonar-footer_inner">
@@ -29,7 +28,10 @@ export function InterfaceFooter() {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
+                        <button
+                            className="sonar-footer_menu-button"
+                            onClick={onFilterClick}
+                        >
                             <FontAwesomeIcon icon={faSliders} />
                         </button>
                     </li>

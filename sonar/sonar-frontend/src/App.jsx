@@ -1,18 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './App.scss'
 import {InterfaceHeader} from './components/interface/interfaceHeader/InterfaceHeader.jsx'
 import {InterfaceFooter} from './components/interface/interfaceFooter/InterfaceFooter.jsx'
 import {InteractiveMap} from "./components/interactivemap/InteractiveMap.jsx";
 import EventCardModule from "./components/modules/EventCardModule/EventCardModule.jsx";
-
+import { navigate } from "vike/client/router";
 //import {SonarEvent} from "./model/sonarevent/SonarEvent.jsx";
 import eventCardImageGaming from './assets/images/event-mocks/gaming.png';  // die Bilder werden noch
 import eventCardImageFamily from './assets/images/event-mocks/family.png';  // über eine Schnittstelle
 import eventCardImagePark from './assets/images/event-mocks/park.png';      // dynamisch aus dem Backend gezogen.
-import eventCardImageParty from './assets/images/event-mocks/party.png';    // noch nur Platzhalter
+import eventCardImageParty from './assets/images/event-mocks/party.png';
+import {FilterComponent} from "./components/overlays/filter/FilterComponent.jsx";    // noch nur Platzhalter
 
 function App() {
+    const [showFilter, setShowFilter] = useState(false);
+    const toggleFilter = () => {
+        setShowFilter(prev => !prev);
+    };
+    const closeFilter = () => {
+        setShowFilter(false);
+    };
 
+    async function goToFilter() {
+        const navigationPromise = navigate('/test')
+        console.log("The URL changed but the new page hasn't rendered yet.")
+        await navigationPromise
+        console.log('The new page has finished rendering.')
+    }
     return (
         <div className="sonar-body">
             <InterfaceHeader/>
@@ -25,7 +39,8 @@ function App() {
                 <div className="sonar-content-buffer-end"></div>
             </div>
             <InteractiveMap/>
-            <InterfaceFooter/>
+            {showFilter && <FilterComponent sendDataToParent={closeFilter}/>}
+            <InterfaceFooter onFilterClick={goToFilter}/>
         </div>
 
     )
