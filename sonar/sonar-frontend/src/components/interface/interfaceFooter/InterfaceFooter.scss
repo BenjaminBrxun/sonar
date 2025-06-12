@@ -14,7 +14,7 @@
   padding: 0 $padding;
 
   &_inner {
-    max-width: 26vw; //400px
+    max-width: 400px; //26vw
     width: 100%;
     display: flex;
     align-items: center;
@@ -23,8 +23,8 @@
     box-sizing: border-box;
     padding: $padding;
     border-radius: 30px;
-    min-height: 10vh; //70px
-    max-height: 10vh; //70px
+    min-height: 70px; //10vh
+    max-height: 70px; //10vh
   }
 
   &_menu {
@@ -36,7 +36,7 @@
     max-width: 100%;
     width: 100%;
     &-seperator {
-      width: 0.13vw; //2px
+      width: 2px; //0.13vw
       background-color: var.color(theme, seperator);
     }
     &-button {
@@ -48,7 +48,7 @@
       border: 0;
       border-radius: 16px;
       box-sizing: border-box;
-      padding: 2.1vh; //15px
+      padding: 15px; //2.1vh
       background-color: var.color(theme, light);
       color: var.color(theme, dark);
       svg {

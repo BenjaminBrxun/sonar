@@ -36,9 +36,9 @@ button {
 .sonar-content {
   position: relative;
   z-index: 1;
-  top: 0; //110px
-  max-width: 26.2vw; //var.$appWidth
-  width: 100%;
+  top: 0;
+  min-width: var.$appWidth;
+  width: 30vw;
   height: 100vh;
   display: flex;
   justify-content: flex-start;
@@ -48,7 +48,7 @@ button {
 }
 
 .sonar-content-buffer-begin {
-  min-height: 15vh;
+  min-height: 14vh;
   width: 1px;
 }
 

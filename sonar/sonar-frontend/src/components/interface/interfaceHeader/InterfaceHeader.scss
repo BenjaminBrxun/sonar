@@ -15,15 +15,15 @@
   padding: 0 $padding;
 
   &_inner {
-    max-width: 26vw; //400px
-    width: 100%;
+    min-width: 400px;
+    width: 26vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: var.color(theme, light);
     box-sizing: border-box;
     padding: $padding;
-    border-radius: 30px;
+    border-radius: 30vh; //30px
     max-height: 10vh; //70px
 
   }
@@ -69,7 +69,7 @@
     select {
       outline: none;
       border: none;
-      font-size: 3vh; //1.2rem
+      font-size: 1.2rem; //3vh
       font-weight: bold;
       cursor: pointer;
       background-color: var.color(theme, light);
