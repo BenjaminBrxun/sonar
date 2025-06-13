@@ -7,10 +7,7 @@ export function BaseComponent({sendDataToParent}) {
 
 
     async function goToIndex() {
-        const navigationPromise = navigate('/')
-        console.log("The URL changed but the new page hasn't rendered yet.")
-        await navigationPromise
-        console.log('The new page has finished rendering.')
+        await navigate('/list');
     }
 
     return (

@@ -15,7 +15,6 @@ export function FilterComponent({onCloseClick}) {
     return (
         <div className="filter-overlay">
             <h1>Filteroptionen</h1>
-
             <form>
                 <fieldset>
                     <legend>
@@ -49,8 +48,8 @@ export function FilterComponent({onCloseClick}) {
                 <fieldset>
                     <legend>Mein Alter</legend>
                     <p>
-                        <label>0-18</label>
-                        <input type="range" min="0" max="18" step="1"/>
+                        <input type="range" name="age" min="0" max="18"  step="1"/>
+                        <output for="age" onforminput="value = age.valueAsNumer;">0-18</output>
                     </p>
                 </fieldset>
                 <fieldset>

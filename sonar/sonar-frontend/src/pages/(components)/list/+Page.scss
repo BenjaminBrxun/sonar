@@ -1,0 +1,59 @@
+@use "../../../assets/scss/_variables.scss" as var;
+
+
+.sonar-body {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.bottom-nav-container {
+  width: 100%;
+  position: absolute;
+  bottom: 2%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  .bar {
+    border-radius: 10% / 80%;
+  }
+}
+
+.sonar-body {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  width: 100%;
+}
+
+.sonar-content {
+  position: relative;
+  z-index: 1;
+  //top: 120px;
+  max-width: var.$appWidth;
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sonar-content-buffer-begin {
+  min-height: 12vh; // auch auf mobil gut ausgerichtet
+}
+
+.sonar-content-buffer-end {
+  //min-height: 0; // wird scheinbar gar nicht benötigt
+  width: 1px;
+}
