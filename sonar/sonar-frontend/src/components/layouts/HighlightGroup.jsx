@@ -2,7 +2,7 @@ function HighlightButton({label, isActive, onToggle}) {
         return (
             <button
             type="button"
-            className={`filterButton ${isActive ? 'active' : ''}`}
+            className={`filter-button ${isActive ? 'active' : ''}`}
             onClick={() => onToggle(label)}
             >
                 {label}
@@ -15,7 +15,7 @@ function HighlightButton({label, isActive, onToggle}) {
             setSelected((prev) => (prev === label ? null : label))
         }
         return (
-            <div className="highlightGroup">
+            <div className="highlight-group">
                 {options.map((label) => (
                     <HighlightButton
                     key={label}
@@ -33,7 +33,7 @@ function HighlightButton({label, isActive, onToggle}) {
             setSelected((prev) => prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label])
         }
         return (
-            <div className="highlightGroup">
+            <div className="highlight-group">
                 {options.map((label) => (
                     <HighlightButton
                         key={label}

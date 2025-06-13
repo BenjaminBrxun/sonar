@@ -14,7 +14,7 @@ function Layout({children}) {
         <div className="current-component">
             {children}
         </div>
-        {!isFilterPage && <InteractiveMap/>}
+        {<InteractiveMap/>}
         {!isFilterPage && <InterfaceFooter/>}
     </>
 }

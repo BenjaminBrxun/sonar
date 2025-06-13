@@ -2,6 +2,7 @@ import React from "react";
 import "./FilterComponent.scss"
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import {HighlightGroup, MultiSelectHighlightGroup} from "../../layouts/HighlightGroup.jsx"
+import {LiveSlider} from "../../layouts/LiveSlider.jsx"
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -14,56 +15,65 @@ export function FilterComponent({onCloseClick}) {
 
     return (
         <div className="filter-overlay">
-            <h1>Filteroptionen</h1>
+            <div className="filter-header">
+                <h1>Filteroptionen</h1>
+                <BaseComponent sendDataToParent={onCloseClick}/>
+            </div>
+
             <form>
                 <fieldset>
                     <legend>
                         Zeitraum
                     </legend>
-                    <p>
-                        <input type="date"/>
-                        <input type="date"/>
-                    </p>
+                    <div>
+                        <span><label>Von <input type="date"/></label></span>
+                        <span><label>   Bis <input type="date"/></label></span>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Preisspanne</legend>
-                    <p>
+                    <div>
                         <HighlightGroup
                             options={prices}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                    </p>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Teilnahmebeschränkung</legend>
-                    <p>
+                    <div>
                         <HighlightGroup
                             options={restricted}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                    </p>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Mein Alter</legend>
-                    <p>
-                        <input type="range" name="age" min="0" max="18"  step="1"/>
-                        <output for="age" onforminput="value = age.valueAsNumer;">0-18</output>
-                    </p>
+                    <LiveSlider name={"age"} text={" Jahre"}/>
+
                 </fieldset>
                 <fieldset>
                     <legend>Kategorien</legend>
-                    <p>
+                    <div>
                         <MultiSelectHighlightGroup
                             options={categories}
                             selected={multiSelected}
                             setSelected={setMultiSelected}
                         />
-                    </p>
+                    </div>
+                </fieldset>
+                <fieldset>
+                        <legend></legend>
+                    <div>
+                        <input type="reset" value="Filter zurücksetzen" className="send-button"/>
+                        <input type="submit" value="Filter anwenden"  className="send-button"/>
+                    </div>
                 </fieldset>
             </form>
-            <BaseComponent sendDataToParent={onCloseClick}/>
+
 
         </div>
     )

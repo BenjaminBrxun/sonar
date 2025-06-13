@@ -1,18 +1,19 @@
 .filter-overlay {
-  postion: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1000;
-  background-color: rgba(125, 125, 125, 0.25);
+  z-index: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: white;
+  opacity: 0.95;
+  border-radius: 25px;
 }
 
-.filterButton {
+.filter-button {
   margin: 0.3rem;
   padding: 0.4rem 1rem;
   border: 1px solid #888;
@@ -30,3 +31,59 @@
     border-color: black;
   }
 }
+
+.send-button {
+  margin: 0.3rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid #888;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #FABB22;
+  }
+
+  &.active {
+    background-color: #FABB22;
+    border-color: black;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 10rem;
+}
+
+//Slider Styling für Firefox (moz) und den Rest.
+input[type="range"]::-webkit-slider-runnable-track {
+  background: black;
+  height: 0.25rem;
+  border-radius: 5%;
+}
+input[type="range"]::-moz-range-track {
+  background: black;
+  height: 0.25rem;
+  border-radius: 5%;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 50%;
+  background-color: #FABB22;
+  height: 1rem;
+  width: 1rem;
+}
+

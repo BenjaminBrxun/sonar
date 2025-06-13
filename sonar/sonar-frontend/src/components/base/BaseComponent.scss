@@ -1,8 +1,10 @@
-.component-container {
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
-}
+//Mit dem Container konnte ich das nicht vernünftig stylen.
+
+//.component-container {
+//  width: 100vw;
+//  height: 100vh;
+//  z-index: 100;
+//}
 
 .icon-container {
   display: flex;
@@ -12,8 +14,9 @@
 .cancel-icon {
   color: #FABB22;
   font-size: 2.8em !important;
-  margin: 15px;
   position: absolute;
+  top: 18px;    // Top und right waren habe ich hinzugefügt um das Cancel-Icon auf den Background zu setzen.
+  right: 18px;
   z-index: 100;
 }
 
@@ -34,4 +37,10 @@
   height: 100%;
   opacity: 0.85;
   z-index: 0;
+}
+
+fieldset {
+  background-color: rgba(125,125,125,0.15);
+  border-radius: 25px;
+  border-color: rgba(125,125,125,0.15);
 }
