@@ -1,12 +1,16 @@
 import "./BaseComponent.scss"
 import CancelIcon from "@mui/icons-material/Cancel";
 import React from "react";
+import {navigate} from "vike/client/router";
 
 export function BaseComponent({sendDataToParent}) {
 
-    function handleClick() {
-        console.log("clicked")
-        sendDataToParent(true);
+
+    async function goToIndex() {
+        const navigationPromise = navigate('/')
+        console.log("The URL changed but the new page hasn't rendered yet.")
+        await navigationPromise
+        console.log('The new page has finished rendering.')
     }
 
     return (
@@ -14,7 +18,7 @@ export function BaseComponent({sendDataToParent}) {
             <div className="icon-container">
                 <CancelIcon className="cancel-icon"
                             onClick={() => {
-                                handleClick();
+                                goToIndex();
                             }}/>
                 <div className='icon-background'></div>
             </div>

@@ -21,12 +21,6 @@ function App() {
         setShowFilter(false);
     };
 
-    async function goToFilter() {
-        const navigationPromise = navigate('/test')
-        console.log("The URL changed but the new page hasn't rendered yet.")
-        await navigationPromise
-        console.log('The new page has finished rendering.')
-    }
     return (
         <div className="sonar-body">
             <InterfaceHeader/>
