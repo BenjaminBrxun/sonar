@@ -9,25 +9,25 @@
 .icon-container {
   display: flex;
   flex-direction: row-reverse;
+  position: relative;
+  top: -70px;    // Top und right waren habe ich hinzugefügt um das Cancel-Icon auf den Background zu setzen.
+  right: -80px;
 }
 
 .cancel-icon {
   color: #FABB22;
   font-size: 2.8em !important;
-  position: absolute;
-  top: 18px;    // Top und right waren habe ich hinzugefügt um das Cancel-Icon auf den Background zu setzen.
-  right: 18px;
-  z-index: 100;
+  z-index: 10;
 }
 
 .icon-background {
   background: black;
   border-radius: 50px;
+  position: relative;
+  top: 7px;
+  right: -35px;
   width: 30px;
   height: 30px;
-  position: absolute;
-  top: 25px;
-  right: 25px;
   z-index: 9;
 }
 

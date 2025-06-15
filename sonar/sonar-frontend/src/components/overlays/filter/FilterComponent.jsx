@@ -3,6 +3,7 @@ import "./FilterComponent.scss"
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import {HighlightGroup, MultiSelectHighlightGroup} from "../../layouts/HighlightGroup.jsx"
 import {LiveSlider} from "../../layouts/LiveSlider.jsx"
+
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -65,13 +66,15 @@ export function FilterComponent({onCloseClick}) {
                         />
                     </div>
                 </fieldset>
-                <fieldset>
+                <div className="filter-footer">
+                    <fieldset>
                         <legend></legend>
-                    <div>
-                        <input type="reset" value="Filter zurücksetzen" className="send-button"/>
-                        <input type="submit" value="Filter anwenden"  className="send-button"/>
-                    </div>
-                </fieldset>
+                        <div>
+                            <input type="reset" value="Filter zurücksetzen" className="reset-button"/>
+                            <input type="submit" value="Filter anwenden" className="send-button"/>
+                        </div>
+                    </fieldset>
+                </div>
             </form>
 
 

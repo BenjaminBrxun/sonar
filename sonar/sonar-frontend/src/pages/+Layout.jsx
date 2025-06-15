@@ -3,6 +3,8 @@ import {InteractiveMap} from "../components/interactivemap/InteractiveMap.jsx";
 import {InterfaceFooter} from "../components/interface/interfaceFooter/InterfaceFooter.jsx";
 import React from "react";
 import {usePageContext} from "vike-react/usePageContext";
+import "./Layout.scss";
+
 
 export {Layout}
 
