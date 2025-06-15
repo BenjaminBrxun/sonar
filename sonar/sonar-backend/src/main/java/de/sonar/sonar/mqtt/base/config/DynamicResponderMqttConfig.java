@@ -3,8 +3,8 @@ package de.sonar.sonar.mqtt.base.config;
 import lombok.Setter;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @Setter
+@Configuration
 public class DynamicResponderMqttConfig extends AbstractResponderMqttConfig {
 
     protected String topic;
@@ -15,3 +15,4 @@ public class DynamicResponderMqttConfig extends AbstractResponderMqttConfig {
     }
 
 }
+
