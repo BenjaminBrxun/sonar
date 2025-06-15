@@ -1,6 +1,8 @@
 package de.sonar.sonar.mqtt.base.reply;
 
 import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.channel.DirectChannel;
@@ -16,7 +18,12 @@ public abstract class AbstractReplyMqttConfig {
     @Value("${spring.application.name}")
     private String applicationName;
 
-    protected abstract String getTopic();
+    /**
+     * The MQTT topic to be used for this configuration
+     */
+    @Getter
+    @Setter
+    private String topic;
 
     // 2. Inbound: Request
 
