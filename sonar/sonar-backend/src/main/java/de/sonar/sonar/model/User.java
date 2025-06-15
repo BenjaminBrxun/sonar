@@ -1,4 +1,4 @@
-package de.sonar.sonar.datenmodell;
+package de.sonar.sonar.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,4 +20,5 @@ public class User extends BasicUser {
 
     @OneToOne
     private InterestsProfile profile;
+
 }

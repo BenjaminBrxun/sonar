@@ -1,6 +1,6 @@
 package de.sonar.sonar.repositories;
 
-import de.sonar.sonar.datenmodell.Event;
+import de.sonar.sonar.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
