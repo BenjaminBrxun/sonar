@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@RegisterRequesterMqttConfig(topic = "goodbye-world")
-public class GoodbyeWorldMqttRequesterService extends AbstractMqttRequesterService<String, String> {
+@RegisterRequesterMqttConfig(topic = "hello-world")
+public class HelloWorldRequesterService extends AbstractMqttRequesterService<String, String> {
 
     @Autowired
-    protected GoodbyeWorldMqttRequesterService(MessageChannel mqttRequestOutboundChannel) {
+    protected HelloWorldRequesterService(MessageChannel mqttRequestOutboundChannel) {
         super(mqttRequestOutboundChannel);
     }
 
-    public void goodbyeWorld() {
-        String response = this.sendRequest("Goodbye World!");
+    public void helloWorld() {
+        String response = this.sendRequest("Hello World!");
         log.info("Received response: {}", response);
     }
-
 }

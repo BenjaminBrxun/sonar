@@ -8,19 +8,19 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
 
 @Service
-@RegisterResponderMqttConfig(topic = "goodbye-world")
-public class GoodbyeWorldMqttResponderService extends AbstractMqttResponderService<String, String> {
+@RegisterResponderMqttConfig(topic = "hello-world")
+public class HelloWorldResponderService extends AbstractMqttResponderService<String, String> {
 
     @Autowired
-    public GoodbyeWorldMqttResponderService(MessageChannel mqttReplyOutboundChannel) {
+    public HelloWorldResponderService(MessageChannel mqttReplyOutboundChannel) {
         super(mqttReplyOutboundChannel);
     }
 
     @Override
     protected String processRequestPayload(String payload) {
-        if (!payload.equals("Goodbye World!")) {
-            throw new InvalidResponseStateException("You should say 'Goodbye World!'!");
+        if (!payload.equals("Hello World!")) {
+            throw new InvalidResponseStateException("You should say 'Hello World!'!");
         }
-        return "Goodbye World You Too!";
+        return "Hello World You Too!";
     }
 }
