@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttRequestService<RequestType, ResponseType> implements InitializingBean {
+public abstract class AbstractMqttRequestService<RequestType, ReplyType> implements InitializingBean {
 
     @Getter
     private String topic;
@@ -40,7 +40,7 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
     @Value("${mqtt.communication.timeout.millis}")
     private long timeoutMillis;
 
-    private final Map<UUID, CompletableFuture<ResponseType>> pendingRequests = new HashMap<>();
+    private final Map<UUID, CompletableFuture<ReplyType>> pendingRequests = new HashMap<>();
 
     private final MessageChannel mqttRequestOutboundChannel;
 
@@ -62,9 +62,16 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
         }
     }
 
-    public ResponseType sendRequest(RequestType request) {
+    /**
+     * Sends a request via MQTT and waits for a reply within a specified timeout.
+     *
+     * @param request the payload of the request to be sent
+     * @return the reply received within the timeout period
+     * @throws InvalidReplyStateException if the reply is not received in time or any error occurs during processing
+     */
+    public ReplyType sendRequest(RequestType request) {
         UUID requestId = UUID.randomUUID();
-        CompletableFuture<ResponseType> future = new CompletableFuture<>();
+        CompletableFuture<ReplyType> future = new CompletableFuture<>();
         pendingRequests.put(requestId, future);
 
         MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
@@ -86,13 +93,23 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
     }
 
 
+    /**
+     * Handles incoming MQTT reply messages and processes the response based on the request ID.
+     * <p>
+     * This method extracts the request ID from the message, verifies its existence in the pending requests,
+     * deserializes the payload, and completes the corresponding request's CompletableFuture.
+     *
+     * @param message the incoming MQTT reply message containing the {@link MqttReply}
+     * @throws InvalidReplyStateException if the message is null, lacks a request ID,
+     *                                    has no payload, or if the payload conversion fails
+     */
     @ServiceActivator(inputChannel = "mqttReplyInboundChannel")
-    public void handleResponse(Message<MqttReply<ResponseType>> message) {
+    public void handleResponse(Message<MqttReply<ReplyType>> message) {
         if (message == null) {
             throw new InvalidReplyStateException("Message is null.");
         }
 
-        MqttReply<ResponseType> mqttReply = message.getPayload();
+        MqttReply<ReplyType> mqttReply = message.getPayload();
         UUID requestId = mqttReply.getRequestId();
         if (requestId == null) {
             throw new InvalidReplyStateException("Message has no request_id.");
@@ -112,7 +129,7 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
                     .constructType(((ParameterizedType) getClass().getGenericSuperclass())
                             .getActualTypeArguments()[1]);
             ObjectMapper objectMapper = new ObjectMapper();
-            ResponseType replyPayload = objectMapper.convertValue(rawReplyPayload, replyPayloadType);
+            ReplyType replyPayload = objectMapper.convertValue(rawReplyPayload, replyPayloadType);
             pendingRequests.get(requestId).complete(replyPayload);
         } catch (ClassCastException e) {
             throw new InvalidReplyStateException("Failed to convert mqtt response payload");

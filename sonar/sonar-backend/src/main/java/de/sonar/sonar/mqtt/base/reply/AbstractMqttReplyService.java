@@ -45,10 +45,10 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> implement
     }
 
     /**
-     * Handles incoming MQTT {@link Message}s by processing the {@link MqttRequest} payload
+     * Handles incoming MQTT request messages by processing the {@link MqttRequest} payload
      * and sending a {@link MqttReply}.
      *
-     * @param message the incoming MQTT {@link Message} containing the {@link MqttRequest}
+     * @param message the incoming MQTT request message containing the {@link MqttRequest}
      * @throws InvalidRequestStateException if the message is invalid or processing fails
      */
     @ServiceActivator(inputChannel = "mqttRequestInboundChannel")

@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class HelloWorldExampleIntegrationTest {
 
     @Autowired
-    HelloWorldRequestService helloWorldRequestService;
+    HelloWorldRequestService helloWorldRequestService ;
 
     // This integration test is only for manual testing
     @Disabled

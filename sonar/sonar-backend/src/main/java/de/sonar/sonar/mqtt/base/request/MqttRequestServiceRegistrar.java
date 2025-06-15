@@ -8,8 +8,22 @@ import org.springframework.lang.NonNull;
 
 import java.util.Map;
 
+/**
+ * Registrar for automatic topic configuration of implementations of the {@link AbstractMqttRequestService}.
+ * <p>
+ * Automatically registers {@link DynamicRequestMqttConfig}s based on {@link RegisterRequestMqttConfig} annotations.
+ */
 public class MqttRequestServiceRegistrar implements ImportBeanDefinitionRegistrar {
 
+    /**
+     * Creates and registers bean definitions for {@link DynamicRequestMqttConfig}s.
+     * <p>
+     * For each service annotated with {@link RegisterRequestMqttConfig}, creates a corresponding
+     * {@link DynamicRequestMqttConfig} bean with the specified topic.
+     *
+     * @param metadata the metadata for the class being processed
+     * @param registry the registry for registering bean definitions
+     */
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, @NonNull BeanDefinitionRegistry registry) {
         Map<String, Object> attributes = metadata.getAnnotationAttributes(RegisterRequestMqttConfig.class.getName());
@@ -20,8 +34,7 @@ public class MqttRequestServiceRegistrar implements ImportBeanDefinitionRegistra
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(DynamicRequestMqttConfig.class);
         builder.addPropertyValue("topic", topic);
 
-        registry.registerBeanDefinition(topic + "_requesterMqttConfig", builder.getBeanDefinition());
+        registry.registerBeanDefinition(topic + "_requestMqttConfig", builder.getBeanDefinition());
     }
-
 
 }
