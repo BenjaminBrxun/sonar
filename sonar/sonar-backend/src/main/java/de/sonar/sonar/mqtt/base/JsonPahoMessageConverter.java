@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets;
  * This converter specifically handles {@link MqttRequest} and {@link MqttReply}
  * objects, converting them to and from JSON format.
  */
-
 @Slf4j
 public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
@@ -41,7 +40,6 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
      * @return the resulting byte array
      * @throws InvalidRequestStateException if the payload cannot be serialized to JSON
      */
-
     @Override
     protected byte[] messageToMqttBytes(Message<?> message) {
         Object payload = message.getPayload();
@@ -67,7 +65,6 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
      * @return the deserialized object (either {@link MqttRequest} or {@link MqttReply})
      * @throws InvalidRequestStateException if the message type is unknown
      */
-
     @Override
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
         try {
