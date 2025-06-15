@@ -21,9 +21,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     public JsonPahoMessageConverter() {
         this.setPayloadAsBytes(true);
-        this.objectMapper = new ObjectMapper()
-                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-                .findAndRegisterModules();
+        this.objectMapper = new ObjectMapper();
     }
 
     @Override
