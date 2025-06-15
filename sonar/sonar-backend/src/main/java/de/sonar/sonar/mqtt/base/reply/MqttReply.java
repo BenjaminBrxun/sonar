@@ -9,11 +9,11 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MqttResponse<ResponseType> {
+public class MqttReply<ReplyType> {
 
-    private final String messageType = "RESPONSE";
+    private final String messageType = "REPLY";
 
-    private ResponseType payload;
+    private ReplyType payload;
 
     private String responseTopic;
 

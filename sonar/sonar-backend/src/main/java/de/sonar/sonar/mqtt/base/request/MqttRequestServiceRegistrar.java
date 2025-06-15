@@ -8,16 +8,16 @@ import org.springframework.lang.NonNull;
 
 import java.util.Map;
 
-public class MqttRequesterServiceRegistrar implements ImportBeanDefinitionRegistrar {
+public class MqttRequestServiceRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, @NonNull BeanDefinitionRegistry registry) {
-        Map<String, Object> attributes = metadata.getAnnotationAttributes(RegisterRequesterMqttConfig.class.getName());
+        Map<String, Object> attributes = metadata.getAnnotationAttributes(RegisterRequestMqttConfig.class.getName());
         if (attributes == null) return;
 
         String topic = (String) attributes.get("topic");
 
-        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(DynamicRequesterMqttConfig.class);
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(DynamicRequestMqttConfig.class);
         builder.addPropertyValue("topic", topic);
 
         registry.registerBeanDefinition(topic + "_requesterMqttConfig", builder.getBeanDefinition());

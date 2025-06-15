@@ -7,8 +7,8 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MqttRequesterServiceRegistrar.class)
-public @interface RegisterRequesterMqttConfig {
+@Import(MqttRequestServiceRegistrar.class)
+public @interface RegisterRequestMqttConfig {
 
     String topic();
 

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Setter
 @Configuration
-public class DynamicResponderMqttConfig extends AbstractResponderMqttConfig {
+public class DynamicReplyMqttConfig extends AbstractReplyMqttConfig {
 
     protected String topic;
 

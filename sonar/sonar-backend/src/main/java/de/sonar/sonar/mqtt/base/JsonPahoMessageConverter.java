@@ -2,7 +2,7 @@ package de.sonar.sonar.mqtt.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.sonar.sonar.mqtt.base.reply.MqttResponse;
+import de.sonar.sonar.mqtt.base.reply.MqttReply;
 import de.sonar.sonar.mqtt.base.request.InvalidRequestStateException;
 import de.sonar.sonar.mqtt.base.request.MqttRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
  * A custom MQTT message converter that extends {@link DefaultPahoMessageConverter} to handle JSON serialization
  * and deserialization of MQTT messages.
  * <p>
- * This converter specifically handles {@link MqttRequest} and {@link MqttResponse}
+ * This converter specifically handles {@link MqttRequest} and {@link MqttReply}
  * objects, converting them to and from JSON format.
  */
 
@@ -34,7 +34,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     /**
      * Converts a Spring Message object to MQTT bytes.
      * <p>
-     * If the payload is an instance of {@link MqttRequest} or {@link MqttResponse}, it will be serialized to JSON.
+     * If the payload is an instance of {@link MqttRequest} or {@link MqttReply}, it will be serialized to JSON.
      * Otherwise, it delegates to the default implementation.
      *
      * @param message the Spring Message to convert
@@ -45,7 +45,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     @Override
     protected byte[] messageToMqttBytes(Message<?> message) {
         Object payload = message.getPayload();
-        if (!(payload instanceof MqttRequest<?>) && !(payload instanceof MqttResponse<?>)) {
+        if (!(payload instanceof MqttRequest<?>) && !(payload instanceof MqttReply<?>)) {
             return super.messageToMqttBytes(message);
         }
         try {
@@ -59,12 +59,12 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     /**
      * Converts MQTT message bytes to an object payload.
      * <p>
-     * Attempts to deserialize the JSON content into either an {@link MqttRequest} or {@link MqttResponse}
+     * Attempts to deserialize the JSON content into either an {@link MqttRequest} or {@link MqttReply}
      * based on the message type field in the JSON.
      * Otherwise, it delegates to the default implementation.
      *
      * @param mqttMessage the MQTT message to convert
-     * @return the deserialized object (either {@link MqttRequest} or {@link MqttResponse})
+     * @return the deserialized object (either {@link MqttRequest} or {@link MqttReply})
      * @throws InvalidRequestStateException if the message type is unknown
      */
 
@@ -76,8 +76,8 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
             if ("REQUEST".equalsIgnoreCase(messageType)) {
                 return objectMapper.readValue(json, MqttRequest.class);
-            } else if ("RESPONSE".equalsIgnoreCase(messageType)) {
-                return objectMapper.readValue(json, MqttResponse.class);
+            } else if ("REPLY".equalsIgnoreCase(messageType)) {
+                return objectMapper.readValue(json, MqttReply.class);
             } else {
                 throw new InvalidRequestStateException("Unknown message type in MQTT payload.");
             }
@@ -91,7 +91,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     /**
      * Extracts the message type from the JSON string.
      * <p>
-     * Should return either REQUEST or RESPONSE.
+     * Should return either REQUEST or REPLY.
      *
      * @param json the JSON string to read
      * @return the message type as a string

@@ -3,8 +3,8 @@ package de.sonar.sonar.mqtt.base.request;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import de.sonar.sonar.mqtt.base.reply.InvalidResponseStateException;
-import de.sonar.sonar.mqtt.base.reply.MqttResponse;
+import de.sonar.sonar.mqtt.base.reply.InvalidReplyStateException;
+import de.sonar.sonar.mqtt.base.reply.MqttReply;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttRequesterService<RequestType, ResponseType> implements InitializingBean {
+public abstract class AbstractMqttRequestService<RequestType, ResponseType> implements InitializingBean {
 
     @Getter
     private String topic;
@@ -40,8 +40,8 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
 
     @Override
     public void afterPropertiesSet() {
-        RegisterRequesterMqttConfig config =
-                this.getClass().getAnnotation(RegisterRequesterMqttConfig.class);
+        RegisterRequestMqttConfig config =
+                this.getClass().getAnnotation(RegisterRequestMqttConfig.class);
 
         if (config != null) {
             this.topic = config.topic();
@@ -70,7 +70,7 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
         try {
             return future.get(timeoutMillis, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
-            throw new InvalidResponseStateException("Timeout while waiting for response.");
+            throw new InvalidReplyStateException("Timeout while waiting for response.");
         } finally {
             pendingRequests.remove(requestId);
         }
@@ -78,26 +78,26 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
 
 
     @ServiceActivator(inputChannel = "mqttReplyInboundChannel")
-    public void handleResponse(Message<MqttResponse<ResponseType>> message) {
+    public void handleResponse(Message<MqttReply<ResponseType>> message) {
         if (message == null) {
-            throw new InvalidResponseStateException("Message is null.");
+            throw new InvalidReplyStateException("Message is null.");
         }
 
-        MqttResponse<ResponseType> mqttResponse = message.getPayload();
-        UUID requestId = mqttResponse.getRequestId();
+        MqttReply<ResponseType> mqttReply = message.getPayload();
+        UUID requestId = mqttReply.getRequestId();
         if (requestId == null) {
-            throw new InvalidResponseStateException("Message has no request_id.");
+            throw new InvalidReplyStateException("Message has no request_id.");
         }
 
         if (!pendingRequests.containsKey(requestId)) {
-            throw new InvalidResponseStateException("No pending request for request_id: " + requestId);
+            throw new InvalidReplyStateException("No pending request for request_id: " + requestId);
         }
 
 
         try {
-            Object rawResponsePayload = mqttResponse.getPayload();
+            Object rawResponsePayload = mqttReply.getPayload();
             if (rawResponsePayload == null) {
-                throw new InvalidResponseStateException("MqttResponse has no attribute payload.");
+                throw new InvalidReplyStateException("MqttResponse has no attribute payload.");
             }
             JavaType responsePayloadType = TypeFactory.defaultInstance()
                     .constructType(((ParameterizedType) getClass().getGenericSuperclass())
@@ -106,7 +106,7 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
             ResponseType responsePayload = objectMapper.convertValue(rawResponsePayload, responsePayloadType);
             pendingRequests.get(requestId).complete(responsePayload);
         } catch (ClassCastException e) {
-            throw new InvalidResponseStateException("Failed to convert mqtt response payload");
+            throw new InvalidReplyStateException("Failed to convert mqtt response payload");
         }
     }
 

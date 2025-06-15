@@ -11,7 +11,7 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
-public abstract class AbstractResponderMqttConfig {
+public abstract class AbstractReplyMqttConfig {
 
     @Value("${spring.application.name}")
     private String applicationName;

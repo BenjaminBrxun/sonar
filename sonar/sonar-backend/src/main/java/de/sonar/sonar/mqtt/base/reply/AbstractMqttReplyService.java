@@ -18,14 +18,14 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttResponderService<RequestType, ResponseType> implements InitializingBean {
+public abstract class AbstractMqttReplyService<RequestType, ResponseType> implements InitializingBean {
 
     private final MessageChannel mqttReplyOutboundChannel;
 
     @Override
     public void afterPropertiesSet() {
-        RegisterResponderMqttConfig config =
-                this.getClass().getAnnotation(RegisterResponderMqttConfig.class);
+        RegisterReplyMqttConfig config =
+                this.getClass().getAnnotation(RegisterReplyMqttConfig.class);
 
         if (config == null) {
             throw new IllegalStateException(
@@ -67,8 +67,8 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
 
         ResponseType response = processRequestPayload(requestPayload);
 
-        Message<MqttResponse<ResponseType>> responseMessage = new GenericMessage<>(
-                new MqttResponse<>(
+        Message<MqttReply<ResponseType>> responseMessage = new GenericMessage<>(
+                new MqttReply<>(
                         response,
                         responseTopic,
                         requestId

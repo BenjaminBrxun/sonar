@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class HelloWorldExampleIntegrationTest {
 
     @Autowired
-    HelloWorldRequesterService helloWorldMqttRequesterService;
+    HelloWorldRequestService helloWorldRequestService;
 
     // This integration test is only for manual testing
     @Disabled
     @Test
     public void testHelloWorld() {
-        helloWorldMqttRequesterService.helloWorld();
+        helloWorldRequestService.helloWorld();
     }
 
 }
