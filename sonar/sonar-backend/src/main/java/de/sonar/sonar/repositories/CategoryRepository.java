@@ -1,0 +1,7 @@
+package de.sonar.sonar.repositories;
+
+import de.sonar.sonar.datenmodell.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+}

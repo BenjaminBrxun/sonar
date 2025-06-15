@@ -1,6 +1,6 @@
 import React from "react";
 import "./FavoritesComponent.scss"
-import {BaseComponent} from "../base/BaseComponent";
+import {BaseComponent} from "../../base/BaseComponent.jsx";
 
 export function FavoritesComponent({sendDataToParent}) {
     return (

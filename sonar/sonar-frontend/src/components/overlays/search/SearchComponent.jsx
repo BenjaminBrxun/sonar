@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TextField} from "@mui/material";
 import "@fontsource/roboto/800.css";
-import {BaseComponent} from "../base/BaseComponent.jsx";
+import {BaseComponent} from "../../base/BaseComponent.jsx";
 import "./SearchComponent.scss"
 
 export function SearchComponent({sendDataToParent}) {
