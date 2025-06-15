@@ -4,11 +4,13 @@ import de.sonar.sonar.datenmodell.Event;
 import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
 import de.sonar.sonar.mqtt.base.service.AbstractMqttResponderService;
 import de.sonar.sonar.mqtt.base.service.InvalidResponseStateException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
 
 @Service
 @RegisterResponderMqttConfig(topic = "event")
+@Slf4j
 public class EventMqttResponderService extends AbstractMqttResponderService<Event, Event> {
 
 
@@ -23,7 +25,6 @@ public class EventMqttResponderService extends AbstractMqttResponderService<Even
         }
 
         payload.setName("Banana");
-
         return payload;
     }
 

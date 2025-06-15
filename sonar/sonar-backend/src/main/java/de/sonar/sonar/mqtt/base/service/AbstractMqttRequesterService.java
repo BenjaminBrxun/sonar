@@ -1,5 +1,6 @@
 package de.sonar.sonar.mqtt.base.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -89,8 +90,20 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
             throw new InvalidResponseStateException("No pending request for request_id: " + requestId);
         }
 
-        ResponseType response = mqttResponse.getPayload();
-        pendingRequests.get(requestId).complete(response);
+
+        try {
+            Object rawResponsePayload = mqttResponse.getPayload();
+            if (rawResponsePayload == null) {
+                throw new InvalidResponseStateException("MqttResponse has no attribute payload.");
+            }
+            Class<ResponseType> responsePayloadType = mqttResponse.getPayloadType();
+            ObjectMapper objectMapper = new ObjectMapper();
+            ResponseType responsePayload = objectMapper.convertValue(rawResponsePayload, responsePayloadType);
+            pendingRequests.get(requestId).complete(responsePayload);
+        } catch (ClassCastException e) {
+            throw new InvalidResponseStateException("Failed to convert mqtt response payload to type: "
+                    + mqttResponse.getPayloadType().getName() + ".");
+        }
     }
 
 }

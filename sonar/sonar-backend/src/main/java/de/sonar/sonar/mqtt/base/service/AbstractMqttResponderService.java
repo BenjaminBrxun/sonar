@@ -1,6 +1,6 @@
 package de.sonar.sonar.mqtt.base.service;
 
-import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,21 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
             throw new InvalidRequestStateException("Message has no request_id.");
         }
 
-        ResponseType response = processRequestPayload(mqttRequest.getPayload());
+        RequestType requestPayload;
+        try {
+            Object rawRequestPayload = mqttRequest.getPayload();
+            if (rawRequestPayload == null) {
+                throw new InvalidRequestStateException("MqttRequest has no attribute payload.");
+            }
+            Class<RequestType> requestPayloadType = mqttRequest.getPayloadType();
+            ObjectMapper objectMapper = new ObjectMapper();
+            requestPayload = objectMapper.convertValue(rawRequestPayload, requestPayloadType);
+        } catch (ClassCastException e) {
+            throw new InvalidRequestStateException("Failed to convert mqtt request payload to type: "
+                    + mqttRequest.getPayloadType().getName() + ".");
+        }
+
+        ResponseType response = processRequestPayload(requestPayload);
 
         Message<MqttResponse<ResponseType>> responseMessage = new GenericMessage<>(
                 new MqttResponse<>(
@@ -55,7 +69,6 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
                         responseTopic,
                         requestId
                 ));
-
         mqttReplyOutboundChannel.send(responseMessage);
     }
 
