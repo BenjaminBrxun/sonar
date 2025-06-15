@@ -33,9 +33,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
             return super.messageToMqttBytes(message);
         }
         try {
-            log.info("Attempting to serialize payload: {}", payload);
             String json = objectMapper.writeValueAsString(payload);
-            log.info("Successfully serialized to JSON: {}", json);
             return json.getBytes(StandardCharsets.UTF_8);
         } catch (JsonProcessingException ex) {
             throw new InvalidRequestStateException("Request payload could not be serialized to JSON.");
@@ -46,8 +44,6 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
         try {
             String json = new String(mqttMessage.getPayload(), StandardCharsets.UTF_8);
-            log.info("Deserializing MQTT message: {}", json);
-
             String messageType = extractMessageType(json);
 
             if ("REQUEST".equalsIgnoreCase(messageType)) {
@@ -57,6 +53,7 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
             } else {
                 throw new InvalidRequestStateException("Unknown message type in MQTT payload.");
             }
+
         } catch (IOException e) {
             log.error("Could not deserialize MQTT message. Try to deserialize with default implementation.", e);
             return super.mqttBytesToPayload(mqttMessage);

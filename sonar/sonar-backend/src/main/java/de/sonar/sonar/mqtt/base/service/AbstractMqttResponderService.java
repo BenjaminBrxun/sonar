@@ -60,7 +60,6 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
             JavaType requestPayloadType = TypeFactory.defaultInstance()
                     .constructType(((ParameterizedType) getClass().getGenericSuperclass())
                             .getActualTypeArguments()[0]);
-            log.info("Type: {}", requestPayloadType);
             ObjectMapper objectMapper = new ObjectMapper();
             requestPayload = objectMapper.convertValue(rawRequestPayload, requestPayloadType);
         } catch (ClassCastException e) {
