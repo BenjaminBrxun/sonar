@@ -15,9 +15,5 @@ public class MqttRequest<RequestType> {
 
     private RequestType payload;
 
-    private String requestTopic;
-
-    private String responseTopic;
-
     private UUID requestId;
 }

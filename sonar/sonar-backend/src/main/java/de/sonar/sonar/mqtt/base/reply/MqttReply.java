@@ -1,5 +1,6 @@
 package de.sonar.sonar.mqtt.base.reply;
 
+import de.sonar.sonar.mqtt.base.request.MqttRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ public class MqttReply<ReplyType> {
 
     private ReplyType payload;
 
-    private String responseTopic;
-
+    /**
+     * The ID of the related {@link MqttRequest}
+     */
     private UUID requestId;
 }

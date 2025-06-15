@@ -23,6 +23,12 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Abstract base class for services that handle send requests and handle incoming replies.
+ * <p>
+ * Implementations of this class must be annotated by {@link RegisterRequestMqttConfig}
+ * to autoconfigure the message channel for a specific topic.
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -38,6 +44,11 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
 
     private final MessageChannel mqttRequestOutboundChannel;
 
+    /**
+     * Validates that the service is properly configured with required annotations.
+     *
+     * @throws IllegalStateException if the {@link RegisterRequestMqttConfig} annotation is missing
+     */
     @Override
     public void afterPropertiesSet() {
         RegisterRequestMqttConfig config =
@@ -47,7 +58,7 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
             this.topic = config.topic();
         } else {
             throw new IllegalStateException(
-                    "Service is missing @RegisterRequesterMqttConfig annotation: " + this.getClass().getName());
+                    "Service is missing @RegisterRequestMqttConfig annotation: " + this.getClass().getName());
         }
     }
 
@@ -58,8 +69,6 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
 
         MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
                 request,
-                "request/topic/" + getTopic(),
-                "reply/topic/" + getTopic(),
                 requestId
         );
 
@@ -95,16 +104,16 @@ public abstract class AbstractMqttRequestService<RequestType, ResponseType> impl
 
 
         try {
-            Object rawResponsePayload = mqttReply.getPayload();
-            if (rawResponsePayload == null) {
-                throw new InvalidReplyStateException("MqttResponse has no attribute payload.");
+            Object rawReplyPayload = mqttReply.getPayload();
+            if (rawReplyPayload == null) {
+                throw new InvalidReplyStateException("MqttReply has no attribute payload.");
             }
-            JavaType responsePayloadType = TypeFactory.defaultInstance()
+            JavaType replyPayloadType = TypeFactory.defaultInstance()
                     .constructType(((ParameterizedType) getClass().getGenericSuperclass())
                             .getActualTypeArguments()[1]);
             ObjectMapper objectMapper = new ObjectMapper();
-            ResponseType responsePayload = objectMapper.convertValue(rawResponsePayload, responsePayloadType);
-            pendingRequests.get(requestId).complete(responsePayload);
+            ResponseType replyPayload = objectMapper.convertValue(rawReplyPayload, replyPayloadType);
+            pendingRequests.get(requestId).complete(replyPayload);
         } catch (ClassCastException e) {
             throw new InvalidReplyStateException("Failed to convert mqtt response payload");
         }
