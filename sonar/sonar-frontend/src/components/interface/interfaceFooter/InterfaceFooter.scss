@@ -14,8 +14,8 @@
   padding: 0 $padding;
 
   &_inner {
-    min-width: 350px;
-    width: 26vw;
+    min-width: var.$appWidth;
+    width: 40vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -55,9 +55,6 @@
       svg {
         width: 3.2vh; //1.4rem
         height: 3.2vh; //1.4rem
-      }
-      @media(max-width: 350px) {
-        padding: 10px;
       }
       &:hover {
         background-color: var.color(theme, accent);

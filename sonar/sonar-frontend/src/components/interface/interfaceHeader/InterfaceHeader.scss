@@ -15,8 +15,8 @@
   padding: 0 $padding;
 
   &_inner {
-    min-width: 350px;
-    width: 26vw;
+    min-width: var.$appWidth;
+    width: 40vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -55,8 +55,9 @@
       cursor: pointer;
 
       svg {
-        width: 1.4rem;
-        height: 1.4rem;
+        width: 3.2vh; //1.4rem
+        height: 3.2vh; //1.4rem
+        color: var.$primary;
       }
     }
 

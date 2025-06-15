@@ -18,36 +18,40 @@ export default function EventCardModule({title, date, costs, image}) {
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
-                <div className="sonar-eventcard_header">
-                    <CardActions className="sonar-eventcard_top-icons">
-                        <div className="sonar-eventcard_top-icon">
-                            <Button size="small"><ShareIcon/></Button>
-                        </div>
-                        <div className="sonar-eventcard_top-icon">
-                            <Button size="small"><BookmarkIcon/></Button>
-                        </div>
-                        <div className="sonar-eventcard_top-details">
-                            <Button size="small">Details</Button>
-                        </div>
-                    </CardActions>
-                    <CardActions className="sonar-eventcard_tags">
-                        <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
-                            <label>Heudde</label>
-                        </div>
-                        <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
-                            <label>Ausjebuucht</label>
-                        </div>
-                    </CardActions>
+                <div className="sonar-eventcard_media-div">
+                    <CardMedia className="sonar-eventcard_media"
+                               component="img"
+                               alt="family"
+                               image={image}
+                    />
+                    <div className="sonar-eventcard_header">
+                        <CardActions className="sonar-eventcard_top-icons">
+                            <div className="sonar-eventcard_top-icon">
+                                <Button size="small"><ShareIcon/></Button>
+                            </div>
+                            <div className="sonar-eventcard_top-icon">
+                                <Button size="small"><BookmarkIcon/></Button>
+                            </div>
+                            <div id="sonar-eventcard_top-icon-buffer"></div>
+                            <div className="sonar-eventcard_top-details">
+                                <Button size="small">Details</Button>
+                            </div>
+                        </CardActions>
+                        <CardActions className="sonar-eventcard_tags">
+                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
+                                <label>Heudde</label>
+                            </div>
+                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
+                                <label>Ausjebuucht</label>
+                            </div>
+                        </CardActions>
+                    </div>
                 </div>
 
                 <div className="sonar-eventcard_content">
 
-                    <CardContent>
-                        <CardMedia className="sonar-eventcard_media"
-                                   component="img"
-                                   alt="family"
-                                   image={image}
-                        />
+                    <CardContent id="sonar-eventcard_content_text-div">
+
                         <div className="sonar-eventcard_content_text">
                             <p className="sonar-eventcard_content_text-title">
                                 {title}
