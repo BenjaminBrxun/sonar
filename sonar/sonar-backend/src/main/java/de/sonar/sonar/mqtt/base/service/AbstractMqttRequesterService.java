@@ -1,6 +1,8 @@
 package de.sonar.sonar.mqtt.base.service;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -54,7 +57,6 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
 
         MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
                 request,
-                (Class<RequestType>) request.getClass(),
                 "request/topic/" + getTopic(),
                 "reply/topic/" + getTopic(),
                 requestId
@@ -96,13 +98,14 @@ public abstract class AbstractMqttRequesterService<RequestType, ResponseType> im
             if (rawResponsePayload == null) {
                 throw new InvalidResponseStateException("MqttResponse has no attribute payload.");
             }
-            Class<ResponseType> responsePayloadType = mqttResponse.getPayloadType();
+            JavaType responsePayloadType = TypeFactory.defaultInstance()
+                    .constructType(((ParameterizedType) getClass().getGenericSuperclass())
+                            .getActualTypeArguments()[1]);
             ObjectMapper objectMapper = new ObjectMapper();
             ResponseType responsePayload = objectMapper.convertValue(rawResponsePayload, responsePayloadType);
             pendingRequests.get(requestId).complete(responsePayload);
         } catch (ClassCastException e) {
-            throw new InvalidResponseStateException("Failed to convert mqtt response payload to type: "
-                    + mqttResponse.getPayloadType().getName() + ".");
+            throw new InvalidResponseStateException("Failed to convert mqtt response payload");
         }
     }
 

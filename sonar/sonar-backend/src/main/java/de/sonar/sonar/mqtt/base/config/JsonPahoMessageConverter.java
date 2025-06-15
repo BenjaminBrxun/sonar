@@ -2,6 +2,7 @@ package de.sonar.sonar.mqtt.base.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import de.sonar.sonar.mqtt.base.service.InvalidRequestStateException;
 import de.sonar.sonar.mqtt.base.service.MqttRequest;
 import de.sonar.sonar.mqtt.base.service.MqttResponse;
@@ -16,10 +17,13 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     public JsonPahoMessageConverter() {
         this.setPayloadAsBytes(true);
+        this.objectMapper = new ObjectMapper()
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .findAndRegisterModules();
     }
 
     @Override
@@ -29,13 +33,16 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
             return super.messageToMqttBytes(message);
         }
         try {
+            log.info("Attempting to serialize payload: {}", payload);
             String json = objectMapper.writeValueAsString(payload);
+            log.info("Successfully serialized to JSON: {}", json);
             return json.getBytes(StandardCharsets.UTF_8);
         } catch (JsonProcessingException ex) {
             throw new InvalidRequestStateException("Request payload could not be serialized to JSON.");
         }
     }
 
+    @Override
     protected Object mqttBytesToPayload(MqttMessage mqttMessage) {
         try {
             String json = new String(mqttMessage.getPayload(), StandardCharsets.UTF_8);

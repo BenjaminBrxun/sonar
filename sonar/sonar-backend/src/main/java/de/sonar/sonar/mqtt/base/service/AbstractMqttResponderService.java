@@ -1,6 +1,9 @@
 package de.sonar.sonar.mqtt.base.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,8 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.UUID;
 
 @Slf4j
@@ -52,12 +57,14 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
             if (rawRequestPayload == null) {
                 throw new InvalidRequestStateException("MqttRequest has no attribute payload.");
             }
-            Class<RequestType> requestPayloadType = mqttRequest.getPayloadType();
+            JavaType requestPayloadType = TypeFactory.defaultInstance()
+                    .constructType(((ParameterizedType) getClass().getGenericSuperclass())
+                            .getActualTypeArguments()[0]);
+            log.info("Type: {}", requestPayloadType);
             ObjectMapper objectMapper = new ObjectMapper();
             requestPayload = objectMapper.convertValue(rawRequestPayload, requestPayloadType);
         } catch (ClassCastException e) {
-            throw new InvalidRequestStateException("Failed to convert mqtt request payload to type: "
-                    + mqttRequest.getPayloadType().getName() + ".");
+            throw new InvalidRequestStateException("Failed to convert mqtt request payload.");
         }
 
         ResponseType response = processRequestPayload(requestPayload);
@@ -65,7 +72,6 @@ public abstract class AbstractMqttResponderService<RequestType, ResponseType> im
         Message<MqttResponse<ResponseType>> responseMessage = new GenericMessage<>(
                 new MqttResponse<>(
                         response,
-                        (Class<ResponseType>) response.getClass(),
                         responseTopic,
                         requestId
                 ));

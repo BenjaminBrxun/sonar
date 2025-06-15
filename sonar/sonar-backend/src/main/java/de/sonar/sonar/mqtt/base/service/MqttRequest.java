@@ -1,5 +1,6 @@
 package de.sonar.sonar.mqtt.base.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,6 @@ public class MqttRequest<RequestType> {
     private final String messageType = "REQUEST";
 
     private RequestType payload;
-
-    private Class<RequestType> payloadType;
 
     private String requestTopic;
 
