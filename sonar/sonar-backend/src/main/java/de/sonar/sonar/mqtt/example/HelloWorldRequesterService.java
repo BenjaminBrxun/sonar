@@ -18,7 +18,9 @@ public class HelloWorldRequesterService extends AbstractMqttRequesterService<Str
     }
 
     public void helloWorld() {
-        String response = this.sendRequest("Hello World!");
+        String request = "Hello World!";
+        log.info("Sending request: {}", request);
+        String response = this.sendRequest(request);
         log.info("Received response: {}", response);
     }
 }
