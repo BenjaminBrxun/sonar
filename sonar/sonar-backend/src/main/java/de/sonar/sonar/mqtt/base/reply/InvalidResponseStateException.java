@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base.service;
+package de.sonar.sonar.mqtt.base.reply;
 
 public class InvalidResponseStateException extends RuntimeException {
 

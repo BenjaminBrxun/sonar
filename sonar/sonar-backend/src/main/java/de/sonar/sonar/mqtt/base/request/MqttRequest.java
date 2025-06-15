@@ -1,6 +1,5 @@
-package de.sonar.sonar.mqtt.base.service;
+package de.sonar.sonar.mqtt.base.request;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,13 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MqttResponse<ResponseType> {
+public class MqttRequest<RequestType> {
 
-    private final String messageType = "RESPONSE";
+    private final String messageType = "REQUEST";
 
-    private ResponseType payload;
+    private RequestType payload;
+
+    private String requestTopic;
 
     private String responseTopic;
 

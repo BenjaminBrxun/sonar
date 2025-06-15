@@ -1,8 +1,8 @@
 package de.sonar.sonar.mqtt.example;
 
-import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
-import de.sonar.sonar.mqtt.base.service.AbstractMqttResponderService;
-import de.sonar.sonar.mqtt.base.service.InvalidResponseStateException;
+import de.sonar.sonar.mqtt.base.reply.RegisterResponderMqttConfig;
+import de.sonar.sonar.mqtt.base.reply.AbstractMqttResponderService;
+import de.sonar.sonar.mqtt.base.reply.InvalidResponseStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;

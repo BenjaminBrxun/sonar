@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base.config;
+package de.sonar.sonar.mqtt.base.request;
 
 import lombok.Setter;
 import org.springframework.context.annotation.Configuration;

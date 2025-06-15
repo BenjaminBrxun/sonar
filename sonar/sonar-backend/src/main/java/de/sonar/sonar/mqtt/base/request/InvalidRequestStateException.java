@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base.service;
+package de.sonar.sonar.mqtt.base.request;
 
 public class InvalidRequestStateException extends RuntimeException {
 

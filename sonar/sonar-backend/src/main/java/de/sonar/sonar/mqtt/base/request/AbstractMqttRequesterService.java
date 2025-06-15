@@ -1,9 +1,10 @@
-package de.sonar.sonar.mqtt.base.service;
+package de.sonar.sonar.mqtt.base.request;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import de.sonar.sonar.mqtt.base.config.RegisterRequesterMqttConfig;
+import de.sonar.sonar.mqtt.base.reply.InvalidResponseStateException;
+import de.sonar.sonar.mqtt.base.reply.MqttResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

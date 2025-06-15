@@ -1,11 +1,11 @@
-package de.sonar.sonar.mqtt.base.config;
+package de.sonar.sonar.mqtt.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import de.sonar.sonar.mqtt.base.service.InvalidRequestStateException;
-import de.sonar.sonar.mqtt.base.service.MqttRequest;
-import de.sonar.sonar.mqtt.base.service.MqttResponse;
+import de.sonar.sonar.mqtt.base.request.InvalidRequestStateException;
+import de.sonar.sonar.mqtt.base.request.MqttRequest;
+import de.sonar.sonar.mqtt.base.reply.MqttResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;

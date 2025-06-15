@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.base.config;
+package de.sonar.sonar.mqtt.base.reply;
 
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

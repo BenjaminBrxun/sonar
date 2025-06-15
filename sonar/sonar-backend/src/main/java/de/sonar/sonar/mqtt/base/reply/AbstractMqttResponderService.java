@@ -1,10 +1,10 @@
-package de.sonar.sonar.mqtt.base.service;
+package de.sonar.sonar.mqtt.base.reply;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import de.sonar.sonar.mqtt.base.config.RegisterResponderMqttConfig;
+import de.sonar.sonar.mqtt.base.request.InvalidRequestStateException;
+import de.sonar.sonar.mqtt.base.request.MqttRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -14,7 +14,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.UUID;
 
 @Slf4j
