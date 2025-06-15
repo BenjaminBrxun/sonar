@@ -1,7 +1,7 @@
 package de.sonar.sonar.mqtt.base.request;
 
 /**
- * Exception thrown when an MQTT request is in an invalid state.
+ * Exception thrown when an {@link MqttRequest} is in an invalid state.
  */
 public class InvalidRequestStateException extends RuntimeException {
 
