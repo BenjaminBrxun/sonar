@@ -1,5 +1,6 @@
 package de.sonar.sonar.mqtt.base.reply;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * according to the used annotations of {@link RegisterReplyMqttConfig} on implementations of {@link AbstractMqttReplyService}.
  */
 @Configuration
+@ConditionalOnBean(value = AbstractMqttReplyService.class)
 public class DynamicReplyMqttConfig extends AbstractReplyMqttConfig {
 
 }

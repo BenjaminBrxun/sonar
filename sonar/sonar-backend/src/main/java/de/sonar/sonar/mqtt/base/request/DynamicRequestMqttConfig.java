@@ -1,5 +1,6 @@
 package de.sonar.sonar.mqtt.base.request;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * according to the used annotations of {@link RegisterRequestMqttConfig} on implementations of {@link AbstractMqttRequestService}.
  */
 @Configuration
+@ConditionalOnBean(value = AbstractMqttRequestService.class)
 public class DynamicRequestMqttConfig extends AbstractRequestMqttConfig {
 
 }
