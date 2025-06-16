@@ -1,6 +1,5 @@
 package de.sonar.hernebackend.mqtt.base.reply;
 
-import lombok.Setter;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * Variations of this configuration are registered by the {@link MqttReplyServiceRegistrar}
  * according to the used annotations of {@link RegisterReplyMqttConfig} on implementations of {@link AbstractMqttReplyService}.
  */
-@Setter
 @Configuration
 public class DynamicReplyMqttConfig extends AbstractReplyMqttConfig {
 

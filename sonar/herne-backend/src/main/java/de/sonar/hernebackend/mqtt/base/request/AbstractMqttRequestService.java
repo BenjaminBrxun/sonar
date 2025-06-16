@@ -14,7 +14,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
@@ -29,7 +28,6 @@ import java.util.concurrent.TimeUnit;
  * Implementations of this class must be annotated by {@link RegisterRequestMqttConfig}
  * to autoconfigure the message channel for a specific topic.
  */
-@Service
 @Slf4j
 @RequiredArgsConstructor
 public abstract class AbstractMqttRequestService<RequestType, ReplyType> implements InitializingBean {

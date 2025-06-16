@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
  * Implementations of this class must be annotated by {@link RegisterRequestMqttConfig}
  * to autoconfigure the message channel for a specific topic.
  */
-@Service
 @Slf4j
 @RequiredArgsConstructor
 public abstract class AbstractMqttRequestService<RequestType, ReplyType> implements InitializingBean {

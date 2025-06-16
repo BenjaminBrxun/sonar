@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * Variations of this configuration are registered by the {@link MqttRequestServiceRegistrar}
  * according to the used annotations of {@link RegisterRequestMqttConfig} on implementations of {@link AbstractMqttRequestService}.
  */
-@Setter
 @Configuration
 public class DynamicRequestMqttConfig extends AbstractRequestMqttConfig {
 
