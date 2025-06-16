@@ -21,7 +21,7 @@ public @interface RegisterReplyMqttConfig {
     /**
      * The MQTT topic to which this responder service will subscribe.
      * <p>
-     * The default topic will be set to "reply/topic/" + {@link RegisterReplyMqttConfig#topic()}
+     * The default topic will be set to "reply/topic/" + this.topic()
      *
      * @return the topic name for this responder service
      */
