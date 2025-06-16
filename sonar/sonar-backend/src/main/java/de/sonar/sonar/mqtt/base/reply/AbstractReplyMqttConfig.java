@@ -30,6 +30,12 @@ import org.springframework.messaging.MessageHandler;
  */
 public abstract class AbstractReplyMqttConfig {
 
+    /**
+     * Represents the name of the application.
+     * <p>
+     * It is used to construct unique MQTT client identifiers and ensure proper message routing in the MQTT
+     * request-reply pattern.
+     */
     @Value("${spring.application.name}")
     private String applicationName;
 
@@ -42,11 +48,22 @@ public abstract class AbstractReplyMqttConfig {
 
     // 2. Inbound: Request
 
+    /**
+     * Creates a message channel for incoming MQTT requests.
+     *
+     * @return A DirectChannel instance for handling inbound MQTT request messages
+     */
     @Bean
     public MessageChannel mqttRequestInboundChannel() {
         return new DirectChannel();
     }
 
+    /**
+     * Configures the integration flow for incoming MQTT requests.
+     *
+     * @param mqttRequestInbound The MQTT message-driven channel adapter for incoming requests
+     * @return An IntegrationFlow instance that routes messages from the adapter to the inbound channel
+     */
     @Bean
     public IntegrationFlow mqttRequestInboundFlow(
             MqttPahoMessageDrivenChannelAdapter mqttRequestInbound) {
@@ -55,6 +72,13 @@ public abstract class AbstractReplyMqttConfig {
                 .get();
     }
 
+    /**
+     * Creates and configures a message-driven channel adapter for incoming MQTT requests.
+     *
+     * @param factory   The MQTT client factory to create MQTT clients
+     * @param converter The JSON converter for MQTT message conversion
+     * @return A configured MqttPahoMessageDrivenChannelAdapter for handling incoming requests
+     */
     @Bean
     public MqttPahoMessageDrivenChannelAdapter mqttRequestInbound(
             MqttPahoClientFactory factory,
@@ -68,11 +92,22 @@ public abstract class AbstractReplyMqttConfig {
 
     // 3. Outbound: Response
 
+    /**
+     * Creates a message channel for outgoing MQTT replies.
+     *
+     * @return A DirectChannel instance for handling outbound MQTT reply messages
+     */
     @Bean
     public MessageChannel mqttReplyOutboundChannel() {
         return new DirectChannel();
     }
 
+    /**
+     * Configures the integration flow for outgoing MQTT replies.
+     *
+     * @param mqttReplyOutbound The message handler for outgoing replies
+     * @return An IntegrationFlow instance that routes messages to the outbound handler
+     */
     @Bean
     public IntegrationFlow mqttReplyOutboundFlow(MessageHandler mqttReplyOutbound) {
         return IntegrationFlow.from(mqttReplyOutboundChannel())
@@ -80,6 +115,13 @@ public abstract class AbstractReplyMqttConfig {
                 .get();
     }
 
+    /**
+     * Creates and configures a message handler for outgoing MQTT replies.
+     *
+     * @param factory   The MQTT client factory to create MQTT clients
+     * @param converter The JSON converter for MQTT message conversion
+     * @return A configured MqttPahoMessageHandler for sending replies
+     */
     @Bean
     public MessageHandler mqttReplyOutbound(
             MqttPahoClientFactory factory,
