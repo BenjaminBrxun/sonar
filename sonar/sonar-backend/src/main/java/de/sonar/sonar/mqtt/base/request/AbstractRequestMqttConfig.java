@@ -13,6 +13,21 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
+/**
+ * Abstract configuration class for MQTT request handling.
+ * <p>
+ * Provides base configuration for MQTT message-driven channel adapters
+ * to handle request-reply patterns in MQTT communication.
+ * <p>
+ * This class is not intended for manual use!
+ * It should only be used due to the automatic topic registration with automatically
+ * registered {@link DynamicRequestMqttConfig} by the {@link MqttRequestServiceRegistrar}.
+ *
+ * @see MqttRequestServiceRegistrar
+ * @see DynamicRequestMqttConfig
+ * @see RegisterRequestMqttConfig
+ * @see AbstractMqttRequestService
+ */
 public abstract class AbstractRequestMqttConfig {
 
     @Value("${spring.application.name}")
