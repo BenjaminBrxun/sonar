@@ -1,6 +1,6 @@
 package de.sonar.sonar.services;
 
-import de.sonar.sonar.datenmodell.Event;
+import de.sonar.sonar.model.Event;
 import de.sonar.sonar.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package de.sonar.sonar.datenmodell;
+package de.sonar.sonar.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,9 +12,13 @@ import lombok.*;
 public class Address {
 
     private String city;
+
     private String street;
+
     private String houseNumber;
+
     private String postcode;
+
     private String district;
 
 }

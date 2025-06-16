@@ -1,6 +1,6 @@
 package de.sonar.sonar;
 
-import de.sonar.sonar.datenmodell.*;
+import de.sonar.sonar.model.*;
 import de.sonar.sonar.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

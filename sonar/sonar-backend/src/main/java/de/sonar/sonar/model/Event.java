@@ -1,4 +1,4 @@
-package de.sonar.sonar.datenmodell;
+package de.sonar.sonar.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,9 +16,10 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long id;
+
     private String name;
+
     @Embedded
     private Address address;
 
@@ -26,6 +27,7 @@ public class Event {
     private List<Category> categories;
 
     private Date startDate;
+
     private Date endDate;
 
     @OneToOne
@@ -33,6 +35,7 @@ public class Event {
 
     @ManyToOne
     private AdministrativeUser processor;
+
     private String status;
 
 }
