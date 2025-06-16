@@ -1,6 +1,6 @@
 package de.sonar.sonar.controllers;
 
-import de.sonar.sonar.datenmodell.Event;
+import de.sonar.sonar.model.Event;
 import de.sonar.sonar.services.EventService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/events")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
     private final EventService eventService;
 

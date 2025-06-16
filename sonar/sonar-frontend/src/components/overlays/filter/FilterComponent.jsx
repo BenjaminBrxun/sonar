@@ -3,6 +3,7 @@ import "./FilterComponent.scss"
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import {HighlightGroup, MultiSelectHighlightGroup} from "../../layouts/HighlightGroup.jsx"
 import {LiveSlider} from "../../layouts/LiveSlider.jsx"
+import {navigate} from "vike/client/router";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,9 +11,58 @@ import {LiveSlider} from "../../layouts/LiveSlider.jsx"
 export function FilterComponent({onCloseClick}) {
     const [selected, setSelected] = React.useState(null);
     const [multiSelected, setMultiSelected] = React.useState([]);
+    const [dateFrom, setDateFrom] = React.useState("");
+    const [dateTo, setDateTo] = React.useState("");
     const prices = ['Kostenlos', '€', '€€', '€€€']
     const restricted = ['ohne Anmeldung', 'mit Anmeldung']
     const categories = ['Sport', 'Museum', 'Musik', 'Fest', 'Gaming', 'Natur', 'Kino', 'Theater', 'Workshop', 'Computer', 'Ganze Familie', 'Tiere']
+    const categoryNameToId = {
+        "Sport": 1,
+        "Museum": 2,
+        "Musik": 3,
+        "Fest": 4,
+        "Gaming": 5,
+        "Natur": 6,
+        "Kino": 7,
+        "Theater": 8,
+        "Workshop": 9,
+        "Computer": 10,
+        "Ganze Familie": 11,
+        "Tiere": 12
+    };
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        const queryParams = new URLSearchParams();
+
+        multiSelected.forEach(category => {
+            const id = categoryNameToId[category];
+            queryParams.append('categories', id);
+        });
+
+        if(dateFrom) {
+            const startTimestamp = new Date(dateFrom).getTime();
+            queryParams.append("startDate", startTimestamp);
+        }
+
+        if(dateTo) {
+            const endTimestamp = new Date(dateTo).getTime();
+            queryParams.append("endDate", endTimestamp);
+        }
+        try {
+            const response = await fetch(`http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}` );
+            const data = await response.json();
+            console.log("Gefilterte Events: ", data);
+
+        } catch (err) {
+            console.log("Fehler beim Filteren: ", err);
+        }
+
+        const filterUrl = `http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}`;
+        await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
+
+    }
 
     return (
         <div className="filter-overlay">
@@ -20,15 +70,16 @@ export function FilterComponent({onCloseClick}) {
                 <h1>Filteroptionen</h1>
                 <BaseComponent sendDataToParent={onCloseClick}/>
             </div>
-
-            <form>
+            <div className="form-container">
+            <form onSubmit={handleSubmit}>
+                <div className="filter-body">
                 <fieldset>
                     <legend>
                         Zeitraum
                     </legend>
                     <div>
-                        <span><label>Von <input type="date"/></label></span>
-                        <span><label>   Bis <input type="date"/></label></span>
+                        <span><label>Von <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
+                        <span><label>   Bis <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -66,6 +117,7 @@ export function FilterComponent({onCloseClick}) {
                         />
                     </div>
                 </fieldset>
+                </div>
                 <div className="filter-footer">
                     <fieldset>
                         <legend></legend>
@@ -76,7 +128,7 @@ export function FilterComponent({onCloseClick}) {
                     </fieldset>
                 </div>
             </form>
-
+            </div>
 
         </div>
     )

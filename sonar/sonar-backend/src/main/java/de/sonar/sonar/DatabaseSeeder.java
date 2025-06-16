@@ -1,6 +1,6 @@
 package de.sonar.sonar;
 
-import de.sonar.sonar.datenmodell.*;
+import de.sonar.sonar.model.*;
 import de.sonar.sonar.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,11 +38,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .description("Sportliche Aktivitäten")
                 .build();
         Category category2 = Category.builder()
-                .name("Familie")
+                .name("Museum")
                 .description("Kinder und Eltern, sowie Freunde sind herzlich willkommen")
                 .build();
         Category category3 = Category.builder()
-                .name("Keine Ahnung")
+                .name("Musik")
                 .description("Lalalalala")
                 .build();
 

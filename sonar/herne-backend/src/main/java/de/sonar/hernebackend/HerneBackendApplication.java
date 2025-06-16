@@ -1,4 +1,4 @@
-package de.sonar.backendherne;
+package de.sonar.hernebackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HerneBackendApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Herne Backend");
 		SpringApplication.run(HerneBackendApplication.class, args);
 	}
 

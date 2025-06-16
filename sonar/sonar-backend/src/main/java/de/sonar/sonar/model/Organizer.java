@@ -1,4 +1,4 @@
-package de.sonar.sonar.datenmodell;
+package de.sonar.sonar.model;
 
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -10,5 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Organizer extends BasicUser {
+
     private String organisation;
+
 }

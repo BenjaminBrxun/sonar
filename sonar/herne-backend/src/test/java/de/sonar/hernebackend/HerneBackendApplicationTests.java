@@ -1,4 +1,4 @@
-package de.sonar.backendherne;
+package de.sonar.hernebackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
