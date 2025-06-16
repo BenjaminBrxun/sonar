@@ -2,10 +2,10 @@
 
 
 .sonar-header {
-  $padding: 15px;
+  $padding: 1vw; //15px
   z-index: 2;
   position: fixed;
-  top: 30px;
+  top: 3vh; //30px
   left: 0;
   max-width: 100%;
   width: 100%;
@@ -15,16 +15,16 @@
   padding: 0 $padding;
 
   &_inner {
-    max-width: 400px;
-    width: 100%;
+    min-width: var.$appWidth;
+    width: 40vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: var.color(theme, light);
     box-sizing: border-box;
     padding: $padding;
-    border-radius: 30px;
-    max-height: 70px;
+    border-radius: 30vh; //30px
+    max-height: 10vh; //70px
 
   }
 
@@ -33,14 +33,14 @@
     align-items: center;
 
     img {
-      max-height: 40px;
-      margin-right: 5px;
+      max-height: 5.5vh; //40px
+      margin-right: 0.5vw; //5px
     }
 
     p {
       margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 5vh; //2rem
+      font-weight: bold;
       color: var.color(theme, dark);
     }
   }
@@ -55,12 +55,13 @@
       cursor: pointer;
 
       svg {
-        width: 1.4rem;
-        height: 1.4rem;
+        width: 3.2vh; //1.4rem
+        height: 3.2vh; //1.4rem
+        color: var.$primary;
       }
     }
 
-    .sonar-icon {
+    .sonar-icon { // TODO: Diese Klasse gibt es nicht
       width: 1.4em;
       height: 2em;
       color: var.color(theme, dark);
@@ -69,7 +70,7 @@
     select {
       outline: none;
       border: none;
-      font-size: 1.2rem;
+      font-size: 3vh; //1.2rem
       font-weight: bold;
       cursor: pointer;
       background-color: var.color(theme, light);

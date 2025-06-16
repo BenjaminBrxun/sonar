@@ -1,10 +1,10 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
 .sonar-footer {
-  $padding: 15px;
+  $padding: 1vw; //15px
   z-index: 2;
   position: fixed;
-  bottom: 30px;
+  bottom: 3vh; //30px
   left: 0;
   max-width: 100%;
   width: 100%;
@@ -14,17 +14,17 @@
   padding: 0 $padding;
 
   &_inner {
-    max-width: 400px;
-    width: 100%;
+    min-width: var.$appWidth;
+    width: 40vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: var.color(theme, light);
     box-sizing: border-box;
     padding: $padding;
-    border-radius: 30px;
-    min-height: 70px;
-    max-height: 70px;
+    border-radius: 30vh;
+    //min-height: 70px; //10vh
+    max-height: 10vh; //70px
   }
 
   &_menu {
@@ -36,7 +36,8 @@
     max-width: 100%;
     width: 100%;
     &-seperator {
-      width: 2px;
+      width: 0.13vw; //2px
+      height: 6.9vh;
       background-color: var.color(theme, seperator);
     }
     &-button {
@@ -46,17 +47,14 @@
       transition: all 0.5s ease-in-out;
       outline: none;
       border: 0;
-      border-radius: 16px;
+      border-radius: 16vh;
       box-sizing: border-box;
-      padding: 15px;
+      padding: 2.1vh; //15px
       background-color: var.color(theme, light);
       color: var.color(theme, dark);
       svg {
-        width: 1.4rem;
-        height: 1.4rem;
-      }
-      @media(max-width: 350px) {
-        padding: 10px;
+        width: 3.2vh; //1.4rem
+        height: 3.2vh; //1.4rem
       }
       &:hover {
         background-color: var.color(theme, accent);
