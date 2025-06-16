@@ -1,0 +1,19 @@
+package de.sonar.hernebackend.mqtt.base.reply;
+
+import lombok.Setter;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Dynamic configuration for MQTT reply handling.
+ * <p>
+ * Extends {@link AbstractReplyMqttConfig} to provide dynamic topic configuration capabilities.
+ * <p>
+ * Variations of this configuration are registered by the {@link MqttReplyServiceRegistrar}
+ * according to the used annotations of {@link RegisterReplyMqttConfig} on implementations of {@link AbstractMqttReplyService}.
+ */
+@Setter
+@Configuration
+public class DynamicReplyMqttConfig extends AbstractReplyMqttConfig {
+
+}
+

@@ -1,8 +1,8 @@
-package de.sonar.sonar.mqtt.example;
+package de.sonar.hernebackend.mqtt.example;
 
-import de.sonar.sonar.mqtt.base.reply.RegisterReplyMqttConfig;
-import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
-import de.sonar.sonar.mqtt.base.reply.InvalidReplyStateException;
+import de.sonar.hernebackend.mqtt.base.reply.AbstractMqttReplyService;
+import de.sonar.hernebackend.mqtt.base.reply.InvalidReplyStateException;
+import de.sonar.hernebackend.mqtt.base.reply.RegisterReplyMqttConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;

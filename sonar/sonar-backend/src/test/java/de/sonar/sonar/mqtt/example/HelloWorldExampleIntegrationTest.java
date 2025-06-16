@@ -12,6 +12,8 @@ public class HelloWorldExampleIntegrationTest {
     HelloWorldRequestService helloWorldRequestService ;
 
     // This integration test is only for manual testing
+    // To run this test, start the mqtt-broker and the herne-backend.
+    // Then execute the test.
     @Disabled
     @Test
     public void testHelloWorld() {
