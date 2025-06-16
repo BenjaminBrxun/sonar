@@ -44,23 +44,37 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
 
     private final MessageChannel mqttRequestOutboundChannel;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     /**
-     * Validates that the service is properly configured with required annotations.
+     * Ensures that the service is properly configured after all configurable properties have been set.
+     * <p>
+     * This method is invoked automatically during the initialization phase of the application context.
+     * It performs validation to verify the presence of required annotations or configurations.
      *
-     * @throws IllegalStateException if the {@link RegisterRequestMqttConfig} annotation is missing
+     * @throws IllegalStateException if the service configuration is invalid
      */
     @Override
     public void afterPropertiesSet() {
-        RegisterRequestMqttConfig config =
-                this.getClass().getAnnotation(RegisterRequestMqttConfig.class);
-
-        if (config != null) {
-            this.topic = config.topic();
-        } else {
-            throw new IllegalStateException(
-                    "Service is missing @RegisterRequestMqttConfig annotation: " + this.getClass().getName());
-        }
+        validateAndInitializeServiceConfiguration();
     }
+
+    /**
+     * Validates configuration and initializes the MQTT topic.
+     *
+     * @throws IllegalStateException if the required annotation is missing
+     */
+    private void validateAndInitializeServiceConfiguration() {
+        RegisterRequestMqttConfig config = getClass().getAnnotation(RegisterRequestMqttConfig.class);
+        if (config == null) {
+            throw new IllegalStateException(
+                    String.format("Service %s is missing @RegisterRequestMqttConfig annotation",
+                            getClass().getName())
+            );
+        }
+        this.topic = config.topic();
+    }
+
 
     /**
      * Sends a request via MQTT and waits for a reply within a specified timeout.
@@ -71,27 +85,52 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
      */
     public ReplyType sendRequest(RequestType request) {
         UUID requestId = UUID.randomUUID();
+        CompletableFuture<ReplyType> future = registerPendingRequest(requestId);
+        sendMqttRequest(request, requestId);
+        return waitForResponse(requestId, future);
+    }
+
+    /**
+     * Registers a new pending request with the given ID.
+     *
+     * @param requestId the UUID of the request
+     * @return a CompletableFuture for the reply
+     */
+    private CompletableFuture<ReplyType> registerPendingRequest(UUID requestId) {
         CompletableFuture<ReplyType> future = new CompletableFuture<>();
         pendingRequests.put(requestId, future);
+        return future;
+    }
 
-        MqttRequest<RequestType> mqttRequest = new MqttRequest<>(
-                request,
-                requestId
-        );
-
+    /**
+     * Sends the MQTT request message.
+     *
+     * @param request   the request payload
+     * @param requestId the UUID of the request
+     */
+    private void sendMqttRequest(RequestType request, UUID requestId) {
+        MqttRequest<RequestType> mqttRequest = new MqttRequest<>(request, requestId);
         Message<MqttRequest<RequestType>> message = new GenericMessage<>(mqttRequest);
-
         mqttRequestOutboundChannel.send(message);
+    }
 
+    /**
+     * Waits for the response within the configured timeout period.
+     *
+     * @param requestId the UUID of the request
+     * @param future    the CompletableFuture to wait on
+     * @return the reply payload
+     * @throws InvalidReplyStateException if the timeout is exceeded
+     */
+    private ReplyType waitForResponse(UUID requestId, CompletableFuture<ReplyType> future) {
         try {
             return future.get(timeoutMillis, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
-            throw new InvalidReplyStateException("Timeout while waiting for response.");
+            throw new InvalidReplyStateException("Timeout while waiting for response");
         } finally {
             pendingRequests.remove(requestId);
         }
     }
-
 
     /**
      * Handles incoming MQTT reply messages and processes the response based on the request ID.
@@ -105,35 +144,107 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
      */
     @ServiceActivator(inputChannel = "mqttReplyInboundChannel")
     public void handleResponse(Message<MqttReply<ReplyType>> message) {
-        if (message == null) {
-            throw new InvalidReplyStateException("Message is null.");
-        }
-
+        validateReplyMessage(message);
         MqttReply<ReplyType> mqttReply = message.getPayload();
-        UUID requestId = mqttReply.getRequestId();
-        if (requestId == null) {
-            throw new InvalidReplyStateException("Message has no request_id.");
-        }
+        UUID requestId = validateAndExtractRequestId(mqttReply);
+        validatePendingRequest(requestId);
 
-        if (!pendingRequests.containsKey(requestId)) {
-            throw new InvalidReplyStateException("No pending request for request_id: " + requestId);
-        }
+        ReplyType replyPayload = deserializeReplyPayload(mqttReply);
+        completePendingRequest(requestId, replyPayload);
+    }
 
-
-        try {
-            Object rawReplyPayload = mqttReply.getPayload();
-            if (rawReplyPayload == null) {
-                throw new InvalidReplyStateException("MqttReply has no attribute payload.");
-            }
-            JavaType replyPayloadType = TypeFactory.defaultInstance()
-                    .constructType(((ParameterizedType) getClass().getGenericSuperclass())
-                            .getActualTypeArguments()[1]);
-            ObjectMapper objectMapper = new ObjectMapper();
-            ReplyType replyPayload = objectMapper.convertValue(rawReplyPayload, replyPayloadType);
-            pendingRequests.get(requestId).complete(replyPayload);
-        } catch (ClassCastException e) {
-            throw new InvalidReplyStateException("Failed to convert mqtt response payload");
+    /**
+     * Validates that the reply message is not null.
+     *
+     * @param message the message to validate
+     * @throws InvalidReplyStateException if the message is null
+     */
+    private void validateReplyMessage(Message<MqttReply<ReplyType>> message) {
+        if (message == null) {
+            throw new InvalidReplyStateException("Reply message cannot be null");
         }
     }
+
+    /**
+     * Validates and extracts the request ID from the reply.
+     *
+     * @param mqttReply the MQTT reply
+     * @return the validated request ID
+     * @throws InvalidReplyStateException if the request ID is null
+     */
+    private UUID validateAndExtractRequestId(MqttReply<ReplyType> mqttReply) {
+        UUID requestId = mqttReply.getRequestId();
+        if (requestId == null) {
+            throw new InvalidReplyStateException("Reply has no request ID");
+        }
+        return requestId;
+    }
+
+    /**
+     * Validates that a pending request exists for the given ID.
+     *
+     * @param requestId the request ID to validate
+     * @throws InvalidReplyStateException if no pending request exists
+     */
+    private void validatePendingRequest(UUID requestId) {
+        if (!pendingRequests.containsKey(requestId)) {
+            throw new InvalidReplyStateException("No pending request found for ID: " + requestId);
+        }
+    }
+
+    /**
+     * Deserializes the reply payload.
+     *
+     * @param mqttReply the MQTT reply containing the payload
+     * @return the deserialized reply payload
+     * @throws InvalidReplyStateException if deserialization fails
+     */
+    private ReplyType deserializeReplyPayload(MqttReply<ReplyType> mqttReply) {
+        Object rawPayload = extractRawPayload(mqttReply);
+        JavaType replyType = determineReplyPayloadType();
+
+        try {
+            return objectMapper.convertValue(rawPayload, replyType);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidReplyStateException("Failed to deserialize reply payload", e);
+        }
+    }
+
+    /**
+     * Extracts the raw payload from the MQTT reply.
+     *
+     * @param mqttReply the MQTT reply
+     * @return the raw payload object
+     * @throws InvalidReplyStateException if the payload is null
+     */
+    private Object extractRawPayload(MqttReply<ReplyType> mqttReply) {
+        Object rawPayload = mqttReply.getPayload();
+        if (rawPayload == null) {
+            throw new InvalidReplyStateException("Reply payload cannot be null");
+        }
+        return rawPayload;
+    }
+
+    /**
+     * Determines the Java type of the reply payload using reflection.
+     *
+     * @return the JavaType representing the reply payload type
+     */
+    private JavaType determineReplyPayloadType() {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        return TypeFactory.defaultInstance()
+                .constructType(genericSuperclass.getActualTypeArguments()[1]);
+    }
+
+    /**
+     * Completes a pending request with the received reply payload.
+     *
+     * @param requestId    the ID of the request to complete
+     * @param replyPayload the reply payload
+     */
+    private void completePendingRequest(UUID requestId, ReplyType replyPayload) {
+        pendingRequests.get(requestId).complete(replyPayload);
+    }
+
 
 }

@@ -14,4 +14,14 @@ public class InvalidRequestStateException extends RuntimeException {
         super(message);
     }
 
+    /**
+     * Constructs a new {@link InvalidRequestStateException} with the specified detail message and cause.
+     *
+     * @param message the detail message explaining the reason for the exception
+     * @param cause   the cause of the exception
+     */
+    public InvalidRequestStateException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

@@ -28,20 +28,42 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> implement
 
     private final MessageChannel mqttReplyOutboundChannel;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    /**
+     * Ensures that the service is properly configured after all configurable properties have been set.
+     * <p>
+     * This method is invoked automatically during the initialization phase of the application context.
+     * It performs validation to verify the presence of required annotations or configurations.
+     *
+     * @throws IllegalStateException if the service configuration is invalid
+     */
+    @Override
+    public void afterPropertiesSet() {
+        validateServiceConfiguration();
+    }
+
     /**
      * Validates that the service is properly configured with required annotations.
      *
      * @throws IllegalStateException if the {@link RegisterReplyMqttConfig} annotation is missing
      */
-    @Override
-    public void afterPropertiesSet() {
-        RegisterReplyMqttConfig config =
-                this.getClass().getAnnotation(RegisterReplyMqttConfig.class);
-
-        if (config == null) {
+    private void validateServiceConfiguration() {
+        if (!hasRequiredAnnotation()) {
             throw new IllegalStateException(
-                    "Service is missing @RegisterReplyMqttConfig annotation: " + this.getClass().getName());
+                    String.format("Service %s is missing @RegisterReplyMqttConfig annotation",
+                            this.getClass().getName())
+            );
         }
+    }
+
+    /**
+     * Checks if the current class has the {@link RegisterReplyMqttConfig} annotation.
+     *
+     * @return true if the current class is annotated with {@link RegisterReplyMqttConfig}, false otherwise
+     */
+    private boolean hasRequiredAnnotation() {
+        return this.getClass().getAnnotation(RegisterReplyMqttConfig.class) != null;
     }
 
     /**
@@ -53,39 +75,92 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> implement
      */
     @ServiceActivator(inputChannel = "mqttRequestInboundChannel")
     public void handleRequest(Message<MqttRequest<RequestType>> message) {
-        if (message == null) {
-            throw new InvalidRequestStateException("Message is null.");
-        }
-
+        validateMessage(message);
         MqttRequest<RequestType> mqttRequest = message.getPayload();
+        validateRequestId(mqttRequest);
 
-        UUID requestId = mqttRequest.getRequestId();
-        if (requestId == null) {
-            throw new InvalidRequestStateException("Message has no request id.");
-        }
-
-        RequestType requestPayload;
-        try {
-            Object rawRequestPayload = mqttRequest.getPayload();
-            if (rawRequestPayload == null) {
-                throw new InvalidRequestStateException("MqttRequest has no attribute payload.");
-            }
-            JavaType requestPayloadType = TypeFactory.defaultInstance()
-                    .constructType(((ParameterizedType) getClass().getGenericSuperclass())
-                            .getActualTypeArguments()[0]);
-            ObjectMapper objectMapper = new ObjectMapper();
-            requestPayload = objectMapper.convertValue(rawRequestPayload, requestPayloadType);
-        } catch (ClassCastException e) {
-            throw new InvalidRequestStateException("Failed to convert mqtt request payload.");
-        }
-
+        RequestType requestPayload = deserializeRequestPayload(mqttRequest);
         ReplyType replyPayload = processRequestPayload(requestPayload);
+        sendReply(mqttRequest.getRequestId(), replyPayload);
+    }
 
-        Message<MqttReply<ReplyType>> replyMessage = new GenericMessage<>(
-                new MqttReply<>(
-                        replyPayload,
-                        requestId
-                ));
+    /**
+     * Validates that the incoming message is not null.
+     *
+     * @param message the message to validate
+     * @throws InvalidRequestStateException if the message is null
+     */
+    private void validateMessage(Message<MqttRequest<RequestType>> message) {
+        if (message == null) {
+            throw new InvalidRequestStateException("Message cannot be null");
+        }
+    }
+
+    /**
+     * Validates that the request contains a valid request ID.
+     *
+     * @param request the MQTT request to validate
+     * @throws InvalidRequestStateException if the request ID is null
+     */
+    private void validateRequestId(MqttRequest<RequestType> request) {
+        if (request.getRequestId() == null) {
+            throw new InvalidRequestStateException("Request ID cannot be null");
+        }
+    }
+
+    /**
+     * Deserializes the request payload from the MQTT request.
+     *
+     * @param mqttRequest the MQTT request containing the payload
+     * @return the deserialized request payload
+     * @throws InvalidRequestStateException if deserialization fails
+     */
+    private RequestType deserializeRequestPayload(MqttRequest<RequestType> mqttRequest) {
+        Object rawPayload = extractRawPayload(mqttRequest);
+        JavaType payloadType = determineRequestPayloadType();
+
+        try {
+            return objectMapper.convertValue(rawPayload, payloadType);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidRequestStateException("Failed to deserialize request payload.", e);
+        }
+    }
+
+    /**
+     * Extracts and validates the raw payload from the MQTT request.
+     *
+     * @param mqttRequest the MQTT request containing the payload
+     * @return the raw payload object
+     * @throws InvalidRequestStateException if the payload is null
+     */
+    private Object extractRawPayload(MqttRequest<RequestType> mqttRequest) {
+        Object rawPayload = mqttRequest.getPayload();
+        if (rawPayload == null) {
+            throw new InvalidRequestStateException("Request payload cannot be null");
+        }
+        return rawPayload;
+    }
+
+    /**
+     * Determines the Java type of the request payload using reflection.
+     *
+     * @return the JavaType representing the request payload type
+     */
+    private JavaType determineRequestPayloadType() {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        return TypeFactory.defaultInstance()
+                .constructType(genericSuperclass.getActualTypeArguments()[0]);
+    }
+
+    /**
+     * Creates and sends a reply message through the MQTT reply channel.
+     *
+     * @param requestId    the ID of the original request
+     * @param replyPayload the payload to be sent in the reply
+     */
+    private void sendReply(UUID requestId, ReplyType replyPayload) {
+        MqttReply<ReplyType> mqttReply = new MqttReply<>(replyPayload, requestId);
+        Message<MqttReply<ReplyType>> replyMessage = new GenericMessage<>(mqttReply);
         mqttReplyOutboundChannel.send(replyMessage);
     }
 
