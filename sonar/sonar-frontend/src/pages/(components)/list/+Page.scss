@@ -50,10 +50,11 @@ button {
 }
 
 .sonar-content-buffer-begin {
-  min-height: 12vh; // auch auf mobil gut ausgerichtet
+  min-height: 14vh;
+  width: 1px;
 }
 
 .sonar-content-buffer-end {
-  //min-height: 0; // wird scheinbar gar nicht benötigt
+  min-height: 12vh;
   width: 1px;
 }
