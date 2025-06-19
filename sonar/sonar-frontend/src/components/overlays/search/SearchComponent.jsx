@@ -1,35 +1,40 @@
-import React, {useEffect, useState} from "react";
-import {TextField} from "@mui/material";
+import React, {useState} from "react";
 import "@fontsource/roboto/800.css";
-import {BaseComponent} from "../../base/BaseComponent.jsx";
 import "./SearchComponent.scss"
+import {navigate} from "vike/client/router";
+import {BaseComponent} from "../../base/BaseComponent.jsx";
 
-export function SearchComponent({sendDataToParent}) {
+export function SearchComponent({onCloseClick}) {
 
-    const [query, setQuery] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        const timeOutId = setTimeout(() => console.debug("Inserted search after delay: " + query), 500);
-        return () => clearTimeout(timeOutId);
-    }, [query]);
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        const queryParams = new URLSearchParams();
+
+        if (searchTerm) {
+            queryParams.append("name", searchTerm);
+        }
+
+
+        const filterUrl = `http://localhost:8081/api/v1/events/search?${queryParams.toString()}`;
+        await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
+    }
 
     return (
         <>
-            <BaseComponent sendDataToParent={sendDataToParent}/>
-
-            <div className="input-container">
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    fullWidth
-                    label="Eventsuche"
-                    onChange={(e) => {
-                        setQuery(e.target.value)
-                    }}
-                />
-
-                <p style={{color: 'black', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Roboto'}}>Geht
-                    natürlich noch nicht :)</p>
+            <div className="search-overlay">
+                <div className="search-header">
+                    <h1>Eventsuche</h1>
+                    <BaseComponent sendDataToParent={onCloseClick}/>
+                </div>
+                <div className="input-container">
+                    <form onSubmit={handleSubmit}>
+                        <input className="search-input" placeholder="Eventname" minLength={3} required={true} onChange={(e) => setSearchTerm(e.target.value)}/>
+                        <button className="search-button" type="submit">Suchen</button>
+                    </form>
+                </div>
             </div>
         </>
     )
