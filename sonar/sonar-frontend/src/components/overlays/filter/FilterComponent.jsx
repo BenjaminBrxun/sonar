@@ -9,7 +9,8 @@ import {navigate} from "vike/client/router";
 
 
 export function FilterComponent({onCloseClick}) {
-    const [selected, setSelected] = React.useState(null);
+    const [priceSelected, setPriceSelected] = React.useState(null);
+    const [restrictedSelected, setRestrictedSelected] = React.useState(null);
     const [multiSelected, setMultiSelected] = React.useState([]);
     const [dateFrom, setDateFrom] = React.useState("");
     const [dateTo, setDateTo] = React.useState("");
@@ -50,14 +51,7 @@ export function FilterComponent({onCloseClick}) {
             const endTimestamp = new Date(dateTo).getTime();
             queryParams.append("endDate", endTimestamp);
         }
-        try {
-            const response = await fetch(`http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}` );
-            const data = await response.json();
-            console.log("Gefilterte Events: ", data);
 
-        } catch (err) {
-            console.log("Fehler beim Filteren: ", err);
-        }
 
         const filterUrl = `http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}`;
         await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
@@ -78,8 +72,8 @@ export function FilterComponent({onCloseClick}) {
                         Zeitraum
                     </legend>
                     <div>
-                        <span><label>Von <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
-                        <span><label>   Bis <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
+                        <span><label>Von <input type="date" required={true} value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
+                        <span><label>   Bis <input type="date" required value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -87,8 +81,8 @@ export function FilterComponent({onCloseClick}) {
                     <div>
                         <HighlightGroup
                             options={prices}
-                            selected={selected}
-                            setSelected={setSelected}
+                            selected={priceSelected}
+                            setSelected={setPriceSelected}
                         />
                     </div>
                 </fieldset>
@@ -97,8 +91,8 @@ export function FilterComponent({onCloseClick}) {
                     <div>
                         <HighlightGroup
                             options={restricted}
-                            selected={selected}
-                            setSelected={setSelected}
+                            selected={restrictedSelected}
+                            setSelected={setRestrictedSelected}
                         />
                     </div>
                 </fieldset>

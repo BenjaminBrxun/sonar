@@ -15,6 +15,7 @@ export default function Test() {
     const {urlParsed} = usePageContext();
     const linkFromQuery = urlParsed.search?.link;
     const link = linkFromQuery || "http://localhost:8081/api/v1/events/all"
+    console.log("list +Page aufgerufen");
     return (<>
             <ListComponent link={link} />
         </>
