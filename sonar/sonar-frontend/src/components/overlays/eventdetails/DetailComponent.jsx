@@ -38,7 +38,7 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                             <div className="sonar-eventcard_top-icon">
                                 <Button size="small"><BookmarkIcon/></Button>
                             </div>
-                            <div id="sonar-eventcard_top-icon-buffer"></div>
+                            <div className="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-cancel">
                                 <Button><CancelIcon/></Button>
                             </div>
