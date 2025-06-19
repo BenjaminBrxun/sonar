@@ -4,9 +4,11 @@ import "./InteractiveMap.scss"
 
 export const InteractiveMap = () => {
     return (
-        <>
-            <img src={map} alt={"Interactive Map"} className="sonar-map_image"/>
-            <h1>Tüdelüüü</h1>
-        </>
+        <div className="interactiveMap-container">
+            <img src={map} alt={"Interactive Map"} className="sonar-map_image" useMap="#workmap"/>
+            <map name="workmap">
+                <area shape="circle" coords="200,200,50" alt="Computer" href="localhost:8080"/>
+            </map>
+        </div>
     )
 }
