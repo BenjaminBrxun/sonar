@@ -1,20 +1,146 @@
-.placeholder-container {
+.filter-overlay {
+  width: 400px;
+  z-index: 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  position: absolute;
-  top: 0;
-  z-index: 1000;
+  background: white;
+  opacity: 0.95;
+  border-radius: 25px;
 }
 
-.placeholder {
-  font-size: 35px;
-  z-index: 1000;
-  position: absolute;
-  color: black;
-  text-align: center;
-  font-weight: bold;
+h1 {
+  text-decoration: underline #FABB22;
 }
+
+.filter-header {
+  height: 10%;
+}
+
+.form-container{
+  top: -3vh;
+  height: 85%;
+  display:flex;
+}
+
+.filter-button {
+  margin: 0.3rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid #888;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #FABB22;
+  }
+
+  &.active {
+    background-color: #FABB22;
+    border-color: black;
+  }
+}
+
+.send-button {
+  margin: 0.3rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid #888;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #FABB22;
+  }
+
+  &:active {
+    background-color: #FABB22;
+    border-color: black;
+  }
+}
+
+.reset-button {
+  margin: 0.3rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid #888;
+  background-color: #bd2424;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #ff0000;
+  }
+
+  &:active {
+    background-color: #ff6666;
+    border-color: black;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 10rem;
+}
+
+.filter-body {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.filter-footer {
+  left: 0;
+  bottom: 25px;
+  right: 0;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%
+}
+
+fieldset {
+  border: none !important;
+  margin: 15px;
+  background: none !important;
+}
+
+//Slider Styling für Firefox (moz) und den Rest.
+input[type="range"]::-webkit-slider-runnable-track {
+  background: black;
+  height: 0.25rem;
+  border-radius: 5%;
+}
+input[type="range"]::-moz-range-track {
+  background: black;
+  height: 0.25rem;
+  border-radius: 5%;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 50%;
+  background-color: #FABB22;
+  height: 1rem;
+  width: 1rem;
+}
+
