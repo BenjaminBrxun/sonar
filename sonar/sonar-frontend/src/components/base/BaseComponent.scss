@@ -14,6 +14,24 @@
   right: -80px;
 }
 
+.icon-container:hover {
+    cursor: pointer;
+  .cancel-icon {
+    color: #ffd35f;
+    font-size: 2.8em !important;
+    z-index: 10;
+  }
+}
+
+.icon-container:active {
+  cursor: pointer;
+  .cancel-icon {
+    color: #a17a07;
+    font-size: 2.8em !important;
+    z-index: 10;
+  }
+}
+
 .cancel-icon {
   color: #FABB22;
   font-size: 2.8em !important;
