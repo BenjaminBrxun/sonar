@@ -1,5 +1,8 @@
 package de.sonar.sonar.model;
 
+import de.sonar.sonar.model.state.EventState;
+import de.sonar.sonar.model.state.EventStateConverter;
+import de.sonar.sonar.model.state.NewEventState;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +39,7 @@ public class Event {
     @ManyToOne
     private AdministrativeUser processor;
 
-    private String status;
+    @Convert(converter = EventStateConverter.class)
+    private EventState eventState = new NewEventState();
 
 }

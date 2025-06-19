@@ -2,6 +2,7 @@ package de.sonar.sonar.repositories;
 
 import de.sonar.sonar.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -30,4 +31,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     // Datum + Kategorien + Name
     List<Event> findAllByStartDateBetweenAndCategoriesAndNameContainingIgnoreCase(Date startDate, Date endDate, List<String> categories, String name);
+
+    @Query("SELECT e FROM Event e WHERE e.eventState = :#{#type.getSimpleName()}")
+    List<Event> findAllByEventStateType(Class<?> type);
+
+
 }

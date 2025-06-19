@@ -91,7 +91,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .endDate(new Date(1749148767000l))
                 .applicant(applicant1)
                 .processor(administrativeUser1)
-                .status("offen")
                 .build();
         Event event2 = Event.builder()
                 .name("Familienfest im Stadtpark")
@@ -101,7 +100,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .endDate(new Date(1749405600000l))
                 .applicant(applicant2)
                 .processor(administrativeUser2)
-                .status("offen")
                 .build();
 
         Event event3 = Event.builder()
@@ -112,7 +110,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .endDate(new Date(1749751200000l))
                 .applicant(applicant3)
                 .processor(administrativeUser2)
-                .status("offen")
                 .build();
 
         Event event4 = Event.builder()
@@ -123,7 +120,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .endDate(new Date(1749148767000l))
                 .applicant(applicant4)
                 .processor(administrativeUser1)
-                .status("offen")
                 .build();
         // Events speichern
         eventRepository.save(event1);
