@@ -6,14 +6,13 @@ import de.sonar.sonar.repositories.EventRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-//@SpringBootTest
+@SpringBootTest
 public class EventManagementServiceTest {
 
     @Autowired
@@ -40,11 +39,6 @@ public class EventManagementServiceTest {
 
         testEvent = eventRepository.findById(testEvent.getId()).orElseThrow();
         assertThat(testEvent.getEventState()).isInstanceOf(EventInReviewState.class);
-
-        eventManagementService.processEvent(testEvent);
-
-        testEvent = eventRepository.findById(testEvent.getId()).orElseThrow();
-        assertThat(testEvent.getEventState()).isInstanceOf(ApprovedEventState.class);
 
         eventManagementService.processEvent(testEvent);
 

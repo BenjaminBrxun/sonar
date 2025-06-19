@@ -26,13 +26,13 @@ public class EventSchedulerService {
     @PostConstruct
     public void initializeScheduledTasks() {
         // Schedule all deployed events that haven't ended yet
-        eventRepository.findAllByEventStateType(DeployedEventState.class)
+        eventRepository.findAllByEventState(new DeployedEventState())
                 .stream()
                 .filter(event -> event.getEndDate().after(new Date()))
                 .forEach(this::scheduleArchiving);
 
         // Schedule final deletion for all deleted events
-        eventRepository.findAllByEventStateType(DeleteEventState.class)
+        eventRepository.findAllByEventState(new DeployedEventState())
                 .forEach(this::scheduleDeletion);
     }
 
