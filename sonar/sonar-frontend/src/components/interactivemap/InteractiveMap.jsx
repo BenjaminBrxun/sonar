@@ -4,6 +4,9 @@ import "./InteractiveMap.scss"
 
 export const InteractiveMap = () => {
     return (
-        <img src={map} alt={"Interactive Map"} className="sonar-map_image"/>
+        <>
+            <img src={map} alt={"Interactive Map"} className="sonar-map_image"/>
+            <h1>Tüdelüüü</h1>
+        </>
     )
 }
