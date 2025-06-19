@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
+import CancelIcon from '@mui/icons-material/Cancel';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import image from "../../../assets/images/event-mocks/gaming.png"
 import map from "../../../assets/images/map_dark.png"
@@ -38,8 +39,8 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                                 <Button size="small"><BookmarkIcon/></Button>
                             </div>
                             <div id="sonar-eventcard_top-icon-buffer"></div>
-                            <div className="sonar-eventcard_top-details">
-                                <Button size="small">X</Button>
+                            <div className="sonar-eventcard_top-cancel">
+                                <Button><CancelIcon/></Button>
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">
@@ -89,9 +90,9 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                             <p className="sonar-eventcard_content_text-location">
                                 Adresse<br/>{locate}<br/>{address}
                             </p>
-                            <p className="sonar-eventcard_content_text-button">
+                            <div className="sonar-eventcard_content_text-button">
                                 <button>Route auf Google Maps</button>
-                            </p>
+                            </div>
                         </div>
                     </CardContent>
                 </div>
