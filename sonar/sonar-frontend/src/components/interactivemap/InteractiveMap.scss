@@ -1,24 +1,4 @@
 /*
-.interactiveMap-container{
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-}
-
-.sonar-map_image {
-  //width: 100%;
-  //height: 100%;
-  //object-fit: cover;
-  //object-position: center;
-  position: absolute;
-  overflow: scroll;
-  z-index: -1;
-}
 .interactiveMap-container::after {
   content: "";
   position: absolute;
@@ -51,8 +31,24 @@ map{
 
 
 .interactiveMap-container {
-  position: relative;
-  padding: 1rem;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.sonar-map_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  overflow: scroll;
+  z-index: -1;
 }
 
 .image-wrapper {
@@ -62,8 +58,8 @@ map{
 
 .circle {
   position: absolute;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   box-shadow: 0px 0px 1px 1px #0000001a;
   pointer-events: none;
@@ -79,9 +75,14 @@ map{
 
 @keyframes pulse-animation {
   0% {
-    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 0px rgba(102, 255, 153, 0.2);
   }
   100% {
-    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 20px rgba(102, 255, 153, 0);
   }
+}
+
+.c1{
+  top: 480px;
+  left: 200px;
 }
