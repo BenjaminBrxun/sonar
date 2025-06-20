@@ -1,6 +1,6 @@
 package de.sonar.sonar.controllers;
 
-import de.sonar.sonar.model.Event;
+import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.services.EventService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;

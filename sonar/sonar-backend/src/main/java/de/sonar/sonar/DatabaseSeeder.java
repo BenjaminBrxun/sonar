@@ -1,6 +1,7 @@
 package de.sonar.sonar;
 
-import de.sonar.sonar.model.*;
+import de.sonar.sonar.model.entity.*;
+import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -92,6 +93,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .startDate(new Date(1749119967000l))
                 .endDate(new Date(1749148767000l))
                 .applicant(applicant1)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
                 .build();
         Event event2 = Event.builder()
@@ -101,6 +103,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749405600000l))
                 .applicant(applicant2)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
                 .build();
 
@@ -111,6 +114,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749751200000l))
                 .applicant(applicant3)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
                 .build();
 
@@ -121,6 +125,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .startDate(new Date(1749119967000l))
                 .endDate(new Date(1749148767000l))
                 .applicant(applicant4)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
                 .build();
         // Events speichern

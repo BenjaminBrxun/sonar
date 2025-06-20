@@ -1,14 +1,15 @@
 package de.sonar.sonar.model.state;
 
-import de.sonar.sonar.model.Event;
+
+import de.sonar.sonar.model.enums.EventStatus;
 
 public interface EventState {
 
-    // Todo: Optional: Send notification, that the event is state is changed (email, websocket, app notification)
-    void handleEvent(Event event);
+    void proceed(EventContext context);
 
-    default void deleteEvent(Event event) {
-        event.setEventState(new DeleteEventState());
+    default void delete(EventContext context) {
+        context.getEvent().setStatus(EventStatus.DELETED);
+        context.setState(new EventDeletedState());
     }
 
 }

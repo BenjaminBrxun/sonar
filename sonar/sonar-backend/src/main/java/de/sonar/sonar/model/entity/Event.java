@@ -1,8 +1,6 @@
-package de.sonar.sonar.model;
+package de.sonar.sonar.model.entity;
 
-import de.sonar.sonar.model.state.EventState;
-import de.sonar.sonar.model.state.EventStateConverter;
-import de.sonar.sonar.model.state.NewEventState;
+import de.sonar.sonar.model.enums.EventStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,7 +37,11 @@ public class Event {
     @ManyToOne
     private AdministrativeUser processor;
 
-    @Convert(converter = EventStateConverter.class)
-    private EventState eventState = new NewEventState();
+    @Enumerated(EnumType.STRING)
+    private EventStatus status = EventStatus.UNDER_EDITING;
+
+    public boolean isNew() {
+        return this.id <= 0;
+    }
 
 }

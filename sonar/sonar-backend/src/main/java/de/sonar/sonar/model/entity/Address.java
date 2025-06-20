@@ -1,4 +1,4 @@
-package de.sonar.sonar.model;
+package de.sonar.sonar.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

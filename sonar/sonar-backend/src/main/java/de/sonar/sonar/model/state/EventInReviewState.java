@@ -1,16 +1,18 @@
 package de.sonar.sonar.model.state;
 
-import de.sonar.sonar.model.Event;
+import de.sonar.sonar.model.enums.EventStatus;
 
 public class EventInReviewState implements EventState {
 
     @Override
-    public void handleEvent(Event event) {
-        event.setEventState(new ApprovedEventState());
+    public void proceed(EventContext context) {
+        context.getEvent().setStatus(EventStatus.APPROVED);
+        context.setState(new EventApprovedState());
     }
 
-    public void disapproveEvent(Event event) {
-        this.deleteEvent(event);
+    public void decline(EventContext context) {
+        context.getEvent().setStatus(EventStatus.DECLINED);
+        context.setState(new EventDeclinedState());
     }
 
 }
