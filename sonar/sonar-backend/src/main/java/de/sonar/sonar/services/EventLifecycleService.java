@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class EventLifecycleService {
 
     private final EventRepository eventRepository;
+    private final EventDeletionSchedulerService eventDeletionSchedulerService;
 
     @Transactional
     public Event submitNewEvent(Event event) {
@@ -71,6 +72,7 @@ public class EventLifecycleService {
         validateExistingEvent(event);
         EventContext context = new EventContext(event);
         context.delete();
+        eventDeletionSchedulerService.scheduleDeletion(event);
     }
 
     private static void validateNewEvent(Event event) {

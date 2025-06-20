@@ -1,9 +1,11 @@
 package de.sonar.sonar.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.sonar.sonar.model.enums.EventStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventStatus status = EventStatus.UNDER_EDITING;
+
+    @JsonIgnore
+    private OffsetDateTime deletedStateAt;
 
     public boolean isNew() {
         return this.id <= 0;

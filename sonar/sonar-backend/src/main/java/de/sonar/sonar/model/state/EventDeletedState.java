@@ -7,6 +7,7 @@ public class EventDeletedState implements EventState {
     @Override
     public void proceed(EventContext context) {
         context.getEvent().setStatus(EventStatus.UNDER_EDITING);
+        context.getEvent().setDeletedStateAt(null);
         context.setState(new UnderEditingEventState());
     }
 
