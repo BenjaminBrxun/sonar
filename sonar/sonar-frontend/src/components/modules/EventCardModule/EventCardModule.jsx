@@ -8,11 +8,23 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
 
-export default function EventCardModule({title, date, costs, image}) {
+export default function EventCardModule({title, date, costs, image, restricted}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     function dataToImage(data) {
         return Buffer.from(data, 'binary').toString('base64');
+    }
+
+    function restrictedToString(restricted) {
+        if(restricted) {
+            return "Mit Anmeldung";
+        } else {
+            return "Ohne Anmeldung";
+        }
+    }
+
+    function costsWithCurrency(costs) {
+        return costs + " €";
     }
 
     return (
@@ -42,7 +54,7 @@ export default function EventCardModule({title, date, costs, image}) {
                                 <label>Heudde</label>
                             </div>
                             <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
-                                <label>Ausjebuucht</label>
+                                <label>{restrictedToString(restricted)}</label>
                             </div>
                         </CardActions>
                     </div>
@@ -60,7 +72,7 @@ export default function EventCardModule({title, date, costs, image}) {
                                 Datum: {date}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
-                                {costs}
+                                {costsWithCurrency(costs)}
                             </p>
                         </div>
                     </CardContent>

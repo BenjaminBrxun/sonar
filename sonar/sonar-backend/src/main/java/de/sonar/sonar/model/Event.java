@@ -38,4 +38,10 @@ public class Event {
 
     private String status;
 
+    private float price;
+
+    private int minAge;
+
+    private boolean restricted;
+
 }
