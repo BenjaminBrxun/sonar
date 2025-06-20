@@ -49,7 +49,7 @@ public class EventDeletionSchedulerService {
     }
 
     @PostConstruct
-    public void recoverDeletedEventsOnStartup() {
+    private void recoverDeletedEventsOnStartup() {
         log.info("Schedule events for deletion on startup.");
         List<Event> deleted = eventRepository.findAllDeletedEvents();
 

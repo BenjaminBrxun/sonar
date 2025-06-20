@@ -3,17 +3,21 @@ package de.sonar.sonar;
 import de.sonar.sonar.model.entity.*;
 import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Component
 @Profile("!test")
+@RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final EventRepository eventRepository;
@@ -23,18 +27,8 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final InterestsProfileRepository interestsProfileRepository;
 
-    @Autowired
-    public DatabaseSeeder(EventRepository eventRepository, CategoryRepository categoryRepository, OrganizerRepository organizerRepository, AdministrativeUserRepository administrativeUserRepository, UserRepository userRepository, InterestsProfileRepository interestsProfileRepository) {
-        this.eventRepository = eventRepository;
-        this.categoryRepository = categoryRepository;
-        this.organizerRepository = organizerRepository;
-        this.administrativeUserRepository = administrativeUserRepository;
-        this.userRepository = userRepository;
-        this.interestsProfileRepository = interestsProfileRepository;
-    }
-
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Category category1 = Category.builder()
                 .name("Sport")
@@ -90,8 +84,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Kleinfeld-Fußball Turnier")
                 .address(address1)
                 .categories(categoryList1)
-                .startDate(new Date(1749119967000l))
-                .endDate(new Date(1749148767000l))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
                 .applicant(applicant1)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
@@ -100,8 +94,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Familienfest im Stadtpark")
                 .address(address2)
                 .categories(categoryList2)
-                .startDate(new Date(1749384000000l))
-                .endDate(new Date(1749405600000l))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749405600000L), ZoneId.systemDefault()))
                 .applicant(applicant2)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
@@ -111,8 +105,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Ferienlager")
                 .address(address2)
                 .categories(categoryList3)
-                .startDate(new Date(1749384000000l))
-                .endDate(new Date(1749751200000l))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749751200000L), ZoneId.systemDefault()))
                 .applicant(applicant3)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
@@ -122,8 +116,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Großfeld-Fußball Turnier")
                 .address(address1)
                 .categories(categoryList1)
-                .startDate(new Date(1749119967000l))
-                .endDate(new Date(1749148767000l))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
                 .applicant(applicant4)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)

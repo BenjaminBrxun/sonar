@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -29,9 +28,11 @@ public class Event {
     @ManyToMany
     private List<Category> categories;
 
-    private Date startDate;
+    @Column(nullable = false)
+    private OffsetDateTime startDate;
 
-    private Date endDate;
+    @Column(nullable = false)
+    private OffsetDateTime endDate;
 
     @OneToOne
     private Organizer applicant;

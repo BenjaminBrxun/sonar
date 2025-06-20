@@ -14,6 +14,7 @@ public class EventLifecycleService {
 
     private final EventRepository eventRepository;
     private final EventDeletionSchedulerService eventDeletionSchedulerService;
+    private final EventArchivalSchedulerService eventArchivalSchedulerService;
 
     @Transactional
     public Event submitNewEvent(Event event) {
@@ -26,6 +27,9 @@ public class EventLifecycleService {
         validateExistingEvent(event);
         EventContext context = new EventContext(event);
         context.proceed();
+        if (context.getState() instanceof EventDeployedState) {
+            eventArchivalSchedulerService.scheduleArchival(event);
+        }
         return eventRepository.save(event);
     }
 
