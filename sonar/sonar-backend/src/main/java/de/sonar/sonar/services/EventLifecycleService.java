@@ -69,7 +69,8 @@ public class EventLifecycleService {
     @Transactional
     public void deleteEvent(Event event) {
         validateExistingEvent(event);
-        eventRepository.delete(event);
+        EventContext context = new EventContext(event);
+        context.delete();
     }
 
     private static void validateNewEvent(Event event) {

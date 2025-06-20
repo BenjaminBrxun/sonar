@@ -6,10 +6,14 @@ import de.sonar.sonar.repositories.EventRepository;
 import de.sonar.sonar.services.EventLifecycleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -126,6 +130,34 @@ public class EventLifecycleServiceTest {
         assertThat(testEvent.getStatus())
                 .as("Event should return to archived")
                 .isEqualTo(EventStatus.ARCHIVED);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideEventStates")
+    void testDeleteEventFromDifferentStates(EventStatus initialStatus) {
+        // Arrange
+        testEvent.setStatus(initialStatus);
+        eventRepository.save(testEvent);
+
+        // Act
+        eventLifecycleService.deleteEvent(testEvent);
+
+        // Assert deleted state
+        assertThat(testEvent.getStatus())
+                .as("Event should be deleted")
+                .isEqualTo(EventStatus.DELETED);
+    }
+
+    private static Stream<Arguments> provideEventStates() {
+        return Stream.of(
+                Arguments.of(EventStatus.UNDER_EDITING),
+                Arguments.of(EventStatus.IN_REVIEW),
+                Arguments.of(EventStatus.APPROVED),
+                Arguments.of(EventStatus.DECLINED),
+                Arguments.of(EventStatus.DEPLOYED),
+                Arguments.of(EventStatus.CANCELLED),
+                Arguments.of(EventStatus.ARCHIVED)
+        );
     }
 
 
