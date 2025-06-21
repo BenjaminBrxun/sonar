@@ -18,6 +18,7 @@ const locate = "Stadtpark Herne"
 const address = "Musterstraße 1, 44623 Herne"
 const headline = "Seid dabei, wenn das Jugendzentrum in Herne zur Gaming-Arena wird!"
 const text = "Auf mehreren Konsolen können Jugendliche und junge Erwachsene ihr Können in beliebten Spielen wie Mario Kart\", FIFA\" und „Fortnite\" unter Beweis stellen.\n\nNeben spannenden Turnieren gibt es Retro-Gaming-Ecken und Virtual-Reality-Stationen für echte Highlights. Snacks und Getränke stehen bereit, um euch durch die Nacht zu bringen. Holt euch die Controller und zeigt, wer der Boss ist!"
+const linktomaps = "https://www.google.com/maps/place/Herne/@51.5382671,7.1688761,10911m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47b8e1836478a315:0x427f28131548780!8m2!3d51.5368948!4d7.2009147!16zL20vMDE4aG5z?authuser=0&entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
 
 
 export function DetailComponent() { //eigentlich {title, date, costs, image} hier als Argument
@@ -91,7 +92,7 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                                 Adresse<br/>{locate}<br/>{address}
                             </p>
                             <div className="sonar-eventcard_content_text-button">
-                                <button>Route auf Google Maps</button>
+                                <a href={linktomaps}>Route auf Google Maps</a>
                             </div>
                         </div>
                     </CardContent>
