@@ -9,7 +9,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import image from "../../../assets/images/event-mocks/gaming.png"
-import map from "../../../assets/images/map_dark.png"
+//import map from "../../../assets/images/map_dark.png"
 
 const title = "Gaming Night im Jugendzentrum";
 const date = "09.01.2025 ab 18:00 Uhr"
@@ -83,11 +83,7 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                                     <label>Computer</label>
                                 </div>
                             </CardActions>
-                            <CardMedia className="sonar-eventcard_media"
-                                       component="img"
-                                       alt="family"
-                                       image={map}
-                            />
+                            <iframe className="sonar-eventcard_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.326769624289!2d7.233790842804277!3d51.543906835387396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8e1f60f2bd079%3A0xced4b1949a1d5e26!2sHerner%20Stadtgarten%2C%20Herne!5e0!3m2!1sde!2sde!4v1750675117560!5m2!1sde!2sde"></iframe>
                             <p className="sonar-eventcard_content_text-location">
                                 Adresse<br/>{locate}<br/>{address}
                             </p>
@@ -100,5 +96,4 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
             </div>
         </Card>
     )
-
 }
