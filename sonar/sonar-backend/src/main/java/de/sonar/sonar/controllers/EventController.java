@@ -62,7 +62,7 @@ public class EventController {
      */
     @GetMapping("/events/filter")
     public List<Event> findAllByCategoriesAndNameAndDateBetween(@RequestParam(required = false) List<Long> categories, @RequestParam(required = false) String name, @RequestParam(required = false) Long startDate, @RequestParam(required = false) Long endDate, @RequestParam(required = false) Float price, @RequestParam(required = false) Boolean restricted, @RequestParam(required = false) Integer minAge) {
-        return eventService.findAllTest(categories, name, startDate, endDate, price, restricted, minAge);
+        return eventService.findAllWithMatchingCriteria(categories, name, startDate, endDate, price, restricted, minAge);
     }
 
 }

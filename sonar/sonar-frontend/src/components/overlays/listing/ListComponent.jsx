@@ -28,7 +28,7 @@ export function ListComponent({link}) {
                 {/*<EventCardModule costs={"5€ (ab 14 Jahren)"} date={"09.06.2025, ab 19:30 Uhr"} image={eventCardImageParty} title={"U20-Party"}/>*/}
                 {/*<EventCardModule costs={"Kostenlos"} date={"08.07.2025, ab 14:00 Uhr"} image={eventCardImageFamily} title={"Familienfest"}/>*/}
                 {/*<EventCardModule costs={"5€ (Kinder unter 6 kostenlos"} date={"26.07.2025, ab 12:00 Uhr"} image={eventCardImagePark} title={"Grillen im Park"}/>*/}
-                {events.map((event) => (<EventCardModule costs={event.price} date={event.startDate} image={eventCardImagePark} title={event.name} key={event.id}/>)
+                {events.map((event) => (<EventCardModule costs={event.price} date={event.startDate} image={eventCardImagePark} restricted={event.restricted} title={event.name} key={event.id}/>)
                 )}
                 <div className="sonar-content-buffer-end"></div>
             </div>

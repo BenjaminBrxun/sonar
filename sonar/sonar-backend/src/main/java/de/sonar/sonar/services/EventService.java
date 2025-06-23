@@ -4,6 +4,7 @@ import de.sonar.sonar.model.Category;
 import de.sonar.sonar.model.Event;
 import de.sonar.sonar.repositories.EventRepository;
 import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import jakarta.persistence.criteria.Predicate;
 
 @Service
 public class EventService {
@@ -42,7 +41,7 @@ public class EventService {
         return eventRepository.findAllByNameContainingIgnoreCase(name);
     }
 
-    public List<Event> findAllTest(List<Long> categories, String name, Long  startDateInMilliseconds, Long endDateInMilliseconds, Float price, Boolean restricted, Integer minAge) {
+    public List<Event> findAllWithMatchingCriteria(List<Long> categories, String name, Long startDateInMilliseconds, Long endDateInMilliseconds, Float price, Boolean restricted, Integer minAge) {
         Date startDate = (startDateInMilliseconds == null) ? null : new Date(startDateInMilliseconds);
         Date endDate = (endDateInMilliseconds == null) ? null : new Date(endDateInMilliseconds);
         return eventRepository.findAll(
@@ -50,7 +49,19 @@ public class EventService {
         );
     }
 
-    public static Specification<Event> buildEventFilter(
+    /**
+     * Erzeugt abhängig der übergebenen Parameter eine SQL-Abfrage, welche dann zurückgegeben wird.
+     *
+     * @param name        Begriff, der im Titel der Events enthalten ist
+     * @param categoryIds IDs der Kategorien
+     * @param startDate   Anfangsdatum
+     * @param endDate     Enddatum
+     * @param price       Kosten
+     * @param restricted  Anmeldung nötig
+     * @param minAge      Altersgrenze
+     * @return eine Spezifikation, welche im {@link EventRepository} genutzt wird, um die passenden Events zu finden.
+     */
+    private Specification<Event> buildEventFilter(
             String name,
             List<Long> categoryIds,
             Date startDate,

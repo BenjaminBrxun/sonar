@@ -27,6 +27,32 @@ export default function EventCardModule({title, date, costs, image, restricted})
         return costs + " €";
     }
 
+    function dateToDateSpan(date) {
+        console.log(date);
+        let dateFormat = new Date(date);
+        let milliseconds = dateFormat.getTime();
+        console.log(milliseconds);
+        let today = new Date();
+        let difference = today.getTime() - milliseconds;
+        console.log(difference);
+
+        if(difference > 0) {
+            return ["vergangen", "_past"]
+        }
+
+        if(difference <= 86400000 && difference >= -86400000) {
+            return ["heute", "_today"]
+        }
+
+        if(difference < 0 && difference >= -259200000) {
+            return ["in kürze", "_next"]
+        }
+
+        if(difference < -259200000) {
+            return ["zukünftig", "_soon"]
+        }
+    }
+
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
@@ -50,10 +76,10 @@ export default function EventCardModule({title, date, costs, image, restricted})
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">
-                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
-                                <label>Heudde</label>
+                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date" + (dateToDateSpan(date)[1])}>
+                                <label>{dateToDateSpan(date)[0]}</label>
                             </div>
-                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
+                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration" + (restricted ? '_needed' : '')}>
                                 <label>{restrictedToString(restricted)}</label>
                             </div>
                         </CardActions>
