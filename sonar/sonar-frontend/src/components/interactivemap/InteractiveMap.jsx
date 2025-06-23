@@ -5,11 +5,12 @@ import "./InteractiveMap.scss"
 export const InteractiveMap = () => {
     return (
         <div className="interactiveMap-container">
-            <img src={map} alt={"Interactive Map"} className="sonar-map_image" useMap="#map"/>
-            <map name="map">
-                <area shape="circle" coords="215,495,15" alt="Computer" href="https://klpt.de/cdn/shop/files/Klappt._Logo_1500x1500_Zeichenflaeche_1.png?height=628&pad_color=f5f7f6&v=1659013043&width=1200"/>
-            </map>
-            <div className="circle pulse green c1"/>
+            <img src={map} alt={"Interactive Map"} className="sonar-map_image"/>
+            <div className="circle c1 green pulse" title="Ort A" onClick={() => alert('Ort A!')}></div>
+            <div className="circle c2 green pulse" title="Ort B" onClick={() => alert('Ort B!')}></div>
+            <div className="circle c3 green pulse" title="Ort C" onClick={() => alert('Ort C!')}></div>
+            <div className="circle c4 green pulse" title="Ort D" onClick={() => alert('Ort D!')}></div>
+            <div className="circle c5 green pulse" title="Ort E" onClick={() => alert('Ort E!')}></div>
         </div>
     );
 };
