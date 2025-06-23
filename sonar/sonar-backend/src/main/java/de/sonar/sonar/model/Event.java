@@ -30,7 +30,7 @@ public class Event {
 
     private Date endDate;
 
-    @OneToOne
+    @ManyToOne
     private Organizer applicant;
 
     @ManyToOne
