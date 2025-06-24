@@ -2,9 +2,9 @@ import map from "../../assets/images/map_dark.png";
 import React from "react";
 import "./InteractiveMap.scss"
 
-export const InteractiveMap = () => {
+export const InteractiveMap = ({ isVisible = true}) => {
     return (
-        <div className="interactiveMap-container">
+        <div className={`interactiveMap-container ${isVisible ? "visible" : "hidden"}`}>
             <img src={map} alt={"Interactive Map"} className="sonar-map_image"/>
             <div className="circle c1 green pulse" title="Ort A" onClick={() => alert('Ort A!')}></div>
             <div className="circle c2 green pulse" title="Ort B" onClick={() => alert('Ort B!')}></div>
