@@ -30,12 +30,18 @@ public class Event {
 
     private Date endDate;
 
-    @OneToOne
+    @ManyToOne
     private Organizer applicant;
 
     @ManyToOne
     private AdministrativeUser processor;
 
     private String status;
+
+    private float price;
+
+    private int minAge;
+
+    private boolean restricted;
 
 }
