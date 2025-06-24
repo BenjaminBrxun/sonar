@@ -11,12 +11,13 @@ export {Layout}
 function Layout({children}) {
     const pageContext = usePageContext();
     const isFilterPage = pageContext.urlPathname.startsWith("/filter");
+    const isSearchPage = pageContext.urlPathname.startsWith("/search");
     return <>
-        {!isFilterPage && <InterfaceHeader/>}
+        {!isFilterPage && !isSearchPage && <InterfaceHeader/>}
         <div className="current-component">
             {children}
         </div>
         {<InteractiveMap/>}
-        {!isFilterPage && <InterfaceFooter/>}
+        {!isFilterPage && !isSearchPage && <InterfaceFooter/>}
     </>
 }

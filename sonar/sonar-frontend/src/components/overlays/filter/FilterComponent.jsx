@@ -9,10 +9,12 @@ import {navigate} from "vike/client/router";
 
 
 export function FilterComponent({onCloseClick}) {
-    const [selected, setSelected] = React.useState(null);
+    const [priceSelected, setPriceSelected] = React.useState(null);
+    const [restrictedSelected, setRestrictedSelected] = React.useState(null);
     const [multiSelected, setMultiSelected] = React.useState([]);
     const [dateFrom, setDateFrom] = React.useState("");
     const [dateTo, setDateTo] = React.useState("");
+    const [minAgeSelected, setMinAgeSelected] = React.useState("");
     const prices = ['Kostenlos', '€', '€€', '€€€']
     const restricted = ['ohne Anmeldung', 'mit Anmeldung']
     const categories = ['Sport', 'Museum', 'Musik', 'Fest', 'Gaming', 'Natur', 'Kino', 'Theater', 'Workshop', 'Computer', 'Ganze Familie', 'Tiere']
@@ -30,6 +32,19 @@ export function FilterComponent({onCloseClick}) {
         "Ganze Familie": 11,
         "Tiere": 12
     };
+
+    function priceToFloat(price) {
+        switch (price) {
+            case 'Kostenlos':
+                return 0
+            case '€':
+                return 5.0
+            case '€€':
+                return 10.0
+            case '€€€':
+                return 9999.99
+        }
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -50,16 +65,20 @@ export function FilterComponent({onCloseClick}) {
             const endTimestamp = new Date(dateTo).getTime();
             queryParams.append("endDate", endTimestamp);
         }
-        try {
-            const response = await fetch(`http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}` );
-            const data = await response.json();
-            console.log("Gefilterte Events: ", data);
 
-        } catch (err) {
-            console.log("Fehler beim Filteren: ", err);
+        if(priceSelected) {
+            queryParams.append("price", priceToFloat(priceSelected));
         }
 
-        const filterUrl = `http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}`;
+        if(restrictedSelected) {
+            queryParams.append("restricted", (restrictedSelected === "mit Anmeldung"));
+        }
+
+        if(minAgeSelected) {
+            queryParams.append("minAge", minAgeSelected);
+        }
+
+        const filterUrl = `http://localhost:8081/api/v1/events/filter?${queryParams.toString()}`;
         await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
 
     }
@@ -87,8 +106,8 @@ export function FilterComponent({onCloseClick}) {
                     <div>
                         <HighlightGroup
                             options={prices}
-                            selected={selected}
-                            setSelected={setSelected}
+                            selected={priceSelected}
+                            setSelected={setPriceSelected}
                         />
                     </div>
                 </fieldset>
@@ -97,14 +116,14 @@ export function FilterComponent({onCloseClick}) {
                     <div>
                         <HighlightGroup
                             options={restricted}
-                            selected={selected}
-                            setSelected={setSelected}
+                            selected={restrictedSelected}
+                            setSelected={setRestrictedSelected}
                         />
                     </div>
                 </fieldset>
                 <fieldset>
                     <legend>Mein Alter</legend>
-                    <LiveSlider name={"age"} text={" Jahre"}/>
+                    <LiveSlider name={"age"} text={" Jahre"} minAge={minAgeSelected} setMinAge={setMinAgeSelected}/>
 
                 </fieldset>
                 <fieldset>

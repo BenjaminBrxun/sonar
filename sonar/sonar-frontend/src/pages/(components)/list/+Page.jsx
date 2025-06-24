@@ -14,7 +14,8 @@ import {usePageContext} from "vike-react/usePageContext";
 export default function Test() {
     const {urlParsed} = usePageContext();
     const linkFromQuery = urlParsed.search?.link;
-    const link = linkFromQuery || "http://localhost:8081/api/v1/events/all"
+    const link = linkFromQuery || "http://localhost:8081/api/v1/events"
+    console.log("list +Page aufgerufen");
     return (<>
             <ListComponent link={link} />
         </>

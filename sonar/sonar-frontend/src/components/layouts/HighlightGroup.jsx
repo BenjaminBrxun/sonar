@@ -1,5 +1,7 @@
+// TODO: Wird nur in ListComponent genutzt und auch darüber gestyled. Also eventuell dort rein.
+
 function HighlightButton({label, isActive, onToggle}) {
-        return (
+    return (
             <button
             type="button"
             className={`filter-button ${isActive ? 'active' : ''}`}
@@ -36,6 +38,7 @@ function HighlightButton({label, isActive, onToggle}) {
             <div className="highlight-group">
                 {options.map((label) => (
                     <HighlightButton
+
                         key={label}
                         label={label}
                         isActive={selected.includes(label)}
