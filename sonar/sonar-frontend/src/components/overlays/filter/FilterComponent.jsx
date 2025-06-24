@@ -71,7 +71,7 @@ export function FilterComponent({onCloseClick}) {
         }
 
         if(restrictedSelected) {
-            queryParams.append("restriction", restrictedSelected);
+            queryParams.append("restricted", (restrictedSelected === "mit Anmeldung"));
         }
 
         if(minAgeSelected) {
