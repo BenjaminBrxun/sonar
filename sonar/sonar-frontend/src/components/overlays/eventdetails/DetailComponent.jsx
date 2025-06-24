@@ -19,6 +19,10 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
     const [event, setEvent] = useState([]);
 
     useEffect(() => {
+       fetchEvent();
+    });
+
+    const fetchEvent = () => {
         fetch(`http://localhost:8081/api/v1/event/${eventId}`)
             .then(res => res.json())
             .then(data => {
@@ -27,7 +31,7 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
             .then(() => console.log("event erhalten: ", event))
             .catch(err => console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
                 " " + err.message));
-    }, [event, eventId]);
+    }
 
     function formatAddress() {
         if(event.address !== undefined) {
