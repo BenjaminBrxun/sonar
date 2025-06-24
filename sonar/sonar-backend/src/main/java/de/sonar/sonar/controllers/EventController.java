@@ -2,14 +2,13 @@ package de.sonar.sonar.controllers;
 
 import de.sonar.sonar.model.Event;
 import de.sonar.sonar.services.EventService;
-import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/events")
+@RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
     private final EventService eventService;
@@ -35,7 +34,7 @@ public class EventController {
      *
      * @return alle Events
      */
-    @GetMapping("/all")
+    @GetMapping("/events")
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();
     }
@@ -46,68 +45,24 @@ public class EventController {
      * @param name Begriff, der im Titel enthalten ist.
      * @return alle Events mit passendem Titel.
      */
-    @GetMapping("/search")
+    @GetMapping("/events/search")
     public List<Event> getAllEventsByName(@RequestParam String name) {
         return eventService.findAllByName(name);
     }
 
-    /**
-     * Schnittstelle fürs Filtern von Events nach Kategorien.
-     *
-     * @param categories Kategorien, die den Events zugeordnet sind.
-     * @return alle Events, die zum Filter passen.
-     */
-    @GetMapping("/filter/categories")
-    public List<Event> getAllEventsByCategories(@RequestParam List<String> categories) {
-        return eventService.findAllByCategories(categories);
-    }
-
-    /**
-     * Schnittstelle fürs Filtern von Events nach Datum.
-     * Ist kein Enddatum angegeben, werden alle Events angezeigt, die zum Startdatum beginnen.
-     *
-     * @param startDate Startdatum in Millisekunden
-     * @param endDate   Enddatum in Millisekunden
-     * @return alle Events, die zum Filter passen.
-     */
-    @GetMapping("/filter/date")
-    public List<Event> getAllEventsByDateBetween(@RequestParam Long startDate, @RequestParam @Nullable Long endDate) {
-        return eventService.findAllByDateBetween(startDate, endDate);
-    }
-
-    @GetMapping("/filter/categories_name")
-    public List<Event> getAllEventsByNameAndCategories(@RequestParam String name, @RequestParam List<String> categories) {
-        return eventService.findAllByNameContainingIgnoreCaseAndCategories(name, categories);
-    }
-
-    @GetMapping("/filter/date_name")
-    public List<Event> getAllEventsByDateBetweenAndName(@RequestParam Long startDate, @RequestParam Long endDate, @RequestParam String name) {
-        return eventService.findAllByStartDateBetweenAndNameContainingIgnoreCase(startDate, endDate, name);
-    }
-
-    /**
-     * Schnittstelle fürs Filter von Events nach Kategorien und Datum.
-     * Ist kein Enddatum angegeben, werden alle Events angezeigt, die zum Startdatum beginnen.
-     *
-     * @param categories Kategorien, die den Events zugeordnet sind.
-     * @param startDate  Startdatum in Millisekunden
-     * @param endDate    Enddatum in Millisekunden
-     * @return alle Events, die zum Filter passen.
-     */
-    @GetMapping("/filter/categories_date")
-    public List<Event> getAllEventsByCategoriesAndDateBetween(@RequestParam List<String> categories, @RequestParam Long startDate, @RequestParam @Nullable Long endDate) {
-        return eventService.findAllByCategoriesAndDateBetween(categories, startDate, endDate);
-    }
 
     /**
      * @param categories Kategorien, die den Events zugeordnet sind.
      * @param name       Begriff, der im Titel enthalten ist.
      * @param startDate  Startdatum in Millisekunden
      * @param endDate    Enddatum in Millisekunden
+     * @param price      Die Kosten für den Eintritt zum Event
+     * @param restricted wahr, wenn eine Anmeldung nötig ist
      * @return alle Events, die zum Filter passen.
      */
-    @GetMapping("/filter/full")
-    public List<Event> findAllByCategoriesAndNameAndDateBetween(@RequestParam List<String> categories, @RequestParam String name, @RequestParam Long startDate, @RequestParam Long endDate) {
-        return eventService.findAllByCategoriesAndNameAndDateBetween(categories, name, startDate, endDate);
+    @GetMapping("/events/filter")
+    public List<Event> findAllByCategoriesAndNameAndDateBetween(@RequestParam(required = false) List<Long> categories, @RequestParam(required = false) String name, @RequestParam(required = false) Long startDate, @RequestParam(required = false) Long endDate, @RequestParam(required = false) Float price, @RequestParam(required = false) Boolean restricted, @RequestParam(required = false) Integer minAge) {
+        return eventService.findAllWithMatchingCriteria(categories, name, startDate, endDate, price, restricted, minAge);
     }
+
 }

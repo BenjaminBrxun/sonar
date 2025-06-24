@@ -14,6 +14,7 @@ export function FilterComponent({onCloseClick}) {
     const [multiSelected, setMultiSelected] = React.useState([]);
     const [dateFrom, setDateFrom] = React.useState("");
     const [dateTo, setDateTo] = React.useState("");
+    const [minAgeSelected, setMinAgeSelected] = React.useState("");
     const prices = ['Kostenlos', '€', '€€', '€€€']
     const restricted = ['ohne Anmeldung', 'mit Anmeldung']
     const categories = ['Sport', 'Museum', 'Musik', 'Fest', 'Gaming', 'Natur', 'Kino', 'Theater', 'Workshop', 'Computer', 'Ganze Familie', 'Tiere']
@@ -31,6 +32,19 @@ export function FilterComponent({onCloseClick}) {
         "Ganze Familie": 11,
         "Tiere": 12
     };
+
+    function priceToFloat(price) {
+        switch (price) {
+            case 'Kostenlos':
+                return 0
+            case '€':
+                return 5.0
+            case '€€':
+                return 10.0
+            case '€€€':
+                return 9999.99
+        }
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -52,8 +66,19 @@ export function FilterComponent({onCloseClick}) {
             queryParams.append("endDate", endTimestamp);
         }
 
+        if(priceSelected) {
+            queryParams.append("price", priceToFloat(priceSelected));
+        }
 
-        const filterUrl = `http://localhost:8081/api/v1/events/filter/categories_date?${queryParams.toString()}`;
+        if(restrictedSelected) {
+            queryParams.append("restricted", (restrictedSelected === "mit Anmeldung"));
+        }
+
+        if(minAgeSelected) {
+            queryParams.append("minAge", minAgeSelected);
+        }
+
+        const filterUrl = `http://localhost:8081/api/v1/events/filter?${queryParams.toString()}`;
         await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
 
     }
@@ -72,8 +97,8 @@ export function FilterComponent({onCloseClick}) {
                         Zeitraum
                     </legend>
                     <div>
-                        <span><label>Von <input type="date" required={true} value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
-                        <span><label>   Bis <input type="date" required value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
+                        <span><label>Von <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
+                        <span><label>   Bis <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -98,7 +123,7 @@ export function FilterComponent({onCloseClick}) {
                 </fieldset>
                 <fieldset>
                     <legend>Mein Alter</legend>
-                    <LiveSlider name={"age"} text={" Jahre"}/>
+                    <LiveSlider name={"age"} text={" Jahre"} minAge={minAgeSelected} setMinAge={setMinAgeSelected}/>
 
                 </fieldset>
                 <fieldset>

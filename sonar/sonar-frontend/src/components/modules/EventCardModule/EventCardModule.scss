@@ -81,11 +81,32 @@
 }
 .sonar-eventcard_tag-icon-date{
     background: orange;
+
+    &_past {
+        background: #3e2128;
+    }
+
+    &_today {
+        background: orange;
+    }
+
+    &_next {
+        background: cadetblue;
+    }
+
+    &_soon {
+        background: green;
+    }
 }
 .sonar-eventcard_tag-icon-registration{
     background: forestgreen;
     margin-left: 1vw !important;
+
+    &_needed {
+        background: deepskyblue;
+    }
 }
+
 
 .sonar-eventcard_media {
     position: relative;

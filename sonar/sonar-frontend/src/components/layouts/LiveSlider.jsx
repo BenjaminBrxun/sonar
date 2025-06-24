@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 
-export function LiveSlider({name, text}) {
+export function LiveSlider({name, text, minAge, setMinAge}) {
     const [value, setValue] = useState(12);
     const handleChange = (event) => {
         setValue(event.target.value);
+        setMinAge(event.target.value);
+        minAge = event.target.value;
+        console.log("Min age selected: ", minAge);
     }
 
     return (

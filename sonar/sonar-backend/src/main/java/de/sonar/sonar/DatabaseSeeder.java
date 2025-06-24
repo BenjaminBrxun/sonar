@@ -45,16 +45,67 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Musik")
                 .description("Lalalalala")
                 .build();
+        Category category4 = Category.builder()
+                .name("Fest")
+                .description("Gute Stimmung für die ganze Familie!")
+                .build();
+        Category category5 = Category.builder()
+                .name("Gaming")
+                .description("Entdecke den Zocker in dir!")
+                .build();
+        Category category6 = Category.builder()
+                .name("Natur")
+                .description("Ob Wald oder Wiese, frische Luft geht immer.")
+                .build();
+        Category category7 = Category.builder()
+                .name("Kino")
+                .description("Dein Ticket nach Hollywood")
+                .build();
+        Category category8 = Category.builder()
+                .name("Theater")
+                .description("Sein oder nicht sein?")
+                .build();
+        Category category9 = Category.builder()
+                .name("Workshop")
+                .description("Schaffe, schaffe, Neues lernen")
+                .build();
+        Category category10 = Category.builder()
+                .name("Computer")
+                .description("Mehr als nur Excel und Word")
+                .build();
+        Category category11 = Category.builder()
+                .name("Ganze Familie")
+                .description("Weil gemeinsam einfach mehr Spaß macht")
+                .build();
+        Category category12 = Category.builder()
+                .name("Tiere")
+                .description("Eine Muh, eine Mäh, eine Täterätätätäh")
+                .build();
+
 
         List<Category> categoryList1 = new ArrayList<>();
         List<Category> categoryList2 = new ArrayList<>();
         List<Category> categoryList3 = new ArrayList<>();
+        List<Category> categoryList4 = new ArrayList<>();
+        List<Category> categoryList5 = new ArrayList<>();
         categoryList1.add(category1);
         categoryList2.add(category2);
         categoryList3.add(category3);
+        categoryList4.add(category10);
+        categoryList5.add(category8);
+        categoryList5.add(category11);
         categoryRepository.save(category1);
         categoryRepository.save(category2);
         categoryRepository.save(category3);
+        categoryRepository.save(category4);
+        categoryRepository.save(category5);
+        categoryRepository.save(category6);
+        categoryRepository.save(category7);
+        categoryRepository.save(category8);
+        categoryRepository.save(category9);
+        categoryRepository.save(category10);
+        categoryRepository.save(category11);
+        categoryRepository.save(category12);
 
         Address address1 = new Address("Dortmund", "Hafenstraße", "12", "44227", "Eichlinghofen");
         Address address2 = new Address("Dortmund", "Feldweg", "122", "44229", "Oespel");
@@ -89,6 +140,9 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .categories(categoryList1)
                 .startDate(new Date(1749119967000l))
                 .endDate(new Date(1749148767000l))
+                .price(0.0f)
+                .minAge(6)
+                .restricted(true)
                 .applicant(applicant1)
                 .processor(administrativeUser1)
                 .status("offen")
@@ -99,6 +153,9 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .categories(categoryList2)
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749405600000l))
+                .price(0.0f)
+                .minAge(0)
+                .restricted(false)
                 .applicant(applicant2)
                 .processor(administrativeUser2)
                 .status("offen")
@@ -110,6 +167,9 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .categories(categoryList3)
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749751200000l))
+                .price(19.00f)
+                .minAge(8)
+                .restricted(true)
                 .applicant(applicant3)
                 .processor(administrativeUser2)
                 .status("offen")
@@ -119,8 +179,39 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Großfeld-Fußball Turnier")
                 .address(address1)
                 .categories(categoryList1)
-                .startDate(new Date(1749119967000l))
-                .endDate(new Date(1749148767000l))
+                .startDate(new Date(new Date().getTime() + 172800000L))
+                .endDate(new Date(new Date().getTime() + 194400000L))
+                .price(5.00f)
+                .minAge(12)
+                .restricted(true)
+                .applicant(applicant4)
+                .processor(administrativeUser1)
+                .status("offen")
+                .build();
+
+        Event event5 = Event.builder()
+                .name("Computer-Kurs")
+                .address(address1)
+                .categories(categoryList4)
+                .startDate(new Date(new Date().getTime() + 14400000L))
+                .endDate(new Date(new Date().getTime() + 36000000L))
+                .price(5.00f)
+                .minAge(12)
+                .restricted(true)
+                .applicant(applicant4)
+                .processor(administrativeUser1)
+                .status("offen")
+                .build();
+
+        Event event6 = Event.builder()
+                .name("Shakespears Romeo und Julia")
+                .address(address1)
+                .categories(categoryList5)
+                .startDate(new Date(new Date().getTime() + 259200000L))
+                .endDate(new Date(new Date().getTime() + 288000000L))
+                .price(2.00f)
+                .minAge(6)
+                .restricted(false)
                 .applicant(applicant4)
                 .processor(administrativeUser1)
                 .status("offen")
@@ -130,6 +221,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         eventRepository.save(event2);
         eventRepository.save(event3);
         eventRepository.save(event4);
+        eventRepository.save(event5);
+        eventRepository.save(event6);
 
         List<Event> eventList1 = new ArrayList<>();
         eventList1.add(event1);
