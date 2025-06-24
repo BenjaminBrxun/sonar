@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./DetailComponent.scss"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,17 +11,33 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import image from "../../../assets/images/event-mocks/gaming.png"
 //import map from "../../../assets/images/map_dark.png"
 
-const title = "Gaming Night im Jugendzentrum";
-const date = "09.01.2025 ab 18:00 Uhr"
-const costs = "3€ (Ab 12 Jahren)"
-const locate = "Stadtpark Herne"
-const address = "Musterstraße 1, 44623 Herne"
-const headline = "Seid dabei, wenn das Jugendzentrum in Herne zur Gaming-Arena wird!"
-const text = "Auf mehreren Konsolen können Jugendliche und junge Erwachsene ihr Können in beliebten Spielen wie Mario Kart\", FIFA\" und „Fortnite\" unter Beweis stellen.\n\nNeben spannenden Turnieren gibt es Retro-Gaming-Ecken und Virtual-Reality-Stationen für echte Highlights. Snacks und Getränke stehen bereit, um euch durch die Nacht zu bringen. Holt euch die Controller und zeigt, wer der Boss ist!"
 const linktomaps = "https://www.google.com/maps/place/Herne/@51.5382671,7.1688761,10911m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47b8e1836478a315:0x427f28131548780!8m2!3d51.5368948!4d7.2009147!16zL20vMDE4aG5z?authuser=0&entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
 
 
-export function DetailComponent() { //eigentlich {title, date, costs, image} hier als Argument
+export function DetailComponent({eventId}) { //eigentlich {title, date, costs, image} hier als Argument
+
+    const [event, setEvent] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8081/api/v1/event/${eventId}`)
+            .then(res => res.json())
+            .then(data => {
+                setEvent(data);
+            })
+            .then(() => console.log("event erhalten: ", event))
+            .catch(err => console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
+                " " + err.message));
+    }, [event, eventId]);
+
+    function formatAddress() {
+        if(event.address !== undefined) {
+            return <div>
+                <p>{event.address.street} {event.address.houseNumber}</p>
+                <p>{event.address.postcode} {event.address.city} {event.address.district}</p>
+            </div>
+        }
+    }
+
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
@@ -61,19 +77,19 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
 
                         <div className="sonar-eventcard_content_text">
                             <p className="sonar-eventcard_content_text-date">
-                                Datum: {date}
+                                Datum: {event.startDate}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
-                                Preis: {costs}
+                                Preis: {event.price}
                             </p>
                             <p className="sonar-eventcard_content_text-title">
-                                {title}
+                                {event.name}
                             </p>
                             <p className="sonar-eventcard_content_text-headline">
-                                {headline}
+                                {event.headline}
                             </p>
                             <p className="sonar-eventcard_content_text-text">
-                                {text}
+                                {event.description}
                             </p>
                             <CardActions className="sonar-eventcard_categorys">
                                 <div className="sonar-eventcard_category">
@@ -85,11 +101,15 @@ export function DetailComponent() { //eigentlich {title, date, costs, image} hie
                             </CardActions>
                             <iframe className="sonar-eventcard_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.326769624289!2d7.233790842804277!3d51.543906835387396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8e1f60f2bd079%3A0xced4b1949a1d5e26!2sHerner%20Stadtgarten%2C%20Herne!5e0!3m2!1sde!2sde!4v1750675117560!5m2!1sde!2sde"></iframe>
                             <p className="sonar-eventcard_content_text-location">
-                                Adresse<br/>{locate}<br/>{address}
+                                Adresse<br/>{formatAddress()}<br/>
+                            </p>
+                            <p className="sonar-eventcard_content_text-location">
+                                Organisator<br/>{event.applicant !== undefined && event.applicant.organisation}
                             </p>
                             <div className="sonar-eventcard_content_text-button">
                                 <a href={linktomaps}>Route auf Google Maps</a>
                             </div>
+
                         </div>
                     </CardContent>
                 </div>

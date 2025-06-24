@@ -7,8 +7,10 @@ import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
+import {useEffect} from "react";
+import {navigate} from "vike/client/router";
 
-export default function EventCardModule({title, date, costs, image, restricted}) {
+export default function EventCardModule({title, date, costs, image, restricted, id}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     function dataToImage(data) {
@@ -53,6 +55,10 @@ export default function EventCardModule({title, date, costs, image, restricted})
         }
     }
 
+    function showDetails() {
+        navigate(`/event/?link=${encodeURIComponent(id)}`);
+    }
+
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
@@ -72,7 +78,7 @@ export default function EventCardModule({title, date, costs, image, restricted})
                             </div>
                             <div id="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-details">
-                                <Button size="small">Details</Button>
+                                <Button size="small" onClick={showDetails}>Details</Button>
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">

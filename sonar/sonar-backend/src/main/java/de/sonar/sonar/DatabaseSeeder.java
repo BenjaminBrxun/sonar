@@ -136,6 +136,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event1 = Event.builder()
                 .name("Kleinfeld-Fußball Turnier")
+                .headline("Das Runde muss ins Eckige!")
+                .description("Hier findet ein tolles Fußball Turnier statt! Kleine Felder, großer Spaß!")
                 .address(address1)
                 .categories(categoryList1)
                 .startDate(new Date(1749119967000l))
@@ -149,6 +151,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .build();
         Event event2 = Event.builder()
                 .name("Familienfest im Stadtpark")
+                .headline("Fun, Fun, Fun!")
+                .description("Grillen, Federball und Schach. All das erwartet euch im Stadtpark. Und natürlich noch mehr.")
                 .address(address2)
                 .categories(categoryList2)
                 .startDate(new Date(1749384000000l))
@@ -163,6 +167,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event3 = Event.builder()
                 .name("Ferienlager")
+                .headline("Wir ham' gemacht bis halb 8 (morgens)")
+                .description("In unserem Ferienlager sind alle willkommen, ob klein oder groß. Für Verpflegung wird gesorgt. Ihr müsst nur noch Spaß mitbringen!")
                 .address(address2)
                 .categories(categoryList3)
                 .startDate(new Date(1749384000000l))
@@ -177,6 +183,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event4 = Event.builder()
                 .name("Großfeld-Fußball Turnier")
+                .headline("Aus dem Hintergrund müsste Rahn schießen...")
+                .description("Wie die Profis, so könnt auch ihr einmal für eure Fans den glorreichen Sieg einfahren! Aber bleibt fair.")
                 .address(address1)
                 .categories(categoryList1)
                 .startDate(new Date(new Date().getTime() + 172800000L))
@@ -191,6 +199,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event5 = Event.builder()
                 .name("Computer-Kurs")
+                .headline("beep boop")
+                .description("Wie schon Alan Turing, so könnt auch ihr vielleicht eines Tages mal einen Meilenstein in der Informatik begründen. Hier lernt ihr auch jeden Fall die Grundlagen dazu.")
                 .address(address1)
                 .categories(categoryList4)
                 .startDate(new Date(new Date().getTime() + 14400000L))
@@ -205,6 +215,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event6 = Event.builder()
                 .name("Shakespears Romeo und Julia")
+                .headline("To be or not to be?")
+                .description("Shapespears wohl bestes Theaterstück. Live on Stage im Stadttheater Herne. Und das beste: für nur 2€ könnt ihr dieses Ereignis erleben!")
                 .address(address1)
                 .categories(categoryList5)
                 .startDate(new Date(new Date().getTime() + 259200000L))
