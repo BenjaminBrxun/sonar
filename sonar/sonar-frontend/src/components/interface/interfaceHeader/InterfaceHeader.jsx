@@ -14,7 +14,7 @@ export function InterfaceHeader() {
                 </div>
 
                 <div className="sonar-header_lang">
-                    <label className="sonar-header_dropdown-label" for="sonar-header_lang-select">
+                    <label className="sonar-header_dropdown-label" htmlFor="sonar-header_lang-select">
                         <FontAwesomeIcon icon={faGlobe} />
                     </label>
                     <select

@@ -3,10 +3,9 @@ import {usePageContext} from "vike-react/usePageContext";
 
 export default function Test() {
     const {urlParsed} = usePageContext();
-    const linkFromQuery = urlParsed.search?.link;
-    const link = linkFromQuery
+    const eventId = urlParsed.search?.eventId;
 
     return <>
-        <DetailComponent eventId={link}/>
+        <DetailComponent eventId={eventId}/>
     </>
 }

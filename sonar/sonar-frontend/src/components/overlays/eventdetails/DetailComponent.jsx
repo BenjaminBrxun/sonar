@@ -19,26 +19,34 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
     const [event, setEvent] = useState([]);
 
     useEffect(() => {
-       fetchEvent();
-    });
+        fetchEvent();
+    }, []);
 
     const fetchEvent = () => {
-        fetch(`http://localhost:8081/api/v1/event/${eventId}`)
-            .then(res => res.json())
-            .then(data => {
-                setEvent(data);
-            })
-            .then(() => console.log("event erhalten: ", event))
-            .catch(err => console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
-                " " + err.message));
+        if (eventId !== null && eventId !== undefined) {
+            fetch(`http://localhost:8081/api/v1/event/${eventId}`)
+                .then(res => res.json())
+                .then(data => {
+                    setEvent(data);
+                })
+                .catch(err => {
+                    console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
+                        " " + err.message);
+                });
+        }
     }
 
+    function goBack() {
+        history.back();
+    }
+
+
     function formatAddress() {
-        if(event.address !== undefined) {
-            return <div>
-                <p>{event.address.street} {event.address.houseNumber}</p>
-                <p>{event.address.postcode} {event.address.city} {event.address.district}</p>
-            </div>
+        if (event.address !== undefined) {
+            return <>
+                {event.address.street} {event.address.houseNumber}<br/>
+                {event.address.postcode} {event.address.city} {event.address.district}<br/>
+            </>
         }
     }
 
@@ -61,7 +69,7 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
                             </div>
                             <div className="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-cancel">
-                                <Button><CancelIcon/></Button>
+                                <Button onClick={goBack}><CancelIcon/></Button>
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">
@@ -103,7 +111,8 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
                                     <label>Computer</label>
                                 </div>
                             </CardActions>
-                            <iframe className="sonar-eventcard_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.326769624289!2d7.233790842804277!3d51.543906835387396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8e1f60f2bd079%3A0xced4b1949a1d5e26!2sHerner%20Stadtgarten%2C%20Herne!5e0!3m2!1sde!2sde!4v1750675117560!5m2!1sde!2sde"></iframe>
+                            <iframe className="sonar-eventcard_map"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.326769624289!2d7.233790842804277!3d51.543906835387396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8e1f60f2bd079%3A0xced4b1949a1d5e26!2sHerner%20Stadtgarten%2C%20Herne!5e0!3m2!1sde!2sde!4v1750675117560!5m2!1sde!2sde"></iframe>
                             <p className="sonar-eventcard_content_text-location">
                                 Adresse<br/>{formatAddress()}<br/>
                             </p>
