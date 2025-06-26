@@ -17,7 +17,7 @@ export function BaseComponent({sendDataToParent}) {
                             onClick={() => {
                                 goToIndex();
                             }}/>
-                <div className='icon-background'></div>
+                <div className='icon-background'/>
             </div>
             <div className="background"/>
         </div>
