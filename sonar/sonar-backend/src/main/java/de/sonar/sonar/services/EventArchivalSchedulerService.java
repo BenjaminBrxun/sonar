@@ -67,5 +67,4 @@ public class EventArchivalSchedulerService {
         log.info("Successfully scheduled events for archival on startup.");
     }
 
-
 }

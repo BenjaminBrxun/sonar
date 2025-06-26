@@ -34,7 +34,7 @@ public class Event {
     @Column(nullable = false)
     private OffsetDateTime endDate;
 
-    @OneToOne
+    @ManyToOne
     private Organizer applicant;
 
     @ManyToOne
