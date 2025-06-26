@@ -29,7 +29,7 @@
   object-position: center;
   position: absolute;
   overflow: hidden;
-  z-index: -1;
+  z-index: -2;
 }
 
 .circle {
@@ -41,7 +41,7 @@
   transform: translate(-50%, -50%);
   animation: pulse-animation 2s infinite;
   background-color: #66FF99;
-  z-index: 10;
+  //z-index: -1;
 }
 
 @keyframes pulse-animation {
