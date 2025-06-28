@@ -11,7 +11,6 @@ export function BaseComponent({sendDataToParent}) {
     }
 
     return (
-        <div id="base" className="component-container">
             <div className="icon-container">
                 <CancelIcon className="cancel-icon"
                             onClick={() => {
@@ -19,7 +18,5 @@ export function BaseComponent({sendDataToParent}) {
                             }}/>
                 <div className='icon-background'/>
             </div>
-            <div className="background"/>
-        </div>
     )
 }

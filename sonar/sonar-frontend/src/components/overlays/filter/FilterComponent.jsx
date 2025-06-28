@@ -86,7 +86,7 @@ export function FilterComponent({onCloseClick}) {
     return (
         <div className="filter-overlay">
             <div className="filter-header">
-                <h1>Filteroptionen</h1>
+                <label>Filteroptionen</label>
                 <BaseComponent sendDataToParent={onCloseClick}/>
             </div>
             <div className="form-container">
