@@ -41,8 +41,11 @@ public class EventController {
                     otherwise an exception is thrown.
                     
                     Valid state transitions:
+                    UNDER_EDITING -> IN_REVIEW -> APPROVED -> DEPLOYED -> ARCHIVED -> UNDER_EDITING
                     
-                
+                    DECLINED -> UNDER_EDITING
+                    CANCELLED -> ARCHIVED
+                    DELETED -> UNDER_EDITING
                     """
     )
     @PutMapping
@@ -50,16 +53,45 @@ public class EventController {
         return eventProcessionService.proceedEvent(event);
     }
 
+    @Operation(
+            summary = "Deletes an event.",
+            description = """
+                    Deletes an event.
+                    
+                    You have 30 days to proceed an deleted event, otherwise it gets really deleted.
+                    
+                    Valid state transitions:
+                    The deleted status can be set from any status.
+                    """
+    )
     @DeleteMapping
     public void deleteEvent(@RequestBody Event event) {
         eventDeletionService.deleteEvent(event);
     }
 
+    @Operation(
+            summary = "Declines an event in review.",
+            description = """
+                    Declines an event in review.
+
+                    Valid state transitions:
+                    IN_REVIEW -> DECLINED
+                    """
+    )
     @PostMapping("/decline")
     public Event declineEvent(@RequestBody Event event) {
         return eventDeclineService.declineEvent(event);
     }
 
+    @Operation(
+            summary = "Declines an event in review.",
+            description = """
+                    Declines an event in review.
+
+                    Valid state transitions:
+                    DEPLOYED -> CANCELLED
+                    """
+    )
     @PostMapping("/cancel")
     public Event cancelEvent(@RequestBody Event event) {
         return eventCancellationService.cancelEvent(event);
