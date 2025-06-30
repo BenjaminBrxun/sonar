@@ -8,16 +8,18 @@ import "./Layout.scss";
 
 export {Layout}
 
-function Layout({children}) {
+function Layout({ children }) {
     const pageContext = usePageContext();
     const isFilterPage = pageContext.urlPathname.startsWith("/filter");
     const isSearchPage = pageContext.urlPathname.startsWith("/search");
-    return <>
-        {!isFilterPage && !isSearchPage && <InterfaceHeader/>}
-        <div className="current-component">
-            {children}
+
+    return (
+        <div className="layout-wrapper">
+            <div className="ui-overlay">
+                {!isFilterPage && !isSearchPage && <InterfaceHeader />}
+                <div className="current-component">{children}</div>
+                {!isFilterPage && !isSearchPage && <InterfaceFooter />}
+            </div>
         </div>
-        {<InteractiveMap/>}
-        {!isFilterPage && !isSearchPage && <InterfaceFooter/>}
-    </>
+    );
 }
