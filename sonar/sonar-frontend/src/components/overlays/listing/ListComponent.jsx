@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import "./ListComponent.scss"
-import {BaseComponent} from "../../base/BaseComponent.jsx";
 import EventCardModule from "../../modules/EventCardModule/EventCardModule.jsx";
 import eventCardImagePark from "../../../assets/images/event-mocks/park.png";
 
