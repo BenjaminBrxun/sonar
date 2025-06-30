@@ -110,6 +110,7 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  align-items: center;
 }
 
 .filter-footer {
@@ -157,3 +158,6 @@ input[type="range"]::-moz-range-thumb {
   width: 1rem;
 }
 
+.search-input{
+  width: 100%;
+}

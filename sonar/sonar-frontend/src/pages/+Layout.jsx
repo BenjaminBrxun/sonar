@@ -18,6 +18,6 @@ function Layout({children}) {
             {children}
         </div>
         {<InteractiveMap/>}
-        {!isFilterPage && !isSearchPage && <InterfaceFooter/>}
+        {!isFilterPage && !isSearchPage && <InterfaceFooter currentPage={pageContext.urlPathname}/>}
     </>
 }
