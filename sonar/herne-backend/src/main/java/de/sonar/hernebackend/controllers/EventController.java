@@ -19,9 +19,9 @@ public class EventController {
 
 
     @Operation(
-            summary = "Register a new event.",
+            summary = "Registers a new event.",
             description = """
-                    Register a new event over MQTT in the sonar backend.
+                    Registers a new event over MQTT in the sonar backend.
                     
                     If the event is already present in database or has an invalid state,
                     an exception is thrown.
@@ -33,9 +33,9 @@ public class EventController {
     }
 
     @Operation(
-            summary = "Proceed the event lifecycle.",
+            summary = "Proceeds the event lifecycle.",
             description = """
-                    Proceed the event lifecycle for a given event.
+                    Proceeds the event lifecycle for a given event.
                     
                     The event have to be already registered in database,
                     otherwise an exception is thrown.
@@ -84,9 +84,9 @@ public class EventController {
     }
 
     @Operation(
-            summary = "Declines an event in review.",
+            summary = "Cancels an deployed event.",
             description = """
-                    Declines an event in review.
+                    Cancels an deployed event.
 
                     Valid state transitions:
                     DEPLOYED -> CANCELLED
