@@ -15,7 +15,7 @@ function Layout({ children }) {
 
     return (
         <div className="layout-wrapper">
-            <div className="ui-overlay">
+            <div className="ui">
                 {!isFilterPage && !isSearchPage && <InterfaceHeader />}
                 <div className="current-component">{children}</div>
                 {!isFilterPage && !isSearchPage && <InterfaceFooter />}
