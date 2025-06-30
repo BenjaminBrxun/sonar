@@ -2,6 +2,7 @@ package de.sonar.sonar.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
 @Table(name = "sonar-user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class User extends BasicUser {
 
     private String username;
