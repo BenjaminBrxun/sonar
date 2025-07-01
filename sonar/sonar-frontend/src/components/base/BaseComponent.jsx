@@ -11,15 +11,12 @@ export function BaseComponent({sendDataToParent}) {
     }
 
     return (
-        <div id="base" className="component-container">
             <div className="icon-container">
                 <CancelIcon className="cancel-icon"
                             onClick={() => {
                                 goToIndex();
                             }}/>
-                <div className='icon-background'></div>
+                <div className='icon-background'/>
             </div>
-            <div className="background"/>
-        </div>
     )
 }

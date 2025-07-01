@@ -1,5 +1,16 @@
 .current-component {
   display: flex;
   justify-content: center;
-  height: 98vh;
+  height: 100%;
+  overflow: hidden;
+}
+body{
+  overflow: hidden;
+  margin: 0 0 0 0;
+}
+.sonar-header_inner{
+  box-shadow: 0 1vh 1vh darkslategrey;
+}
+.sonar-footer_inner{
+  box-shadow: 0 -1vh 1vh darkslategrey;
 }
