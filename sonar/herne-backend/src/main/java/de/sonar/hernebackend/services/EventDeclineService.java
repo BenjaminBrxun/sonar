@@ -1,5 +1,6 @@
 package de.sonar.hernebackend.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.hernebackend.model.entity.Event;
 import de.sonar.hernebackend.model.enums.EventStatus;
 import de.sonar.hernebackend.model.state.InvalidEventStateException;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 @RegisterRequestMqttConfig(topic = "decline-event")
 public class EventDeclineService extends AbstractMqttRequestService<Event, Event> {
 
-    public EventDeclineService(MessageChannel mqttRequestOutboundChannel) {
-        super(mqttRequestOutboundChannel);
+    public EventDeclineService(
+            MessageChannel mqttRequestOutboundChannel,
+            ObjectMapper objectMapper) {
+        super(mqttRequestOutboundChannel, objectMapper);
     }
 
     public Event declineEvent(Event event) {

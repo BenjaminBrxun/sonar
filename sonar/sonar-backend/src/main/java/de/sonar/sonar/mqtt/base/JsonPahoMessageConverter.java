@@ -1,10 +1,7 @@
 package de.sonar.sonar.mqtt.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.sonar.sonar.mqtt.base.reply.MqttReply;
 import de.sonar.sonar.mqtt.base.request.InvalidRequestStateException;
 import de.sonar.sonar.mqtt.base.request.MqttRequest;
@@ -28,18 +25,9 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     private final ObjectMapper objectMapper;
 
-    public JsonPahoMessageConverter() {
+    public JsonPahoMessageConverter(ObjectMapper objectMapper) {
         this.setPayloadAsBytes(true);
-        this.objectMapper = new ObjectMapper();
-
-        this.objectMapper.registerModule(new JavaTimeModule());
-
-        // Configure serialization
-        this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-        // Configure deserialization
-        this.objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        this.objectMapper = objectMapper;
     }
 
     /**

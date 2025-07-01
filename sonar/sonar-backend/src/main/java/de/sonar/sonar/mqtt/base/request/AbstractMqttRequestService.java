@@ -14,7 +14,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
@@ -43,7 +42,7 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
 
     private final MessageChannel mqttRequestOutboundChannel;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     /**
      * Ensures that the service is properly configured after all configurable properties have been set.

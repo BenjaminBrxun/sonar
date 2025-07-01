@@ -28,7 +28,7 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> implement
 
     private final MessageChannel mqttReplyOutboundChannel;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     /**
      * Ensures that the service is properly configured after all configurable properties have been set.

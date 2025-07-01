@@ -1,5 +1,6 @@
 package de.sonar.hernebackend.mqtt.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.hernebackend.mqtt.base.reply.AbstractMqttReplyService;
 import de.sonar.hernebackend.mqtt.base.reply.InvalidReplyStateException;
 import de.sonar.hernebackend.mqtt.base.reply.RegisterReplyMqttConfig;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 public class HelloWorldReplyService extends AbstractMqttReplyService<String, String> {
 
     @Autowired
-    public HelloWorldReplyService(MessageChannel mqttReplyOutboundChannel) {
-        super(mqttReplyOutboundChannel);
+    public HelloWorldReplyService(
+            MessageChannel mqttReplyOutboundChannel,
+            ObjectMapper objectMapper) {
+        super(mqttReplyOutboundChannel, objectMapper);
     }
 
     @Override

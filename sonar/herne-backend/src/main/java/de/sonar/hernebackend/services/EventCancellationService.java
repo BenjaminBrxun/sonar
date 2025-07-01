@@ -1,5 +1,6 @@
 package de.sonar.hernebackend.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.hernebackend.model.entity.Event;
 import de.sonar.hernebackend.model.enums.EventStatus;
 import de.sonar.hernebackend.model.state.InvalidEventStateException;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventCancellationService extends AbstractMqttRequestService<Event, Event> {
 
-    public EventCancellationService(MessageChannel mqttRequestOutboundChannel) {
-        super(mqttRequestOutboundChannel);
+    public EventCancellationService(
+            MessageChannel mqttRequestOutboundChannel,
+            ObjectMapper objectMapper) {
+        super(mqttRequestOutboundChannel, objectMapper);
     }
 
     public Event cancelEvent(Event event) {

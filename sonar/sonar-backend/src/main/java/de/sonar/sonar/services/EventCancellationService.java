@@ -1,5 +1,6 @@
 package de.sonar.sonar.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
 import de.sonar.sonar.mqtt.base.reply.RegisterReplyMqttConfig;
@@ -14,8 +15,9 @@ public class EventCancellationService extends AbstractMqttReplyService<Event, Ev
 
     public EventCancellationService(
             MessageChannel mqttReplyOutboundChannel,
-            EventLifecycleService eventLifecycleService) {
-        super(mqttReplyOutboundChannel);
+            EventLifecycleService eventLifecycleService,
+            ObjectMapper objectMapper) {
+        super(mqttReplyOutboundChannel, objectMapper);
         this.eventLifecycleService = eventLifecycleService;
     }
 

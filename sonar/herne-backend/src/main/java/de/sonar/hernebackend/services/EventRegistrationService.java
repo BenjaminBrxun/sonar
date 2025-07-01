@@ -1,5 +1,6 @@
 package de.sonar.hernebackend.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.hernebackend.model.entity.Event;
 import de.sonar.hernebackend.mqtt.base.request.AbstractMqttRequestService;
 import de.sonar.hernebackend.mqtt.base.request.RegisterRequestMqttConfig;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventRegistrationService extends AbstractMqttRequestService<Event, Event> {
 
-    public EventRegistrationService(MessageChannel mqttRequestOutboundChannel) {
-        super(mqttRequestOutboundChannel);
+    public EventRegistrationService(
+            MessageChannel mqttRequestOutboundChannel,
+            ObjectMapper objectMapper) {
+        super(mqttRequestOutboundChannel, objectMapper);
     }
 
     public Event registerNewEvent(Event newEvent) {

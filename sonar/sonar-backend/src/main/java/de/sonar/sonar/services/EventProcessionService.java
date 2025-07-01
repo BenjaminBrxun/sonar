@@ -1,5 +1,6 @@
 package de.sonar.sonar.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
 import de.sonar.sonar.mqtt.base.reply.RegisterReplyMqttConfig;
@@ -16,9 +17,10 @@ public class EventProcessionService extends AbstractMqttReplyService<Event, Even
 
     public EventProcessionService(
             MessageChannel mqttReplyOutboundChannel,
-            EventLifecycleService eventLifecycleService
+            EventLifecycleService eventLifecycleService,
+            ObjectMapper objectMapper
     ) {
-        super(mqttReplyOutboundChannel);
+        super(mqttReplyOutboundChannel, objectMapper);
         this.eventLifecycleService = eventLifecycleService;
     }
 
