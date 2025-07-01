@@ -8,7 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
 
-export default function EventCardModule({title, date, costs, image, restricted}) {
+export default function EventCardModule({title, date, date_text, costs, image, restricted}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     function dataToImage(data) {
@@ -95,7 +95,7 @@ export default function EventCardModule({title, date, costs, image, restricted})
                                 {title}
                             </p>
                             <p className="sonar-eventcard_content_text-date">
-                                Datum: {date}
+                                Datum: {date_text}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
                                 {costsWithCurrency(costs)}
