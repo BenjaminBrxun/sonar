@@ -27,6 +27,7 @@ public class EventRegistrationService extends AbstractMqttReplyService<Event, Ev
 
     @Override
     protected Event processRequestPayload(Event payload) {
+        log.info("Handle incoming event registration request.");
         return eventLifecycleService.submitNewEvent(payload);
     }
 }

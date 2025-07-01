@@ -26,6 +26,7 @@ public class EventProcessionService extends AbstractMqttReplyService<Event, Even
 
     @Override
     protected Event processRequestPayload(Event payload) {
+        log.info("Handle incoming event procession request.");
         return this.eventLifecycleService.proceedEventLivecycle(payload);
     }
 }
