@@ -81,6 +81,12 @@
             <version>2.2.31</version>
         </dependency>
 
+        <!-- Required to deserialize OffsetDateTime -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

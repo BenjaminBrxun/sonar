@@ -73,7 +73,7 @@ public class EventController {
             summary = "Declines an event in review.",
             description = """
                     Declines an event in review.
-
+                    
                     Valid state transitions:
                     IN_REVIEW -> DECLINED
                     """
@@ -87,7 +87,7 @@ public class EventController {
             summary = "Cancels an deployed event.",
             description = """
                     Cancels an deployed event.
-
+                    
                     Valid state transitions:
                     DEPLOYED -> CANCELLED
                     """
