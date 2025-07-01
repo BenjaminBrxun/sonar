@@ -10,8 +10,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import image from "../../../assets/images/event-mocks/gaming.png"
 //import map from "../../../assets/images/map_dark.png"
-
-const linktomaps = "https://www.google.com/maps/place/Herne/@51.5382671,7.1688761,10911m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47b8e1836478a315:0x427f28131548780!8m2!3d51.5368948!4d7.2009147!16zL20vMDE4aG5z?authuser=0&entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
+const coords = "51.49375784932668, 7.420155273149954"
+const linktomaps = "https://www.google.com/maps/place/" + coords + "/"
 
 
 export function DetailComponent({eventId}) { //eigentlich {title, date, costs, image} hier als Argument
