@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 export const InteractiveMap = ({ link }) => {
     const [LeafletMap, setLeafletMap] = useState(null);
     const [events, setEvents] = useState([]);
-    console.log(link);
 
     useEffect(() => {
         import("./LeafletMap.jsx").then((mod) => {

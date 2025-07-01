@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./InteractiveMap.scss";
+import {navigate} from "vike/client/router";
 
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-
+// Leaflet Icon Setup
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
     iconRetinaUrl,
@@ -16,54 +17,54 @@ L.Icon.Default.mergeOptions({
     shadowUrl,
 });
 
-
 export const LeafletMap = ({ events }) => {
     const [eventMarkers, setEventMarkers] = useState([]);
 
     useEffect(() => {
         if (!events || events.length === 0) return;
 
+        setEventMarkers([]); // leeren beim neuen Laden
+
         const geocodeEvent = async (event) => {
-            let street = event.address.street;
-            let houseNumber = event.address.houseNumber;
-            let postCode = event.address.postcode;
-            let city = event.address.city;
-            console.log(street + " " + houseNumber);
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(street + " " + houseNumber + " " + postCode + " " + city)}`;
-            const res = await fetch(url, {
-                headers: { 'User-Agent': 'deine-app-name' }
-            });
-            const data = await res.json();
-            if (data.length > 0) {
-                console.log("position: ", parseFloat(data[0].lat), parseFloat(data[0].lon))
-                let marker = {
-                    id: event.id,
-                    name: event.name,
-                    position: [parseFloat(data[0].lat), parseFloat(data[0].lon)],
-                };
-                setEventMarkers(marker);
+            const { street, houseNumber, postcode, city } = event.address;
+            const query = `${street} ${houseNumber} ${postcode} ${city}`;
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+
+            try {
+                const res = await fetch(url, {
+                    headers: { 'User-Agent': 'sonar' },
+                });
+                const data = await res.json();
+                if (data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    const marker = {
+                        id: event.id,
+                        name: event.name,
+                        position: [lat, lon],
+                    };
+                    setEventMarkers(prev => {
+                        if (prev.some(m => m.id === marker.id)) return prev;
+                        return [...prev, marker];
+                    });
+
+                }
+            } catch (error) {
+                console.error("Geocoding failed:", error);
             }
-            return null;
         };
 
-        const loadMarkers = async () => {
-            const markers = await Promise.all(events.map(geocodeEvent));
-            setEventMarkers(markers);
-        };
-
-        loadMarkers();
-    }, []);
-
+        events.forEach(event => {
+            geocodeEvent(event);
+        });
+    }, [events]);
 
     return (
         <div className="interactiveMap-container">
             <MapContainer
-                center={[51.5380, 7.2257]} // Herne
+                center={[51.5380, 7.2257]} //Herne
                 zoom={13}
-                zoomControl={false}
-                scrollWheelZoom={true}
-                touchZoom={true}
-                dragging={true}
+                scrollWheelZoom
                 style={{ height: "100%", width: "100%" }}
             >
                 <TileLayer
@@ -72,7 +73,18 @@ export const LeafletMap = ({ events }) => {
                 />
                 {eventMarkers.map(event => (
                     <Marker key={event.id} position={event.position}>
-                        <Popup>{event.name}</Popup>
+                        <Popup>
+                            <div>
+                                <strong>{event.name}</strong><br />
+                                <button
+                                    //onClick={() => navigate(`/events/${event.id}`)}
+                                    onClick={() => alert(`Event: ${event.name} (ID: ${event.id})`)}
+                                    style={{ marginTop: "5px", cursor: "pointer" }}
+                                >
+                                    Zur Detailseite
+                                </button>
+                            </div>
+                        </Popup>
                     </Marker>
                 ))}
             </MapContainer>
