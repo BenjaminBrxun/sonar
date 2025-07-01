@@ -22,7 +22,7 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean isTokenValid(String token, org.springframework.security.core.userdetails.User){
+    public boolean isTokenValid(String token, org.springframework.security.core.userdetails.UserDetails userDetails){
         String email = extractEmailFromToken(token);
         return email.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
