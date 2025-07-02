@@ -80,8 +80,8 @@ public class EventController {
                     """
     )
     @DeleteMapping
-    public void deleteEvent(@RequestBody Event event) {
-        eventDeletionService.deleteEvent(event);
+    public Event deleteEvent(@RequestBody Event event) {
+        return eventDeletionService.deleteEvent(event);
     }
 
     @Operation(

@@ -28,8 +28,7 @@ public class EventDeletionService extends AbstractMqttReplyService<Event, Event>
     @Override
     protected Event processRequestPayload(Event payload) {
         log.info("Handle incoming event deletion request.");
-        eventLifecycleService.deleteEvent(payload);
-        return null;
+        return eventLifecycleService.deleteEvent(payload);
     }
 
     @ServiceActivator(inputChannel = "delete-event_mqttRequestInboundChannel")

@@ -21,9 +21,9 @@ public class EventDeletionService extends AbstractMqttRequestService<Event, Even
         super(mqttRequestOutboundChannel, objectMapper);
     }
 
-    public void deleteEvent(Event event) {
+    public Event deleteEvent(Event event) {
         log.info("Send outgoing event deletion request.");
-        this.sendRequest(event);
+        return this.sendRequest(event);
     }
 
     @ServiceActivator(inputChannel = "delete-event_mqttReplyInboundChannel")
