@@ -107,7 +107,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         categoryRepository.save(category11);
         categoryRepository.save(category12);
 
-        Address address1 = new Address("Herne", "In d. Sieldung", "12", "44625", "Mitte");
+        Address address1 = new Address("Herne", "In der Siedlung", "12", "44625", "Mitte");
         Address address2 = new Address("Herne", "Heerstraße", "18", "44653", "Crange");
         Address address3 = new Address("Herne", "Wilhelmstraße", "26", "44649", "Wanne-Eickel");
         Address address4 = new Address("Herne", "Lange Straße", "1", "44627", "Holthausen");
