@@ -1,4 +1,4 @@
-import pic from "../../assets/images/best_background.png";
+import pic from "../../assets/images/sonar-background-new.png";
 import React from "react";
 import "./Background.scss"
 
