@@ -25,39 +25,43 @@ export const LeafletMap = ({ events }) => {
 
         setEventMarkers([]); // leeren beim neuen Laden
 
-        const geocodeEvent = async (event) => {
-            const { street, houseNumber, postcode, city } = event.address;
-            const query = `${street} ${houseNumber} ${postcode} ${city}`;
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+        const geocodeEvent = async (events) => {
+            console.log("Lade Koordinaten für Events...", events);
+            for (const event of events) {
+                const { street, houseNumber, postcode, city } = event.address;
+                const query = `${street} ${houseNumber} ${postcode} ${city}`;
+                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
 
-            try {
-                const res = await fetch(url, {
-                    headers: { 'User-Agent': 'sonar' },
-                });
-                const data = await res.json();
-                if (data.length > 0) {
-                    const lat = parseFloat(data[0].lat);
-                    const lon = parseFloat(data[0].lon);
-                    const marker = {
-                        id: event.id,
-                        name: event.name,
-                        position: [lat, lon],
-                    };
-                    setEventMarkers(prev => {
-                        if (prev.some(m => m.id === marker.id)) return prev;
-                        return [...prev, marker];
+                try {
+                    const res = await fetch(url, {
+                        headers: { 'User-Agent': 'sonar' },
                     });
+                    const data = await res.json();
+                    if (data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+                        const marker = {
+                            id: event.id,
+                            name: event.name,
+                            position: [lat, lon],
+                        };
+                        setEventMarkers(prev => {
+                            if (prev.some(m => m.id === marker.id)) return prev;
+                            return [...prev, marker];
+                        });
 
+                    }
+                } catch (error) {
+                    console.error("Geocoding failed:", error);
                 }
-            } catch (error) {
-                console.error("Geocoding failed:", error);
             }
+
         };
 
-        events.forEach(event => {
-            geocodeEvent(event);
-        });
+        geocodeEvent(events).finally(() => console.log("Alle Koordinaten geladen."));
+
     }, [events]);
+
 
     return (
         <div className="interactiveMap-container">

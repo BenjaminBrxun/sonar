@@ -16,7 +16,7 @@ export const InteractiveMap = ({ link }) => {
             .then((res) => res.json())
             .then((data) => setEvents(data))
             .catch((err) => console.error("Fehler beim Laden der Events:", err));
-    }, [link]);
+    }, []);
 
     if (!LeafletMap) return null;
 
