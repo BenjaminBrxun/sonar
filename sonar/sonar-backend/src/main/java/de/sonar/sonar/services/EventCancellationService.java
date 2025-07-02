@@ -1,31 +1,40 @@
-//package de.sonar.sonar.services;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import de.sonar.sonar.model.entity.Event;
-//import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
-//import de.sonar.sonar.mqtt.base.reply.RegisterReplyMqttConfig;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.messaging.MessageChannel;
-//import org.springframework.stereotype.Service;
-//
-//@RegisterReplyMqttConfig(topic = "cancel-event")
-//@Service
-//@Slf4j
-//public class EventCancellationService extends AbstractMqttReplyService<Event, Event> {
-//
-//    private final EventLifecycleService eventLifecycleService;
-//
-//    public EventCancellationService(
-//            MessageChannel mqttReplyOutboundChannel,
-//            EventLifecycleService eventLifecycleService,
-//            ObjectMapper objectMapper) {
-//        super(mqttReplyOutboundChannel, objectMapper);
-//        this.eventLifecycleService = eventLifecycleService;
-//    }
-//
-//    @Override
-//    protected Event processRequestPayload(Event payload) {
-//        log.info("Handle incoming event cancellation request.");
-//        return eventLifecycleService.cancelEvent(payload);
-//    }
-//}
+package de.sonar.sonar.services;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.sonar.sonar.model.entity.Event;
+import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
+import de.sonar.sonar.mqtt.base.request.MqttRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.stereotype.Service;
+
+@Service
+@Slf4j
+public class EventCancellationService extends AbstractMqttReplyService<Event, Event> {
+
+    private final EventLifecycleService eventLifecycleService;
+
+    public EventCancellationService(
+            @Qualifier("cancel-event_mqttReplyOutboundChannel") MessageChannel mqttReplyOutboundChannel,
+            EventLifecycleService eventLifecycleService,
+            ObjectMapper objectMapper) {
+        super(mqttReplyOutboundChannel, objectMapper);
+        this.eventLifecycleService = eventLifecycleService;
+    }
+
+    @Override
+    protected Event processRequestPayload(Event payload) {
+        log.info("Handle incoming event cancellation request.");
+        return eventLifecycleService.cancelEvent(payload);
+    }
+
+    @ServiceActivator(inputChannel = "cancel-event_mqttRequestInboundChannel")
+    @Override
+    public void handleRequest(Message<MqttRequest<Event>> message) {
+        super.handleRequest(message);
+    }
+
+}

@@ -38,4 +38,5 @@ public class EventRegistrationService extends AbstractMqttReplyService<Event, Ev
     public void handleRequest(Message<MqttRequest<Event>> message) {
         super.handleRequest(message);
     }
+
 }
