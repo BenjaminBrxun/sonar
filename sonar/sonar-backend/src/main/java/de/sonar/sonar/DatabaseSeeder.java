@@ -107,14 +107,20 @@ public class DatabaseSeeder implements CommandLineRunner {
         categoryRepository.save(category11);
         categoryRepository.save(category12);
 
-        Address address1 = new Address("Dortmund", "Hafenstraße", "12", "44227", "Eichlinghofen");
-        Address address2 = new Address("Dortmund", "Feldweg", "122", "44229", "Oespel");
+        Address address1 = new Address("Herne", "In d. Sieldung", "12", "44625", "Mitte");
+        Address address2 = new Address("Herne", "Heerstraße", "18", "44653", "Crange");
+        Address address3 = new Address("Herne", "Wilhelmstraße", "26", "44649", "Wanne-Eickel");
+        Address address4 = new Address("Herne", "Lange Straße", "1", "44627", "Holthausen");
+        Address address5 = new Address("Bochum", "Günnigfelder Straße", "251", "44793", "Hordel");
+        Address address6 = new Address("Herne", "Bergstraße", "27", "44625", "Süd");
+        Address address7 = new Address("Herne", "Wiescherstraße", "118A", "44625", "Süd");
+        Address address8 = new Address("Herne", "Karl-Brandt-Weg", "5", "44629", "Baukau");
 
         Organizer applicant1 = Organizer.builder()
-                .organisation("Stadt Dortmund")
+                .organisation("Stadt Herne")
                 .build();
         Organizer applicant2 = Organizer.builder()
-                .organisation("AWO Dortmund")
+                .organisation("Schwimm- und Sportverein Herne-Süd")
                 .build();
         Organizer applicant3 = Organizer.builder()
                 .organisation("AWO Herne")
@@ -163,7 +169,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event3 = Event.builder()
                 .name("Ferienlager")
-                .address(address2)
+                .address(address3)
                 .categories(categoryList3)
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749751200000l))
@@ -177,7 +183,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event4 = Event.builder()
                 .name("Großfeld-Fußball Turnier")
-                .address(address1)
+                .address(address4)
                 .categories(categoryList1)
                 .startDate(new Date(new Date().getTime() + 172800000L))
                 .endDate(new Date(new Date().getTime() + 194400000L))
@@ -191,7 +197,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event5 = Event.builder()
                 .name("Computer-Kurs")
-                .address(address1)
+                .address(address5)
                 .categories(categoryList4)
                 .startDate(new Date(new Date().getTime() + 14400000L))
                 .endDate(new Date(new Date().getTime() + 36000000L))
@@ -205,7 +211,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event6 = Event.builder()
                 .name("Shakespears Romeo und Julia")
-                .address(address1)
+                .address(address6)
                 .categories(categoryList5)
                 .startDate(new Date(new Date().getTime() + 259200000L))
                 .endDate(new Date(new Date().getTime() + 288000000L))
