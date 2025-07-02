@@ -7,8 +7,6 @@ import de.sonar.hernebackend.mqtt.base.request.InvalidRequestStateException;
 import de.sonar.hernebackend.mqtt.base.request.MqttRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
@@ -18,53 +16,14 @@ import java.util.UUID;
 
 /**
  * Abstract base class for services that handle incoming requests and send replies.
- * <p>
- * Implementations of this class must be annotated by {@link RegisterReplyMqttConfig}
- * to autoconfigure the message channel for a specific topic.
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttReplyService<RequestType, ReplyType> implements InitializingBean {
+public abstract class AbstractMqttReplyService<RequestType, ReplyType> {
 
     private final MessageChannel mqttReplyOutboundChannel;
 
     private final ObjectMapper objectMapper;
-
-    /**
-     * Ensures that the service is properly configured after all configurable properties have been set.
-     * <p>
-     * This method is invoked automatically during the initialization phase of the application context.
-     * It performs validation to verify the presence of required annotations or configurations.
-     *
-     * @throws IllegalStateException if the service configuration is invalid
-     */
-    @Override
-    public void afterPropertiesSet() {
-        validateServiceConfiguration();
-    }
-
-    /**
-     * Validates that the service is properly configured with required annotations.
-     *
-     * @throws IllegalStateException if the {@link RegisterReplyMqttConfig} annotation is missing
-     */
-    private void validateServiceConfiguration() {
-        if (!hasRequiredAnnotation()) {
-            throw new IllegalStateException(
-                    String.format("Service %s is missing @RegisterReplyMqttConfig annotation",
-                            this.getClass().getName())
-            );
-        }
-    }
-
-    /**
-     * Checks if the current class has the {@link RegisterReplyMqttConfig} annotation.
-     *
-     * @return true if the current class is annotated with {@link RegisterReplyMqttConfig}, false otherwise
-     */
-    private boolean hasRequiredAnnotation() {
-        return this.getClass().getAnnotation(RegisterReplyMqttConfig.class) != null;
-    }
 
     /**
      * Handles incoming MQTT request messages by processing the {@link MqttRequest} payload
@@ -73,7 +32,6 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> implement
      * @param message the incoming MQTT request message containing the {@link MqttRequest}
      * @throws InvalidRequestStateException if the message is invalid or processing fails
      */
-    @ServiceActivator(inputChannel = "mqttRequestInboundChannel")
     public void handleRequest(Message<MqttRequest<RequestType>> message) {
         validateMessage(message);
         MqttRequest<RequestType> mqttRequest = message.getPayload();

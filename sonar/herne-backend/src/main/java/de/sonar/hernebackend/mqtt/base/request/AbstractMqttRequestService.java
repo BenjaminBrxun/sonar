@@ -5,12 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import de.sonar.hernebackend.mqtt.base.reply.InvalidReplyStateException;
 import de.sonar.hernebackend.mqtt.base.reply.MqttReply;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
@@ -24,16 +21,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Abstract base class for services that handle send requests and handle incoming replies.
- * <p>
- * Implementations of this class must be annotated by {@link RegisterRequestMqttConfig}
- * to autoconfigure the message channel for a specific topic.
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMqttRequestService<RequestType, ReplyType> implements InitializingBean {
-
-    @Getter
-    private String topic;
+public abstract class AbstractMqttRequestService<RequestType, ReplyType> {
 
     @Value("${mqtt.communication.timeout.millis}")
     private long timeoutMillis;
@@ -43,36 +34,6 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
     private final MessageChannel mqttRequestOutboundChannel;
 
     private final ObjectMapper objectMapper;
-
-    /**
-     * Ensures that the service is properly configured after all configurable properties have been set.
-     * <p>
-     * This method is invoked automatically during the initialization phase of the application context.
-     * It performs validation to verify the presence of required annotations or configurations.
-     *
-     * @throws IllegalStateException if the service configuration is invalid
-     */
-    @Override
-    public void afterPropertiesSet() {
-        validateAndInitializeServiceConfiguration();
-    }
-
-    /**
-     * Validates configuration and initializes the MQTT topic.
-     *
-     * @throws IllegalStateException if the required annotation is missing
-     */
-    private void validateAndInitializeServiceConfiguration() {
-        RegisterRequestMqttConfig config = getClass().getAnnotation(RegisterRequestMqttConfig.class);
-        if (config == null) {
-            throw new IllegalStateException(
-                    String.format("Service %s is missing @RegisterRequestMqttConfig annotation",
-                            getClass().getName())
-            );
-        }
-        this.topic = config.topic();
-    }
-
 
     /**
      * Sends a request via MQTT and waits for a reply within a specified timeout.
@@ -140,7 +101,6 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> impleme
      * @throws InvalidReplyStateException if the message is null, lacks a request ID,
      *                                    has no payload, or if the payload conversion fails
      */
-    @ServiceActivator(inputChannel = "mqttReplyInboundChannel")
     public void handleResponse(Message<MqttReply<ReplyType>> message) {
         validateReplyMessage(message);
         MqttReply<ReplyType> mqttReply = message.getPayload();

@@ -1,7 +1,7 @@
-package de.sonar.sonar.mqtt.impl.request;
+package de.sonar.hernebackend.mqtt.impl.request;
 
-import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
-import de.sonar.sonar.mqtt.base.request.AbstractRequestMqttConfig;
+import de.sonar.hernebackend.mqtt.base.JsonPahoMessageConverter;
+import de.sonar.hernebackend.mqtt.base.request.AbstractRequestMqttConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,28 +12,28 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
 @Configuration
-public class HelloWorldRequestMqttConfig extends AbstractRequestMqttConfig {
+public class EventRegistrationRequestMqttConfig extends AbstractRequestMqttConfig {
 
     @Override
     protected String getTopic() {
-        return "hello-world";
+        return "register-event";
     }
 
     // 1. Outbound: Request
-    @Bean("hello-world_mqttRequestOutboundChannel")
+    @Bean("register-event_mqttRequestOutboundChannel")
     @Override
     public MessageChannel mqttRequestOutboundChannel() {
         return super.mqttRequestOutboundChannel();
     }
 
-    @Bean("hello-world_mqttRequestOutboundFlow")
+    @Bean("register-event_mqttRequestOutboundFlow")
     @Override
     public IntegrationFlow mqttRequestOutboundFlow(
-            @Qualifier("hello-world_mqttRequestOutbound") MessageHandler mqttRequestOutbound) {
+            @Qualifier("register-event_mqttRequestOutbound") MessageHandler mqttRequestOutbound) {
         return super.mqttRequestOutboundFlow(mqttRequestOutbound);
     }
 
-    @Bean("hello-world_mqttRequestOutbound")
+    @Bean("register-event_mqttRequestOutbound")
     @Override
     public MessageHandler mqttRequestOutbound(
             MqttPahoClientFactory factory,
@@ -42,26 +42,25 @@ public class HelloWorldRequestMqttConfig extends AbstractRequestMqttConfig {
     }
 
     // 4. Inbound: Response
-    @Bean("hello-world_mqttReplyInboundChannel")
+    @Bean("register-event_mqttReplyInboundChannel")
     @Override
     public MessageChannel mqttReplyInboundChannel() {
         return super.mqttReplyInboundChannel();
     }
 
-    @Bean("hello-world_mqttReplyInboundFlow")
+    @Bean("register-event_mqttReplyInboundFlow")
     @Override
     public IntegrationFlow mqttReplyInboundFlow(
-            @Qualifier("hello-world_mqttReplyInbound") MqttPahoMessageDrivenChannelAdapter mqttReplyInbound) {
+            @Qualifier("register-event_mqttReplyInbound") MqttPahoMessageDrivenChannelAdapter mqttReplyInbound) {
         return super.mqttReplyInboundFlow(mqttReplyInbound);
     }
 
-    @Bean("hello-world_mqttReplyInbound")
+    @Bean("register-event_mqttReplyInbound")
     @Override
     public MqttPahoMessageDrivenChannelAdapter mqttReplyInbound(
             MqttPahoClientFactory factory,
             JsonPahoMessageConverter converter) {
         return super.mqttReplyInbound(factory, converter);
     }
-
 
 }

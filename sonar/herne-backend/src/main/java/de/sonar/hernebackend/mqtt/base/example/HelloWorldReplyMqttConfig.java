@@ -1,7 +1,7 @@
-package de.sonar.sonar.mqtt.impl.reply;
+package de.sonar.hernebackend.mqtt.base.example;
 
-import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
-import de.sonar.sonar.mqtt.base.reply.AbstractReplyMqttConfig;
+import de.sonar.hernebackend.mqtt.base.JsonPahoMessageConverter;
+import de.sonar.hernebackend.mqtt.base.reply.AbstractReplyMqttConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
