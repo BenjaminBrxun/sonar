@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.example;
+package de.sonar.sonar.mqtt.base.example;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

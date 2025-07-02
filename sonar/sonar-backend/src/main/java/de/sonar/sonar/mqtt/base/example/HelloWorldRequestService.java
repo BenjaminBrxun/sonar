@@ -1,4 +1,4 @@
-package de.sonar.sonar.mqtt.example;
+package de.sonar.sonar.mqtt.base.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.mqtt.base.request.AbstractMqttRequestService;
