@@ -1,8 +1,6 @@
 package de.sonar.sonar.mqtt.base.reply;
 
 import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.channel.DirectChannel;
@@ -18,14 +16,7 @@ import org.springframework.messaging.MessageHandler;
  * <p>
  * Provides base configuration for MQTT message-driven channel adapters
  * to handle request-reply patterns in MQTT communication.
- * <p>
- * This class is not intended for manual use!
- * It should only be used due to the automatic topic registration with automatically
- * registered {@link DynamicReplyMqttConfig} by the {@link MqttReplyServiceRegistrar}.
  *
- * @see MqttReplyServiceRegistrar
- * @see DynamicReplyMqttConfig
- * @see RegisterReplyMqttConfig
  * @see AbstractMqttReplyService
  */
 public abstract class AbstractReplyMqttConfig {
@@ -42,9 +33,7 @@ public abstract class AbstractReplyMqttConfig {
     /**
      * The MQTT topic to be used for this configuration
      */
-    @Getter
-    @Setter
-    private String topic;
+    protected abstract String getTopic();
 
     // 2. Inbound: Request
 
