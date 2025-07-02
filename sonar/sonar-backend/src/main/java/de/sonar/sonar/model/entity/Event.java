@@ -50,4 +50,10 @@ public class Event {
         return this.id <= 0;
     }
 
+    private float price;
+
+    private int minAge;
+
+    private boolean restricted;
+
 }
