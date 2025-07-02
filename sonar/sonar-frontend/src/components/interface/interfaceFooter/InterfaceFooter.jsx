@@ -1,48 +1,78 @@
 import "./InterfaceFooter.scss"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faArrowRightToBracket,
     faBarsStaggered,
     faBookmark,
-    faMagnifyingGlass,
-    faSliders
+    faMapLocationDot,
+    faSliders,
+    faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
+import {navigate} from "vike/client/router";
+
+export function InterfaceFooter({currentPage}) {
 
 
-export function InterfaceFooter() {
+    async function navigateToFilter() {
+        await navigate('/filter');
+    }
+
+    async function navigateToInteractiveMap() {
+        await navigate('/interactivemap');
+    }
+
+    async function navigateToList() {
+        await navigate('/list');
+    }
+
+    async function navigateToBookmarks() {
+        await navigate('/bookmarks');
+    }
+
+    console.log("current page: ", currentPage);
+
     return (
         <div className="sonar-footer">
             <div className="sonar-footer_inner">
-
                 <ul className="sonar-footer_menu">
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        <button
+                            id="filter"
+                            className={currentPage !== "/filter" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                            onClick={navigateToFilter}
+                        >
+                            <FontAwesomeIcon icon={faMagnifyingGlass}/>
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
-                            <FontAwesomeIcon icon={faBarsStaggered} />
+                        <button id="interactivemap" className={currentPage !== "/interactivemap" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                onClick={navigateToInteractiveMap}
+                        >
+                            <FontAwesomeIcon icon={faMapLocationDot}/>
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
-                            <FontAwesomeIcon icon={faSliders} />
+                        <button id="list" className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                onClick={navigateToList}
+                        >
+                            <FontAwesomeIcon icon={faBarsStaggered}/>
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
-                            <FontAwesomeIcon icon={faBookmark} />
+                        <button id="bookmark" className={currentPage !== "/bookmarks" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                onClick={navigateToBookmarks}
+                        >
+                            <FontAwesomeIcon icon={faBookmark}/>
                         </button>
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
-                            <FontAwesomeIcon icon={faArrowRightToBracket} />
+                        <button id="account" className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}>
+                            <FontAwesomeIcon icon={faArrowRightToBracket}/>
                         </button>
                     </li>
                 </ul>

@@ -1,24 +1,22 @@
 import "./BaseComponent.scss"
 import CancelIcon from "@mui/icons-material/Cancel";
 import React from "react";
+import {navigate} from "vike/client/router";
 
 export function BaseComponent({sendDataToParent}) {
 
-    function handleClick() {
-        console.log("clicked")
-        sendDataToParent(true);
+
+    async function goToIndex() {
+        await navigate('/list');
     }
 
     return (
-        <div id="base" className="component-container">
             <div className="icon-container">
                 <CancelIcon className="cancel-icon"
                             onClick={() => {
-                                handleClick();
+                                goToIndex();
                             }}/>
-                <div className='icon-background'></div>
+                <div className='icon-background'/>
             </div>
-            <div className="background"/>
-        </div>
     )
 }

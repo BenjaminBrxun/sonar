@@ -2,6 +2,7 @@
 
 // COLORS
 $accent: #FABB22;
+$accent2: #2196F3;
 $primary: #000000;
 $secondary: #fff;
 
@@ -13,6 +14,7 @@ $colors: (
                 light: $secondary,
                 accent: $accent,
                 seperator: #D9D9D9,
+                accent2: $accent2
         ),
         font: (
                 base: #000,

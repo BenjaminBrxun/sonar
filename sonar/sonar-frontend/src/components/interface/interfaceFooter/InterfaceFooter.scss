@@ -1,7 +1,7 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
 .sonar-footer {
-  $padding: 1vw; //15px
+  $padding: 1vh; //15px
   z-index: 2;
   position: fixed;
   bottom: 3vh; //30px
@@ -57,9 +57,9 @@
         height: 3.2vh; //1.4rem
       }
       &:hover {
-        background-color: var.color(theme, accent);
+        background-color: var.color(theme, accent2);
       }
-      &.active {
+      &.active{
         background-color: var.color(theme, accent);
       }
     }

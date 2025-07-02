@@ -1,10 +1,16 @@
 package de.sonar.sonar.services;
 
+import de.sonar.sonar.model.Category;
+import de.sonar.sonar.model.Event;
 import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.repositories.EventRepository;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,92 +42,69 @@ public class EventService {
         return eventRepository.findAllByNameContainingIgnoreCase(name);
     }
 
-    /**
-     * Ruft alle Events mit entsprechenden Kategorien aus der Datenbank ab.
-     *
-     * @param categoryIds die IDs der Kategorien, für die die Events gesucht werden.
-     * @return die Liste der Events, die die entsprechenden Kategorien haben.
-     */
-    public List<Event> findAllByCategories(List<String> categoryIds) {
-        return eventRepository.findAllByCategoriesIn(categoryIds);
-    }
-
-    /**
-     * Ruft alle Events, die in dem angegebenen Zeitraum liegen aus der Datenbank ab.
-     * Ist kein Enddatum angegeben, werden alle Events ab dem Startdatum angegeben.
-     *
-     * @param startDateInMilliseconds Startdatum in Millisekunden
-     * @param endDateInMilliseconds   Enddatum in Millisekunden
-     * @return die Liste der Events, die in den angegebenen Zeitraum passen.
-     */
-    public List<Event> findAllByDateBetween(Long startDateInMilliseconds, Long endDateInMilliseconds) {
-        Date startDate = new Date(startDateInMilliseconds);
-        Date endDate = (endDateInMilliseconds == null) ? new Date(4102444799000L) : new Date(endDateInMilliseconds);
-
-        return eventRepository.findAllByStartDateBetween(startDate, endDate);
-    }
-
-    /**
-     * Ruft alle Events, die den angegebenen Kategorien zugewiesen wurden und in dem angegebenen
-     * Zeitraum liegen aus der Datenbank ab.
-     * Ist kein Enddatum angegeben, werden alle Events ab dem Startdatum angegeben.
-     *
-     * @param categories              Kategorien, zu denen die Events zugeordnet sein sollen
-     * @param startDateInMilliseconds Startdatum in Millisekunden
-     * @param endDateInMilliseconds   Enddatum in Millisekunden
-     * @return die Liste der Events, die in die Filterkriterien passen.
-     */
-    public List<Event> findAllByCategoriesAndDateBetween(List<String> categories, Long startDateInMilliseconds, Long endDateInMilliseconds) {
+    public List<Event> findAllWithMatchingCriteria(List<Long> categories, String name, Long startDateInMilliseconds, Long endDateInMilliseconds, Float price, Boolean restricted, Integer minAge) {
         Date startDate = (startDateInMilliseconds == null) ? null : new Date(startDateInMilliseconds);
-        Date endDate = (endDateInMilliseconds == null) ? new Date(4102444799000L) : new Date(endDateInMilliseconds);
-
-        return eventRepository.findAllByStartDateBetweenAndCategories(startDate, endDate, categories);
+        Date endDate = (endDateInMilliseconds == null) ? null : new Date(endDateInMilliseconds);
+        return eventRepository.findAll(
+                buildEventFilter(name, categories, startDate, endDate, price, restricted, minAge)
+        );
     }
 
     /**
-     * Ruft alle Events, die den angegebenen Kategorien zugewiesen wurden und in dem angegebenen
-     * Zeitraum liegen, sowie den angegebenen Begriff im Titel enthalten haben aus der Datenbank ab.
-     * Ist kein Enddatum angegeben, werden alle Events ab dem Startdatum angegeben.
+     * Erzeugt abhängig der übergebenen Parameter eine SQL-Abfrage, welche dann zurückgegeben wird.
      *
-     * @param categories              Kategorien, zu denen die Events zugeordnet sein sollen
-     * @param name                    Begriff, der im Titel der Events enthalten ist
-     * @param startDateInMilliseconds Startdatum in Millisekunden
-     * @param endDateInMilliseconds   Enddatum in Millisekunden
-     * @return die Liste der Events, die in die Filterkriterien passen.
+     * @param name        Begriff, der im Titel der Events enthalten ist
+     * @param categoryIds IDs der Kategorien
+     * @param startDate   Anfangsdatum
+     * @param endDate     Enddatum
+     * @param price       Kosten
+     * @param restricted  Anmeldung nötig
+     * @param minAge      Altersgrenze
+     * @return eine Spezifikation, welche im {@link EventRepository} genutzt wird, um die passenden Events zu finden.
      */
-    public List<Event> findAllByCategoriesAndNameAndDateBetween(List<String> categories, String name, Long startDateInMilliseconds, Long endDateInMilliseconds) {
-        Date startDate = (startDateInMilliseconds == null) ? null : new Date(startDateInMilliseconds);
-        Date endDate = (endDateInMilliseconds == null) ? new Date(4102444799000L) : new Date(endDateInMilliseconds);
+    private Specification<Event> buildEventFilter(
+            String name,
+            List<Long> categoryIds,
+            Date startDate,
+            Date endDate,
+            Float price,
+            Boolean restricted,
+            Integer minAge
+    ) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
-        return eventRepository.findAllByStartDateBetweenAndCategoriesAndNameContainingIgnoreCase(startDate, endDate, categories, name);
-    }
+            if (name != null && !name.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+            }
 
-    /**
-     * Ruft alle Events, die den angegebenen Kategorien zugewiesen wurden und den angegebenen Begriff im Titel enthalten haben,
-     * aus der Datenbank ab.
-     *
-     * @param name       Begriff, der im Titel enthalten sein soll
-     * @param categories Kategorien, zu denen die Events zugeordnet sein solle.
-     * @return die List der Events, die in die Filterkriterien passen.
-     */
-    public List<Event> findAllByNameContainingIgnoreCaseAndCategories(String name, List<String> categories) {
-        return eventRepository.findAllByNameContainingIgnoreCaseAndCategories(name, categories);
-    }
+            if (categoryIds != null && !categoryIds.isEmpty()) {
+                Join<Event, Category> categoryJoin = root.join("categories");
+                predicates.add(categoryJoin.get("id").in(categoryIds));
+            }
 
-    /**
-     * Ruft alle Events, die im angegebenen Zeitraum liegen und den angegebenen Begriff im Titel enthalten haben,
-     * aus der Datenbank ab.
-     *
-     * @param startDateInMilliseconds Startdatum in Millisekunden
-     * @param endDateInMilliseconds   Enddatum in Millisekunden
-     * @param name      Begriff, der im Titel enthalten sein soll
-     * @return die List der Events, die in die Filterkriterien passen.
-     */
-    public List<Event> findAllByStartDateBetweenAndNameContainingIgnoreCase(Long startDateInMilliseconds, Long endDateInMilliseconds, String name) {
-        Date startDate = (startDateInMilliseconds == null) ? new Date() : new Date(startDateInMilliseconds);
-        Date endDate = endDateInMilliseconds == null ? new Date(4102444799000L) : new Date(endDateInMilliseconds);
+            if (startDate != null && endDate != null) {
+                predicates.add(cb.between(root.get("startDate"), startDate, endDate));
+            } else if (startDate != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), startDate));
+            } else if (endDate != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("startDate"), endDate));
+            }
 
-        return eventRepository.findAllByStartDateBetweenAndNameContainingIgnoreCase(startDate, endDate, name);
+            if (price != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("price"), price));
+            }
+
+            if (restricted != null) {
+                predicates.add(cb.equal(root.get("restricted"), restricted));
+            }
+
+            if (minAge != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("minAge"), minAge));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
 }

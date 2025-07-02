@@ -8,11 +8,49 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
 
-export default function EventCardModule({title, date, costs, image}) {
+export default function EventCardModule({title, date, date_text, costs, image, restricted}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     function dataToImage(data) {
         return Buffer.from(data, 'binary').toString('base64');
+    }
+
+    function restrictedToString(restricted) {
+        if(restricted) {
+            return "Mit Anmeldung";
+        } else {
+            return "Ohne Anmeldung";
+        }
+    }
+
+    function costsWithCurrency(costs) {
+        return costs + " €";
+    }
+
+    function dateToDateSpan(date) {
+        console.log(date);
+        let dateFormat = new Date(date);
+        let milliseconds = dateFormat.getTime();
+        console.log(milliseconds);
+        let today = new Date();
+        let difference = today.getTime() - milliseconds;
+        console.log(difference);
+
+        if(difference > 0) {
+            return ["vergangen", "_past"]
+        }
+
+        if(difference <= 86400000 && difference >= -86400000) {
+            return ["heute", "_today"]
+        }
+
+        if(difference < 0 && difference >= -259200000) {
+            return ["in kürze", "_next"]
+        }
+
+        if(difference < -259200000) {
+            return ["zukünftig", "_soon"]
+        }
     }
 
     return (
@@ -38,11 +76,11 @@ export default function EventCardModule({title, date, costs, image}) {
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">
-                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
-                                <label>Heudde</label>
+                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date" + (dateToDateSpan(date)[1])}>
+                                <label>{dateToDateSpan(date)[0]}</label>
                             </div>
-                            <div className="sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
-                                <label>Ausjebuucht</label>
+                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration" + (restricted ? '_needed' : '')}>
+                                <label>{restrictedToString(restricted)}</label>
                             </div>
                         </CardActions>
                     </div>
@@ -57,10 +95,10 @@ export default function EventCardModule({title, date, costs, image}) {
                                 {title}
                             </p>
                             <p className="sonar-eventcard_content_text-date">
-                                Datum: {date}
+                                Datum: {date_text}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
-                                {costs}
+                                {costsWithCurrency(costs)}
                             </p>
                         </div>
                     </CardContent>
