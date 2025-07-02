@@ -3,7 +3,11 @@ package de.sonar.sonar.mqtt.base.example;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.sonar.sonar.mqtt.base.reply.AbstractMqttReplyService;
 import de.sonar.sonar.mqtt.base.reply.InvalidReplyStateException;
+import de.sonar.sonar.mqtt.base.request.MqttRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +16,7 @@ public class HelloWorldReplyService extends AbstractMqttReplyService<String, Str
 
     @Autowired
     public HelloWorldReplyService(
-            MessageChannel mqttReplyOutboundChannel,
+            @Qualifier("hello-world_mqttReplyOutboundChannel") MessageChannel mqttReplyOutboundChannel,
             ObjectMapper objectMapper) {
         super(mqttReplyOutboundChannel, objectMapper);
     }
@@ -23,5 +27,11 @@ public class HelloWorldReplyService extends AbstractMqttReplyService<String, Str
             throw new InvalidReplyStateException("You should say 'Hello World!'!");
         }
         return "Hello World You Too!";
+    }
+
+    @ServiceActivator(inputChannel = "hello-world_mqttRequestInboundChannel")
+    @Override
+    public void handleRequest(Message<MqttRequest<String>> message) {
+        super.handleRequest(message);
     }
 }

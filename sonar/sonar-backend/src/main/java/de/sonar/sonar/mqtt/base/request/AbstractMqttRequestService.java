@@ -8,7 +8,6 @@ import de.sonar.sonar.mqtt.base.reply.MqttReply;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
@@ -102,7 +101,6 @@ public abstract class AbstractMqttRequestService<RequestType, ReplyType> {
      * @throws InvalidReplyStateException if the message is null, lacks a request ID,
      *                                    has no payload, or if the payload conversion fails
      */
-    @ServiceActivator(inputChannel = "mqttReplyInboundChannel")
     public void handleResponse(Message<MqttReply<ReplyType>> message) {
         validateReplyMessage(message);
         MqttReply<ReplyType> mqttReply = message.getPayload();

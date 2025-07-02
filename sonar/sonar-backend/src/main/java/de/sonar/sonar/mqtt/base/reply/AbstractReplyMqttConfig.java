@@ -2,7 +2,6 @@ package de.sonar.sonar.mqtt.base.reply;
 
 import de.sonar.sonar.mqtt.base.JsonPahoMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
@@ -42,7 +41,6 @@ public abstract class AbstractReplyMqttConfig {
      *
      * @return A DirectChannel instance for handling inbound MQTT request messages
      */
-    @Bean
     public MessageChannel mqttRequestInboundChannel() {
         return new DirectChannel();
     }
@@ -53,7 +51,6 @@ public abstract class AbstractReplyMqttConfig {
      * @param mqttRequestInbound The MQTT message-driven channel adapter for incoming requests
      * @return An IntegrationFlow instance that routes messages from the adapter to the inbound channel
      */
-    @Bean
     public IntegrationFlow mqttRequestInboundFlow(
             MqttPahoMessageDrivenChannelAdapter mqttRequestInbound) {
         return IntegrationFlow.from(mqttRequestInbound)
@@ -68,7 +65,6 @@ public abstract class AbstractReplyMqttConfig {
      * @param converter The JSON converter for MQTT message conversion
      * @return A configured MqttPahoMessageDrivenChannelAdapter for handling incoming requests
      */
-    @Bean
     public MqttPahoMessageDrivenChannelAdapter mqttRequestInbound(
             MqttPahoClientFactory factory,
             JsonPahoMessageConverter converter) {
@@ -86,7 +82,6 @@ public abstract class AbstractReplyMqttConfig {
      *
      * @return A DirectChannel instance for handling outbound MQTT reply messages
      */
-    @Bean
     public MessageChannel mqttReplyOutboundChannel() {
         return new DirectChannel();
     }
@@ -97,7 +92,6 @@ public abstract class AbstractReplyMqttConfig {
      * @param mqttReplyOutbound The message handler for outgoing replies
      * @return An IntegrationFlow instance that routes messages to the outbound handler
      */
-    @Bean
     public IntegrationFlow mqttReplyOutboundFlow(MessageHandler mqttReplyOutbound) {
         return IntegrationFlow.from(mqttReplyOutboundChannel())
                 .handle(mqttReplyOutbound)
@@ -111,7 +105,6 @@ public abstract class AbstractReplyMqttConfig {
      * @param converter The JSON converter for MQTT message conversion
      * @return A configured MqttPahoMessageHandler for sending replies
      */
-    @Bean
     public MessageHandler mqttReplyOutbound(
             MqttPahoClientFactory factory,
             JsonPahoMessageConverter converter) {

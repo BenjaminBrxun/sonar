@@ -7,7 +7,6 @@ import de.sonar.sonar.mqtt.base.request.InvalidRequestStateException;
 import de.sonar.sonar.mqtt.base.request.MqttRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
@@ -33,7 +32,6 @@ public abstract class AbstractMqttReplyService<RequestType, ReplyType> {
      * @param message the incoming MQTT request message containing the {@link MqttRequest}
      * @throws InvalidRequestStateException if the message is invalid or processing fails
      */
-    @ServiceActivator(inputChannel = "mqttRequestInboundChannel")
     public void handleRequest(Message<MqttRequest<RequestType>> message) {
         validateMessage(message);
         MqttRequest<RequestType> mqttRequest = message.getPayload();
