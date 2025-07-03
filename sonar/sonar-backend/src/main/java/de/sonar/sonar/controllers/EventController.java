@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
     private final EventService eventService;
 
@@ -34,6 +33,7 @@ public class EventController {
      *
      * @return alle Events
      */
+
     @GetMapping("/events")
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();

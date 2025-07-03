@@ -4,6 +4,7 @@ import de.sonar.sonar.model.User;
 import de.sonar.sonar.repositories.UserRepository;
 import de.sonar.sonar.security.JwtUtils;
 import lombok.*;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/auth")
+@Log4j2
 public class AuthController {
     @Autowired
     private UserRepository userRepo;
@@ -46,6 +48,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        log.info(request.toString());
         User user = userRepo.findByEmail(request.getEmail());
         if(user == null) {
             throw new RuntimeException("User nicht gefunden");

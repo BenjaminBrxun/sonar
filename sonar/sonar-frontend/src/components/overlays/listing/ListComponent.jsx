@@ -14,6 +14,7 @@ export function ListComponent({link}) {
         fetch(link)
             .then(res => res.json())
             .then(data => setEvents(data))
+            .then(data => console.log(data))
             .catch(err => console.log("Event konnte nicht geladen werden:" +
                 " " + err.message));
     }, [link]);
