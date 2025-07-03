@@ -1,6 +1,7 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
 .sonar-eventcard{
+  //position: absolute;
   min-height: 60vh;
   min-width: var.$appWidth;
   max-width: 40vw;
@@ -8,6 +9,7 @@
   margin-bottom: 2.7vh;
   border-radius: 4vh !important;
   padding-bottom: 1.5vh;
+  //top: 12vh;
 }
 
 .sonar-eventcard_container {
@@ -158,23 +160,24 @@
     }
     &-text{font-size: 2vh}
     &-location{font-size: 2vh}
-    &-button{
-      height: 6vh;
-      width: auto;
-      padding-top: 2vh;
-      a{
-        top: 0;
-        font-size: 2vh;
-        font-family: Roboto, sans-serif;
-        text-decoration: none;
-        width: auto;
-        padding: 2vh 2vw 2vh 2vw;
-        height: 100%;
-        border-radius: 3vh;
-        background: black;
-        color: white;
-      }
-    }
+  }
+}
+
+#sonar-eventcard_content_text-button{
+  height: 6vh;
+  width: auto;
+  padding-top: 2vh;
+  a{
+    top: 0;
+    font-size: 2vh;
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    width: auto;
+    padding: 2vh 2vw 2vh 2vw;
+    height: 100%;
+    border-radius: 3vh;
+    background: black;
+    color: white;
   }
 }
 
@@ -201,7 +204,11 @@
   }
 }
 
-.sonar-eventcard_map{
+.sonar-eventcard_map-container{
   height: 30vh;
   width: 33vw;
+  iframe{
+    width: 100%;
+    height: 100%;
+  }
 }

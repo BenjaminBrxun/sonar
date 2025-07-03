@@ -9,15 +9,12 @@ import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import image from "../../../assets/images/event-mocks/gaming.png"
-//import map from "../../../assets/images/map_dark.png"
-const coords = "51.49375784932668, 7.420155273149954"
-const linktomaps = "https://www.google.com/maps/place/" + coords + "/"
 
 
-export function DetailComponent({eventId}) { //eigentlich {title, date, costs, image} hier als Argument
+export function DetailComponent({eventId}) {
 
     const [event, setEvent] = useState([]);
-
+    console.log(event)
     useEffect(() => {
         fetchEvent();
     }, []);
@@ -49,6 +46,36 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
             </>
         }
     }
+
+
+    async function getGeocodeEvent(){
+        console.log("Lade Koordinaten für Event...", event);
+        const {street, houseNumber, postcode, city} = event.address;
+        const query = `${street} ${houseNumber} ${postcode} ${city}`;
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+        try {
+            const res = await fetch(url, {
+                headers: {'User-Agent': 'sonar'},
+            });
+            const data = await res.json();
+            if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                return {lat, lon, street, houseNumber, postcode, city};
+            }
+        } catch (error) {
+            console.error("Geocoding failed:", error);
+        }
+    }
+
+    getGeocodeEvent().then(position => {
+        const iframelink = `https://www.openstreetmap.org/export/embed.html?bbox=${position.lon-0.01004219055176}%2C${position.lat-0.00432886683549}%2C${position.lon + 0.01004219055176}%2C${position.lat + 0.00432886683549}&amp;layer=mapnik&amp;marker=${position.lat}%2C${position.lon}`;
+        console.log(iframelink);
+        console.log(position);
+        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`;
+        document.getElementById("sonar-eventcard_content_text-button").innerHTML = `<a href=${linktomaps}>Route auf Google Maps</a>`;
+        document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
+    });
 
     return (
         <Card className="sonar-eventcard">
@@ -111,18 +138,14 @@ export function DetailComponent({eventId}) { //eigentlich {title, date, costs, i
                                     <label>Computer</label>
                                 </div>
                             </CardActions>
-                            <iframe className="sonar-eventcard_map"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.326769624289!2d7.233790842804277!3d51.543906835387396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8e1f60f2bd079%3A0xced4b1949a1d5e26!2sHerner%20Stadtgarten%2C%20Herne!5e0!3m2!1sde!2sde!4v1750675117560!5m2!1sde!2sde"></iframe>
+                            <div id="sonar-eventcard_map-container"/>
                             <p className="sonar-eventcard_content_text-location">
                                 Adresse<br/>{formatAddress()}<br/>
                             </p>
                             <p className="sonar-eventcard_content_text-location">
                                 Organisator<br/>{event.applicant !== undefined && event.applicant.organisation}
                             </p>
-                            <div className="sonar-eventcard_content_text-button">
-                                <a href={linktomaps}>Route auf Google Maps</a>
-                            </div>
-
+                            <div id="sonar-eventcard_content_text-button"/>
                         </div>
                     </CardContent>
                 </div>
