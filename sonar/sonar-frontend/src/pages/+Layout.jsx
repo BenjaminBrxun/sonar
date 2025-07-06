@@ -12,12 +12,13 @@ function Layout({children}) {
     const pageContext = usePageContext();
     const isFilterPage = pageContext.urlPathname.startsWith("/filter");
     const isSearchPage = pageContext.urlPathname.startsWith("/search");
+    const isLoginPage = pageContext.urlPathname.startsWith("/profile");
     return <>
-        {!isFilterPage && !isSearchPage && <InterfaceHeader/>}
+        {!isFilterPage && !isSearchPage && !isLoginPage && <InterfaceHeader/>}
         <div className="current-component">
             {children}
         </div>
         {<InteractiveMap/>}
-        {!isFilterPage && !isSearchPage && <InterfaceFooter/>}
+        {!isFilterPage && !isSearchPage && !isLoginPage && <InterfaceFooter/>}
     </>
 }
