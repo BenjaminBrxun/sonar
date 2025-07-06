@@ -29,6 +29,10 @@ export function InterfaceFooter() {
         await navigate('/bookmarks');
     }
 
+    async function navigateToProfile() {
+        await navigate('/profile');
+    }
+
     return (
         <div className="sonar-footer">
             <div className="sonar-footer_inner">
@@ -68,7 +72,9 @@ export function InterfaceFooter() {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button className="sonar-footer_menu-button">
+                        <button className="sonar-footer_menu-button"
+                                onClick={navigateToProfile}
+                        >
                             <FontAwesomeIcon icon={faArrowRightToBracket}/>
                         </button>
                     </li>
