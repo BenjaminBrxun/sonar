@@ -55,7 +55,7 @@ services:
       - sonar-backend
     container_name: sonar-frontend
     ports:
-      - "8080:80"
+      - "8080:3000"
     networks:
       - sonar-net
     restart: unless-stopped
