@@ -16,22 +16,28 @@ export function DetailComponent({eventId}) {
     const [event, setEvent] = useState([]);
     console.log(event)
     useEffect(() => {
-        fetchEvent();
-    }, []);
-
-    const fetchEvent = () => {
         if (eventId !== null && eventId !== undefined) {
             fetch(`http://localhost:8081/api/v1/event/${eventId}`)
                 .then(res => res.json())
                 .then(data => {
                     setEvent(data);
+                    getGeocodeEvent(data).then(position => {
+                        const iframelink = `https://www.openstreetmap.org/export/embed.html?bbox=${position.lon-0.01004219055176}%2C${position.lat-0.00432886683549}%2C${position.lon + 0.01004219055176}%2C${position.lat + 0.00432886683549}&amp;layer=mapnik&amp;marker=${position.lat}%2C${position.lon}`;
+                        console.log(iframelink);
+                        console.log(position);
+                        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`;
+                        document.getElementById("sonar-eventcard_content_text-button").innerHTML = `<a href=${linktomaps}>Route auf Google Maps</a>`;
+                        document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
+                    });
                 })
                 .catch(err => {
                     console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
                         " " + err.message);
+                    goBack();
                 });
         }
-    }
+    }, [eventId]);
+    
 
     function goBack() {
         history.back();
@@ -48,7 +54,7 @@ export function DetailComponent({eventId}) {
     }
 
 
-    async function getGeocodeEvent(){
+    async function getGeocodeEvent(event){
         console.log("Lade Koordinaten für Event...", event);
         const {street, houseNumber, postcode, city} = event.address;
         const query = `${street} ${houseNumber} ${postcode} ${city}`;
@@ -67,15 +73,6 @@ export function DetailComponent({eventId}) {
             console.error("Geocoding failed:", error);
         }
     }
-
-    getGeocodeEvent().then(position => {
-        const iframelink = `https://www.openstreetmap.org/export/embed.html?bbox=${position.lon-0.01004219055176}%2C${position.lat-0.00432886683549}%2C${position.lon + 0.01004219055176}%2C${position.lat + 0.00432886683549}&amp;layer=mapnik&amp;marker=${position.lat}%2C${position.lon}`;
-        console.log(iframelink);
-        console.log(position);
-        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`;
-        document.getElementById("sonar-eventcard_content_text-button").innerHTML = `<a href=${linktomaps}>Route auf Google Maps</a>`;
-        document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
-    });
 
     return (
         <Card className="sonar-eventcard">

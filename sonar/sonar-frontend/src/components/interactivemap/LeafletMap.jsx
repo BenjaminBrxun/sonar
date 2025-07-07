@@ -81,8 +81,8 @@ export const LeafletMap = ({ events }) => {
                             <div>
                                 <strong>{event.name}</strong><br />
                                 <button
-                                    //onClick={() => navigate(`/events/${event.id}`)}
-                                    onClick={() => alert(`Event: ${event.name} (ID: ${event.id})`)}
+                                    onClick={() => navigate(`/event?eventId=${event.id}`)}
+                                    //onClick={() => alert(`Event: ${event.name} (ID: ${event.id})`)}
                                     style={{ marginTop: "5px", cursor: "pointer" }}
                                 >
                                     Zur Detailseite
