@@ -7,16 +7,17 @@ import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
+import {navigate} from "vike/client/router";
 
-export default function EventCardModule({title, date, date_text, costs, image, restricted}) {
+export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
-    function dataToImage(data) {
-        return Buffer.from(data, 'binary').toString('base64');
-    }
+    // function dataToImage(data) {
+    //     return Buffer.from(data, 'binary').toString('base64');
+    // }
 
     function restrictedToString(restricted) {
-        if(restricted) {
+        if (restricted) {
             return "Mit Anmeldung";
         } else {
             return "Ohne Anmeldung";
@@ -28,29 +29,30 @@ export default function EventCardModule({title, date, date_text, costs, image, r
     }
 
     function dateToDateSpan(date) {
-        console.log(date);
         let dateFormat = new Date(date);
         let milliseconds = dateFormat.getTime();
-        console.log(milliseconds);
         let today = new Date();
         let difference = today.getTime() - milliseconds;
-        console.log(difference);
 
-        if(difference > 0) {
+        if (difference > 0) {
             return ["vergangen", "_past"]
         }
 
-        if(difference <= 86400000 && difference >= -86400000) {
+        if (difference <= 86400000 && difference >= -86400000) {
             return ["heute", "_today"]
         }
 
-        if(difference < 0 && difference >= -259200000) {
+        if (difference < 0 && difference >= -259200000) {
             return ["in kürze", "_next"]
         }
 
-        if(difference < -259200000) {
+        if (difference < -259200000) {
             return ["zukünftig", "_soon"]
         }
+    }
+
+    function showDetails() {
+        navigate(`/event?eventId=${encodeURIComponent(id)}`);
     }
 
     return (
@@ -72,14 +74,16 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                             </div>
                             <div id="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-details">
-                                <Button size="small">Details</Button>
+                                <Button size="small" onClick={showDetails}>Details</Button>
                             </div>
                         </CardActions>
                         <CardActions className="sonar-eventcard_tags">
-                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date" + (dateToDateSpan(date)[1])}>
+                            <div
+                                className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date" + (dateToDateSpan(date)[1])}>
                                 <label>{dateToDateSpan(date)[0]}</label>
                             </div>
-                            <div className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration" + (restricted ? '_needed' : '')}>
+                            <div
+                                className={"sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration" + (restricted ? '_needed' : '')}>
                                 <label>{restrictedToString(restricted)}</label>
                             </div>
                         </CardActions>

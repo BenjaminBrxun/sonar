@@ -39,6 +39,10 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
+    @GetMapping("/event/{id}")
+    public Event getEventById(@PathVariable Long id) {
+        return eventService.getEventById(id);
+    }
     /**
      * Schnittstelle für die Suche von Events nach Titel.
      *
