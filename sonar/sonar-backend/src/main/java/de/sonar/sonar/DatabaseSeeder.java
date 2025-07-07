@@ -1,16 +1,23 @@
 package de.sonar.sonar;
 
-import de.sonar.sonar.model.*;
+import de.sonar.sonar.model.entity.*;
+import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Component
+@Profile("!test")
+@RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final EventRepository eventRepository;
@@ -20,18 +27,8 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final InterestsProfileRepository interestsProfileRepository;
 
-    @Autowired
-    public DatabaseSeeder(EventRepository eventRepository, CategoryRepository categoryRepository, OrganizerRepository organizerRepository, AdministrativeUserRepository administrativeUserRepository, UserRepository userRepository, InterestsProfileRepository interestsProfileRepository) {
-        this.eventRepository = eventRepository;
-        this.categoryRepository = categoryRepository;
-        this.organizerRepository = organizerRepository;
-        this.administrativeUserRepository = administrativeUserRepository;
-        this.userRepository = userRepository;
-        this.interestsProfileRepository = interestsProfileRepository;
-    }
-
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Category category1 = Category.builder()
                 .name("Sport")
@@ -107,14 +104,20 @@ public class DatabaseSeeder implements CommandLineRunner {
         categoryRepository.save(category11);
         categoryRepository.save(category12);
 
-        Address address1 = new Address("Dortmund", "Hafenstraße", "12", "44227", "Eichlinghofen");
-        Address address2 = new Address("Dortmund", "Feldweg", "122", "44229", "Oespel");
+        Address address1 = new Address("Herne", "In der Siedlung", "12", "44625", "Mitte");
+        Address address2 = new Address("Herne", "Heerstraße", "18", "44653", "Crange");
+        Address address3 = new Address("Herne", "Wilhelmstraße", "26", "44649", "Wanne-Eickel");
+        Address address4 = new Address("Herne", "Lange Straße", "1", "44627", "Holthausen");
+        Address address5 = new Address("Bochum", "Günnigfelder Straße", "251", "44793", "Hordel");
+        Address address6 = new Address("Herne", "Bergstraße", "27", "44625", "Süd");
+        Address address7 = new Address("Herne", "Wiescherstraße", "118A", "44625", "Süd");
+        Address address8 = new Address("Herne", "Karl-Brandt-Weg", "5", "44629", "Baukau");
 
         Organizer applicant1 = Organizer.builder()
-                .organisation("Stadt Dortmund")
+                .organisation("Stadt Herne")
                 .build();
         Organizer applicant2 = Organizer.builder()
-                .organisation("AWO Dortmund")
+                .organisation("Schwimm- und Sportverein Herne-Süd")
                 .build();
         Organizer applicant3 = Organizer.builder()
                 .organisation("AWO Herne")
@@ -138,83 +141,85 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .name("Kleinfeld-Fußball Turnier")
                 .address(address1)
                 .categories(categoryList1)
-                .startDate(new Date(1749119967000l))
-                .endDate(new Date(1749148767000l))
                 .price(0.0f)
                 .minAge(6)
                 .restricted(true)
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
                 .applicant(applicant1)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
-                .status("offen")
                 .build();
         Event event2 = Event.builder()
                 .name("Familienfest im Stadtpark")
                 .address(address2)
                 .categories(categoryList2)
-                .startDate(new Date(1749384000000l))
-                .endDate(new Date(1749405600000l))
                 .price(0.0f)
                 .minAge(0)
                 .restricted(false)
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749405600000L), ZoneId.systemDefault()))
                 .applicant(applicant2)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
-                .status("offen")
                 .build();
 
         Event event3 = Event.builder()
                 .name("Ferienlager")
-                .address(address2)
+                .address(address3)
                 .categories(categoryList3)
-                .startDate(new Date(1749384000000l))
-                .endDate(new Date(1749751200000l))
                 .price(19.00f)
                 .minAge(8)
                 .restricted(true)
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749751200000L), ZoneId.systemDefault()))
                 .applicant(applicant3)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
-                .status("offen")
                 .build();
 
         Event event4 = Event.builder()
                 .name("Großfeld-Fußball Turnier")
-                .address(address1)
+                .address(address4)
                 .categories(categoryList1)
-                .startDate(new Date(new Date().getTime() + 172800000L))
-                .endDate(new Date(new Date().getTime() + 194400000L))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(172800000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(194400000L), ZoneId.systemDefault()))
                 .price(5.00f)
                 .minAge(12)
                 .restricted(true)
                 .applicant(applicant4)
                 .processor(administrativeUser1)
-                .status("offen")
+                .status(EventStatus.DEPLOYED)
                 .build();
 
         Event event5 = Event.builder()
                 .name("Computer-Kurs")
-                .address(address1)
+                .address(address5)
                 .categories(categoryList4)
-                .startDate(new Date(new Date().getTime() + 14400000L))
-                .endDate(new Date(new Date().getTime() + 36000000L))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(14400000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(36000000L), ZoneId.systemDefault()))
                 .price(5.00f)
                 .minAge(12)
                 .restricted(true)
                 .applicant(applicant4)
                 .processor(administrativeUser1)
-                .status("offen")
+                .status(EventStatus.DEPLOYED)
                 .build();
 
         Event event6 = Event.builder()
                 .name("Shakespears Romeo und Julia")
-                .address(address1)
+                .address(address6)
                 .categories(categoryList5)
-                .startDate(new Date(new Date().getTime() + 259200000L))
-                .endDate(new Date(new Date().getTime() + 288000000L))
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(259200000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(288000000L), ZoneId.systemDefault()))
                 .price(2.00f)
                 .minAge(6)
                 .restricted(false)
+                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
+                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
                 .applicant(applicant4)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
-                .status("offen")
                 .build();
         // Events speichern
         eventRepository.save(event1);

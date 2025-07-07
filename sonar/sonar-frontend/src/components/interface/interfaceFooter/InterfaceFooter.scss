@@ -57,9 +57,9 @@
         height: 3.2vh; //1.4rem
       }
       &:hover {
-        background-color: var.color(theme, accent);
+        background-color: var.color(theme, accent2);
       }
-      &.active {
+      &.active{
         background-color: var.color(theme, accent);
       }
     }

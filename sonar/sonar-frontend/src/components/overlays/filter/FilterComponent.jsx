@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./FilterComponent.scss"
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import {HighlightGroup, MultiSelectHighlightGroup} from "../../layouts/HighlightGroup.jsx"
@@ -32,6 +32,7 @@ export function FilterComponent({onCloseClick}) {
         "Ganze Familie": 11,
         "Tiere": 12
     };
+    const [searchTerm, setSearchTerm] = useState("");
 
     function priceToFloat(price) {
         switch (price) {
@@ -50,7 +51,9 @@ export function FilterComponent({onCloseClick}) {
         e.preventDefault();
 
         const queryParams = new URLSearchParams();
-
+        if (searchTerm) {
+            queryParams.append("name", searchTerm);
+        }
         multiSelected.forEach(category => {
             const id = categoryNameToId[category];
             queryParams.append('categories', id);
@@ -92,6 +95,10 @@ export function FilterComponent({onCloseClick}) {
             <div className="form-container">
             <form onSubmit={handleSubmit}>
                 <div className="filter-body">
+                    <fieldset>
+                        <legend>Suchbegriff</legend>
+                        <input className="search-input" placeholder="Eventname" minLength={3} required={true} onChange={(e) => setSearchTerm(e.target.value)}/>
+                    </fieldset>
                 <fieldset>
                     <legend>
                         Zeitraum

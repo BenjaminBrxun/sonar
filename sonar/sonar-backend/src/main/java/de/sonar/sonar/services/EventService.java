@@ -1,7 +1,7 @@
 package de.sonar.sonar.services;
 
-import de.sonar.sonar.model.Category;
-import de.sonar.sonar.model.Event;
+import de.sonar.sonar.model.entity.Category;
+import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.repositories.EventRepository;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
@@ -30,6 +30,10 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
+    public Event getEventById(Long id) {
+        return eventRepository.getEventById(id);
+    };
 
     /**
      * Ruft für alle Events mit passendem Namen aus der Datenbank ab.
