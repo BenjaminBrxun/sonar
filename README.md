@@ -88,7 +88,7 @@ werden muss.
 
 ![Dropdown Menu](documentation/images/dropdown.png)
 
-Anschließend werden die Werte für `SPRING_DATASOURCE_USERNAME` und `SPRING_DATA_PASSWORD` gesetzt.
+Anschließend werden die Werte für `SPRING_DATASOURCE_USERNAME` und `SPRING_DATASOURCE_PASSWORD` gesetzt.
 Diese Werte müssen denen aus der `sonar/.env/credentials.env` entsprechen.
 
 ![Environment variables](documentation/images/env_input.png)
