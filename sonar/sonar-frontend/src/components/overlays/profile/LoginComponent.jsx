@@ -9,7 +9,39 @@ export function LoginComponent({onCloseClick}) {
     const [password, setPassword] = React.useState("");
 
     async function handleSubmit(e) {
+        e.preventDefault();
 
+        try {
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.token;
+
+                localStorage.setItem("token", token);
+                alert("Login erfolgreich!");
+
+                await navigate(`/list`);
+
+                // TODO: Weiterleitung oder App-Zustand ändern
+            } else if (response.status === 401) {
+                alert("Falsche E-Mail oder Passwort");
+            } else {
+                alert("Fehler beim Login");
+            }
+        } catch (error) {
+            console.error("Netzwerkfehler:", error);
+            alert("Netzwerkfehler beim Login");
+        }
     }
 
     return (

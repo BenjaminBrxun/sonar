@@ -249,6 +249,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .username("MichaDerHühne")
                 .birthDate(new Date())
                 .profile(interestsProfile1)
+                .password("test")
+                .email("test@test.de")
                 .build();
 
         User user2 = User.builder()
