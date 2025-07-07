@@ -3,6 +3,18 @@ import "./ListComponent.scss"
 import EventCardModule from "../../modules/EventCardModule/EventCardModule.jsx";
 import eventCardImagePark from "../../../assets/images/event-mocks/park.png";
 
+function format_date_to_text(eventdate) {
+    const year = eventdate.substring(0, 4);
+    const month = eventdate.substring(5, 7);
+    const day = eventdate.substring(8, 10);
+    const hour = eventdate.substring(11, 13);
+    const minute = eventdate.substring(14, 16);
+    // const second = eventdate.substring(17, 19);
+    const erg = day + "." + month + "." + year + " " + hour + ":" + minute + "Uhr";
+    console.log("LOGGGG>>"+erg)
+    return erg;
+}
+
 
 export function ListComponent({link}) {
     const [loadedLink] = useState(null);
