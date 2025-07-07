@@ -26,11 +26,11 @@ export function LoginComponent({onCloseClick}) {
                             <div className="credentials-container">
                                 <div className="input-container">
                                     <label className="login-label" htmlFor="email-input">Email</label>
-                                    <input id="email-input" value={email} onChange={e => setEmail(e.target.value)}/>
+                                    <input id="email-input" type="email" value={email} required onChange={e => setEmail(e.target.value)}/>
                                 </div>
                                 <div className="input-container">
                                     <label className="login-label" htmlFor="password-input">Passwort</label>
-                                    <input id="password-input" type="password" value={password}
+                                    <input id="password-input" type="password" value={password} required
                                            onChange={e => setPassword(e.target.value)}/>
                                     <button className="forgot-password-button" type="submit">Passwort vergessen?</button>
                                 </div>
