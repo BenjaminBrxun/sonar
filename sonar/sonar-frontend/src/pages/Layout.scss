@@ -4,13 +4,25 @@
   height: 100%;
   overflow: hidden;
 }
-body{
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  margin: 0 0 0 0;
 }
 .sonar-header_inner{
   box-shadow: 0 1vh 1vh darkslategrey;
 }
 .sonar-footer_inner{
   box-shadow: 0 -1vh 1vh darkslategrey;
+}
+
+.ui {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

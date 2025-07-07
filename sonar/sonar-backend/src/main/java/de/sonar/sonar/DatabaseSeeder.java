@@ -107,14 +107,20 @@ public class DatabaseSeeder implements CommandLineRunner {
         categoryRepository.save(category11);
         categoryRepository.save(category12);
 
-        Address address1 = new Address("Dortmund", "Emil-Figge-Straße", "42", "44227", "Barop");
-        Address address2 = new Address("Herne", "Wilhelmstraße", "26", "44649", "Wanne-Eickel");
+        Address address1 = new Address("Herne", "In der Siedlung", "12", "44625", "Mitte");
+        Address address2 = new Address("Herne", "Heerstraße", "18", "44653", "Crange");
+        Address address3 = new Address("Herne", "Wilhelmstraße", "26", "44649", "Wanne-Eickel");
+        Address address4 = new Address("Herne", "Lange Straße", "1", "44627", "Holthausen");
+        Address address5 = new Address("Bochum", "Günnigfelder Straße", "251", "44793", "Hordel");
+        Address address6 = new Address("Herne", "Bergstraße", "27", "44625", "Süd");
+        Address address7 = new Address("Herne", "Wiescherstraße", "118A", "44625", "Süd");
+        Address address8 = new Address("Herne", "Karl-Brandt-Weg", "5", "44629", "Baukau");
 
         Organizer applicant1 = Organizer.builder()
-                .organisation("Stadt Dortmund")
+                .organisation("Stadt Herne")
                 .build();
         Organizer applicant2 = Organizer.builder()
-                .organisation("AWO Dortmund")
+                .organisation("Schwimm- und Sportverein Herne-Süd")
                 .build();
         Organizer applicant3 = Organizer.builder()
                 .organisation("AWO Herne")
@@ -136,8 +142,6 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event1 = Event.builder()
                 .name("Kleinfeld-Fußball Turnier")
-                .headline("Das Runde muss ins Eckige!")
-                .description("Hier findet ein tolles Fußball Turnier statt! Kleine Felder, großer Spaß!")
                 .address(address1)
                 .categories(categoryList1)
                 .startDate(new Date(1749119967000l))
@@ -151,8 +155,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .build();
         Event event2 = Event.builder()
                 .name("Familienfest im Stadtpark")
-                .headline("Fun, Fun, Fun!")
-                .description("Grillen, Federball und Schach. All das erwartet euch im Stadtpark. Und natürlich noch mehr.")
                 .address(address2)
                 .categories(categoryList2)
                 .startDate(new Date(1749384000000l))
@@ -167,9 +169,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event3 = Event.builder()
                 .name("Ferienlager")
-                .headline("Wir ham' gemacht bis halb 8 (morgens)")
-                .description("In unserem Ferienlager sind alle willkommen, ob klein oder groß. Für Verpflegung wird gesorgt. Ihr müsst nur noch Spaß mitbringen!")
-                .address(address2)
+                .address(address3)
                 .categories(categoryList3)
                 .startDate(new Date(1749384000000l))
                 .endDate(new Date(1749751200000l))
@@ -183,9 +183,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event4 = Event.builder()
                 .name("Großfeld-Fußball Turnier")
-                .headline("Aus dem Hintergrund müsste Rahn schießen...")
-                .description("Wie die Profis, so könnt auch ihr einmal für eure Fans den glorreichen Sieg einfahren! Aber bleibt fair.")
-                .address(address1)
+                .address(address4)
                 .categories(categoryList1)
                 .startDate(new Date(new Date().getTime() + 172800000L))
                 .endDate(new Date(new Date().getTime() + 194400000L))
@@ -199,9 +197,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event5 = Event.builder()
                 .name("Computer-Kurs")
-                .headline("beep boop")
-                .description("Wie schon Alan Turing, so könnt auch ihr vielleicht eines Tages mal einen Meilenstein in der Informatik begründen. Hier lernt ihr auch jeden Fall die Grundlagen dazu.")
-                .address(address1)
+                .address(address5)
                 .categories(categoryList4)
                 .startDate(new Date(new Date().getTime() + 14400000L))
                 .endDate(new Date(new Date().getTime() + 36000000L))
@@ -215,9 +211,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         Event event6 = Event.builder()
                 .name("Shakespears Romeo und Julia")
-                .headline("To be or not to be?")
-                .description("Shapespears wohl bestes Theaterstück. Live on Stage im Stadttheater Herne. Und das beste: für nur 2€ könnt ihr dieses Ereignis erleben!")
-                .address(address1)
+                .address(address6)
                 .categories(categoryList5)
                 .startDate(new Date(new Date().getTime() + 259200000L))
                 .endDate(new Date(new Date().getTime() + 288000000L))
