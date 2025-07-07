@@ -9,7 +9,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
 import {navigate} from "vike/client/router";
 
-export default function EventCardModule({title, date, date_text, costs, image, restricted}) {
+export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
 
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     // function dataToImage(data) {

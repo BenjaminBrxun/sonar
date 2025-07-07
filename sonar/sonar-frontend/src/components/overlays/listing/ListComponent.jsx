@@ -35,7 +35,7 @@ export function ListComponent({link}) {
             <div className="sonar-content card-container">
                 <div className="sonar-content-buffer-begin"></div>
                 {events.map((event) => (
-                    <EventCardModule costs={event.price} date={event.startDate} image={eventCardImagePark}
+                    <EventCardModule costs={event.price} date={event.startDate} date_text={format_date_to_text(event.startDate)} image={eventCardImagePark}
                                      restricted={event.restricted} title={event.name} id={event.id} key={event.id}/>)
                 )}
                 <div className="sonar-content-buffer-end"></div>
