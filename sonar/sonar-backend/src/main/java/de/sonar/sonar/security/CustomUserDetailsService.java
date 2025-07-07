@@ -1,6 +1,6 @@
 package de.sonar.sonar.security;
 
-import de.sonar.sonar.model.User;
+import de.sonar.sonar.model.entity.User;
 import de.sonar.sonar.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;

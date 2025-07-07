@@ -3,7 +3,7 @@ package de.sonar.sonar.controllers;
 import de.sonar.sonar.dto.JwtResponse;
 import de.sonar.sonar.dto.LoginRequest;
 import de.sonar.sonar.dto.RegisterRequest;
-import de.sonar.sonar.model.User;
+import de.sonar.sonar.model.entity.User;
 import de.sonar.sonar.repositories.UserRepository;
 import de.sonar.sonar.security.JwtUtils;
 import lombok.extern.log4j.Log4j2;
