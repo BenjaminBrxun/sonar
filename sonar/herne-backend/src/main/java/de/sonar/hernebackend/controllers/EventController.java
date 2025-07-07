@@ -59,7 +59,9 @@ public class EventController {
                     UNDER_EDITING -> IN_REVIEW -> APPROVED -> DEPLOYED -> ARCHIVED -> UNDER_EDITING
                     
                     DECLINED -> UNDER_EDITING
+                    
                     CANCELLED -> ARCHIVED
+                    
                     DELETED -> UNDER_EDITING
                     """
     )
