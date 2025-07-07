@@ -6,6 +6,7 @@ import de.sonar.sonar.dto.RegisterRequest;
 import de.sonar.sonar.model.User;
 import de.sonar.sonar.repositories.UserRepository;
 import de.sonar.sonar.security.JwtUtils;
+import de.sonar.sonar.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,9 @@ import java.util.Date;
 @RequestMapping("/api/auth")
 @Log4j2
 public class AuthController {
+
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -41,23 +43,20 @@ public class AuthController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedBirthDate = formatter.parse(request.getBirthDate());
             user = User.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).username(request.getUsername()).birthDate(parsedBirthDate).build();
-            if (user == null) {
-                return ResponseEntity.badRequest().body("E-Mail existiert bereits");
-            }
-            userRepo.save(user);
+            log.info(user.getPassword());
+            userService.registerUser(user);
         } catch (ParseException e) {
-            return ResponseEntity.status(500).body("Fehler be der Registrierung: " + e.getMessage());
+            return ResponseEntity.status(500).body("Fehler bei der Registrierung: " + e.getMessage());
         }
-
         return ResponseEntity.ok("Registrierung erfolgreich");
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         log.info(request.toString());
-        User user = userRepo.findByEmail(request.getEmail());
+        User user = userService.getUserByEmail(request.getEmail());
         if (user == null) {
-            throw new RuntimeException("User nicht gefunden");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falsche E-Mail");
         }
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falsches Passwort");

@@ -1,6 +1,7 @@
 import React from "react";
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import "./LoginComponent.scss"
+import {navigate} from "vike/client/router";
 
 
 export function LoginComponent({onCloseClick}) {
@@ -12,7 +13,8 @@ export function LoginComponent({onCloseClick}) {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/auth/login", {
+            console.log(email + " " + password);
+            const response = await fetch("http://localhost:8081/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -26,8 +28,10 @@ export function LoginComponent({onCloseClick}) {
             if (response.ok) {
                 const data = await response.json();
                 const token = data.token;
-
+                console.log(response);
+                localStorage.setItem("email", email);
                 localStorage.setItem("token", token);
+
                 alert("Login erfolgreich!");
 
                 await navigate(`/list`);
@@ -61,7 +65,7 @@ export function LoginComponent({onCloseClick}) {
                                     <input id="email-input" type="email" value={email} required onChange={e => setEmail(e.target.value)}/>
                                 </div>
                                 <div className="input-container">
-                                    <label className="login-label" htmlFor="password-input">Passwort</label>
+                                    <la9bel className="login-label" htmlFor="password-input">Passwort</la9bel>
                                     <input id="password-input" type="password" value={password} required
                                            onChange={e => setPassword(e.target.value)}/>
                                     <button className="forgot-password-button" type="submit">Passwort vergessen?</button>
