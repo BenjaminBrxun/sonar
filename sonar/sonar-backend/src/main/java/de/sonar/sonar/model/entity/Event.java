@@ -22,6 +22,10 @@ public class Event {
 
     private String name;
 
+    private String description;
+
+    private String headline;
+
     @Embedded
     private Address address;
 

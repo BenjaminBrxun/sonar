@@ -31,6 +31,10 @@ public class EventService {
         return eventRepository.findAll();
     }
 
+    public Event getEventById(Long id) {
+        return eventRepository.getEventById(id);
+    };
+
     /**
      * Ruft für alle Events mit passendem Namen aus der Datenbank ab.
      *

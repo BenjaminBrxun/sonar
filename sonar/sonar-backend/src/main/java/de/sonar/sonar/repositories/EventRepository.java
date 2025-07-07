@@ -21,4 +21,5 @@ public interface EventRepository extends JpaRepository<Event, Long>, JpaSpecific
     @Query("SELECT e FROM Event e WHERE e.status = 'DELETED'")
     List<Event> findAllDeletedEvents();
 
+    Event getEventById(Long id);
 }
