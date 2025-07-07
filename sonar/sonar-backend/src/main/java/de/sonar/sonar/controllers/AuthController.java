@@ -6,8 +6,8 @@ import de.sonar.sonar.dto.RegisterRequest;
 import de.sonar.sonar.model.entity.User;
 import de.sonar.sonar.repositories.UserRepository;
 import de.sonar.sonar.security.JwtUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,16 +22,15 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 @Log4j2
 public class AuthController {
-    @Autowired
-    private UserRepository userRepo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepo;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtils jwtUtils;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
