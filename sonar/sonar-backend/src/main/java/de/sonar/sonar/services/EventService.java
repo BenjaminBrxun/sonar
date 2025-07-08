@@ -1,7 +1,7 @@
 package de.sonar.sonar.services;
 
-import de.sonar.sonar.model.Category;
-import de.sonar.sonar.model.Event;
+import de.sonar.sonar.model.entity.Category;
+import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.repositories.EventRepository;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;

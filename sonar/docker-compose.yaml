@@ -40,10 +40,13 @@ services:
     container_name: sonar-backend
     env_file:
       - env/sonar-backend-credentials.env
+    environment:
+      MQTT_SERVER_URI: "tcp://mqtt-broker:1883"
     ports:
       - "8081:8081"
     networks:
       - sonar-net
+      - mqtt-net
     restart: unless-stopped
 
 
@@ -87,8 +90,11 @@ services:
     container_name: herne-backend
     ports:
       - "9091:8080"
+    environment:
+      MQTT_SERVER_URI: "tcp://mqtt-broker:1883"
     networks:
       - herne-net
+      - mqtt-net
     restart: unless-stopped
 
 
