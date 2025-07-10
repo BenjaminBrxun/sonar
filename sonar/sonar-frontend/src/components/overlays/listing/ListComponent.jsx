@@ -30,9 +30,7 @@ export function ListComponent({link}) {
     }, []);
 
 
-    return
-        <div className="sonar-body">
-
+    return <div className="sonar-body">
             <div className="sonar-content card-container">
                 <div className="sonar-content-buffer-begin"></div>
                 {events.map((event) => (
