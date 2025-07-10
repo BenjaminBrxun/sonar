@@ -4,7 +4,6 @@ import {Background} from "../components/background/Background.jsx";
 import React from "react";
 import {usePageContext} from "vike-react/usePageContext";
 import "./Layout.scss";
-import {CookiesProvider} from "react-cookie";
 
 
 export {Layout}
@@ -16,7 +15,6 @@ function Layout({ children }) {
     const isLoginPage = pageContext.urlPathname.startsWith("/profile");
 
     return (
-        <CookiesProvider>
         <div className="layout-wrapper">
             {!isMapPage && <Background  />}
             <div className="ui">
@@ -25,7 +23,6 @@ function Layout({ children }) {
                 {!isFilterPage && !isLoginPage && <InterfaceFooter />}
             </div>
         </div>
-        </CookiesProvider>
     );
 
 }
