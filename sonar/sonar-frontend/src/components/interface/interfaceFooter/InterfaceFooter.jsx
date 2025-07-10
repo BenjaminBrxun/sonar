@@ -33,6 +33,7 @@ export function InterfaceFooter({currentPage}) {
         if (localStorage.getItem("email") !== null) {
             localStorage.removeItem("email");
             localStorage.removeItem("token");
+            alert("Logout erfolgreich!");
             await navigate("/")
         } else {
             await navigate('/profile');
