@@ -34,7 +34,7 @@ public class EventLifecycleServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        testEvent = Event.builder()
+        testEvent = new Event.Builder()
                 .name("Test Event")
                 .startDate(OffsetDateTime.now())
                 .endDate(OffsetDateTime.now())
