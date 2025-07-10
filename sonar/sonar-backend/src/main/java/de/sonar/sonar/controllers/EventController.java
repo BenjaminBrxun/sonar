@@ -1,6 +1,6 @@
 package de.sonar.sonar.controllers;
 
-import de.sonar.sonar.model.Event;
+import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +33,14 @@ public class EventController {
      *
      * @return alle Events
      */
-
     @GetMapping("/events")
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();
+    }
+
+    @GetMapping("/event/{id}")
+    public Event getEventById(@PathVariable Long id) {
+        return eventService.getEventById(id);
     }
 
     /**

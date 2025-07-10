@@ -25,9 +25,9 @@ public class JsonPahoMessageConverter extends DefaultPahoMessageConverter {
 
     private final ObjectMapper objectMapper;
 
-    public JsonPahoMessageConverter() {
+    public JsonPahoMessageConverter(ObjectMapper objectMapper) {
         this.setPayloadAsBytes(true);
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
     }
 
     /**

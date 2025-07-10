@@ -75,11 +75,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!-- Required for MQTT communication -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,6 +84,12 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-mqtt</artifactId>
+        </dependency>
+
+        <!-- Required for Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
@@ -106,6 +107,19 @@
             <artifactId>jjwt-jackson</artifactId> <!-- alternativ: jjwt-gson -->
             <version>0.12.3</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- API documentation and manual testing -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
+        <!-- Required to deserialize OffsetDateTime -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
     </dependencies>

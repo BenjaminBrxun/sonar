@@ -1,5 +1,6 @@
 package de.sonar.hernebackend.mqtt.base;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +50,7 @@ public class BaseMqttConfig {
      * @return new instance of {@link JsonPahoMessageConverter}
      */
     @Bean
-    public JsonPahoMessageConverter jsonPahoMessageConverter() {
-        return new JsonPahoMessageConverter();
+    public JsonPahoMessageConverter jsonPahoMessageConverter(ObjectMapper objectMapper) {
+        return new JsonPahoMessageConverter(objectMapper);
     }
 }

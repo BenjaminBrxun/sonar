@@ -15,7 +15,7 @@ services:
     image: postgres:13.1-alpine
     container_name: sonar-db
     env_file:
-      - .env/db-credentials.env
+      - env/db-credentials.env
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 5s
@@ -39,11 +39,14 @@ services:
         condition: service_healthy
     container_name: sonar-backend
     env_file:
-      - .env/sonar-backend-credentials.env
+      - env/sonar-backend-credentials.env
+    environment:
+      MQTT_SERVER_URI: "tcp://mqtt-broker:1883"
     ports:
       - "8081:8081"
     networks:
       - sonar-net
+      - mqtt-net
     restart: unless-stopped
 
 
@@ -55,7 +58,7 @@ services:
       - sonar-backend
     container_name: sonar-frontend
     ports:
-      - "8080:80"
+      - "8080:3000"
     networks:
       - sonar-net
     restart: unless-stopped
@@ -87,8 +90,11 @@ services:
     container_name: herne-backend
     ports:
       - "9091:8080"
+    environment:
+      MQTT_SERVER_URI: "tcp://mqtt-broker:1883"
     networks:
       - herne-net
+      - mqtt-net
     restart: unless-stopped
 
 
