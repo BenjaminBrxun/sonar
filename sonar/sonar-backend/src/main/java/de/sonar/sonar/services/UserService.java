@@ -1,15 +1,14 @@
 package de.sonar.sonar.services;
 
-import de.sonar.sonar.model.Event;
-import de.sonar.sonar.model.InterestsProfile;
-import de.sonar.sonar.model.User;
+import de.sonar.sonar.model.entity.Event;
+import de.sonar.sonar.model.entity.InterestsProfile;
+import de.sonar.sonar.model.entity.User;
 import de.sonar.sonar.repositories.EventRepository;
 import de.sonar.sonar.repositories.InterestsProfileRepository;
 import de.sonar.sonar.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
