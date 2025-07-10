@@ -14,19 +14,18 @@ import {costsWithCurrency,dateToDateSpan, restrictedToString, format_date_to_tex
 export function DetailComponent({eventId}) {
 
     const [event, setEvent] = useState([]);
-    console.log(event)
     useEffect(() => {
         if (eventId !== null && eventId !== undefined) {
             fetch(`http://localhost:8081/api/v1/event/${eventId}`)
                 .then(res => res.json())
                 .then(data => {
+                    setLabels(dateToDateSpan(data.startDate)[0], restrictedToString(data.restricted));
+
                     data.startDate = format_date_to_text(data.startDate);
                     setEvent(data);
                     getGeocodeEvent(data).then(position => {
                         const iframelink = `https://www.openstreetmap.org/export/embed.html?bbox=${position.lon-0.01004219055176}%2C${position.lat-0.00432886683549}%2C${position.lon + 0.01004219055176}%2C${position.lat + 0.00432886683549}&amp;layer=mapnik&amp;marker=${position.lat}%2C${position.lon}`;
-                        console.log(iframelink);
-                        console.log(position);
-                        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`;
+                        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`.replaceAll(" ", "+");
                         document.getElementById("sonar-eventcard_content_text-button").innerHTML = `<a href=${linktomaps}>Route auf Google Maps</a>`;
                         document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
                     });
@@ -39,6 +38,11 @@ export function DetailComponent({eventId}) {
         }
     }, [eventId]);
     
+    function setLabels(date, reg){
+        document.getElementById("DateLabel").innerHTML = date;
+        document.getElementById("RegistrationLabel").innerHTML = reg;
+    }
+
 
     function goBack() {
         history.back();
@@ -57,7 +61,6 @@ export function DetailComponent({eventId}) {
 
 
     async function getGeocodeEvent(event){
-        console.log("Lade Koordinaten für Event...", event);
         const {street, houseNumber, postcode, city} = event.address;
         const query = `${street} ${houseNumber} ${postcode} ${city}`;
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
@@ -100,10 +103,10 @@ export function DetailComponent({eventId}) {
                         </CardActions>
                         <CardActions className="detail-sonar-eventcard_tags">
                             <div className="detail-sonar-eventcard_tag-icon sonar-eventcard_tag-icon-date">
-                                <label>Heudde</label>  // TODO
+                                <label id="DateLabel"></label>
                             </div>
                             <div className="detail-sonar-eventcard_tag-icon sonar-eventcard_tag-icon-registration">
-                                <label>Ausjebuucht</label> // TODO
+                                <label id="RegistrationLabel"></label>
                             </div>
                         </CardActions>
                     </div>

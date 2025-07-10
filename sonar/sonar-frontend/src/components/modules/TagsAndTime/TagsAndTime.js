@@ -34,7 +34,6 @@ function dateToDateSpan(date) {
 }
 
 function format_date_to_text(eventdate) {
-    console.log("format_date_to_text", eventdate);
     const year = eventdate.substring(0, 4);
     const month = eventdate.substring(5, 7);
     const day = eventdate.substring(8, 10);
@@ -42,7 +41,6 @@ function format_date_to_text(eventdate) {
     const minute = eventdate.substring(14, 16);
     // const second = eventdate.substring(17, 19);
     const erg = day + "." + month + "." + year + " " + hour + ":" + minute + "Uhr";
-    console.log("LOGGGG>>"+erg)
     return erg;
 }
 
