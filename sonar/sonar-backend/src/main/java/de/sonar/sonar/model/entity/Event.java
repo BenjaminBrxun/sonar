@@ -85,6 +85,7 @@ public class Event {
         private List<Category> categories;
         private OffsetDateTime startDate;
         private OffsetDateTime endDate;
+        private EventStatus status;
         private OffsetDateTime deletedStateAt;
         private Organizer applicant;
         private AdministrativeUser processor;
@@ -124,6 +125,11 @@ public class Event {
 
         public Builder endDate(OffsetDateTime endDate) {
             this.endDate = endDate;
+            return this;
+        }
+
+        public Builder status(EventStatus status) {
+            this.status = status;
             return this;
         }
 

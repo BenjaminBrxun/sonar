@@ -137,8 +137,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         administrativeUserRepository.save(administrativeUser1);
         administrativeUserRepository.save(administrativeUser2);
 
-        Event event1 = Event.builder()
+        Event event1 = new Event.Builder()
                 .name("Kleinfeld-Fußball Turnier")
+                .description("Beim spannenden Kleinfeld-Fußballturnier treten Teams aus der Region gegeneinander an – schnelle Spiele, hohe Dynamik und jede Menge Fußballspaß sind garantiert.")
+                .headline("Kleines Feld, großer Einsatz!")
                 .address(address1)
                 .categories(categoryList1)
                 .price(0.0f)
@@ -150,8 +152,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
                 .build();
-        Event event2 = Event.builder()
+        Event event2 = new Event.Builder()
                 .name("Familienfest im Stadtpark")
+                .headline("Ein Tag voller Spaß für Groß und Klein!")
+                .description("Das bunte Familienfest im Stadtpark lädt ein zu Spiel, Musik, kulinarischen Genüssen und Mitmachaktionen – ideal für einen unvergesslichen Tag mit der ganzen Familie.")
                 .address(address2)
                 .categories(categoryList2)
                 .price(0.0f)
@@ -164,8 +168,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .processor(administrativeUser2)
                 .build();
 
-        Event event3 = Event.builder()
+        Event event3 = new Event.Builder()
                 .name("Ferienlager")
+                .headline("Abenteuer, Freundschaft und Natur pur!")
+                .description("Im Ferienlager erleben Kinder und Jugendliche unvergessliche Tage voller Spiel, Sport, Lagerfeuer und Gemeinschaft – fernab vom Alltag.")
                 .address(address3)
                 .categories(categoryList3)
                 .price(19.00f)
@@ -178,8 +184,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .processor(administrativeUser2)
                 .build();
 
-        Event event4 = Event.builder()
+        Event event4 = new Event.Builder()
                 .name("Großfeld-Fußball Turnier")
+                .headline("Die Königsdisziplin des Amateurfußballs!")
+                .description("Beim Großfeld-Turnier kämpfen ambitionierte Mannschaften um den Sieg – mit Taktik, Teamgeist und packenden Zweikämpfen auf dem großen Spielfeld.")
                 .address(address4)
                 .categories(categoryList1)
                 .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(172800000L), ZoneId.systemDefault()))
@@ -192,8 +200,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .status(EventStatus.DEPLOYED)
                 .build();
 
-        Event event5 = Event.builder()
+        Event event5 = new Event.Builder()
                 .name("Computer-Kurs")
+                .headline("Fit für die digitale Welt!")
+                .description("Der praxisorientierte Computerkurs vermittelt Grundlagen im Umgang mit PC, Internet und Office-Programmen – ideal für Einsteiger und alle, die ihr Wissen auffrischen möchten.")
                 .address(address5)
                 .categories(categoryList4)
                 .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(14400000L), ZoneId.systemDefault()))
@@ -206,8 +216,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .status(EventStatus.DEPLOYED)
                 .build();
 
-        Event event6 = Event.builder()
+        Event event6 = new Event.Builder()
                 .name("Shakespears Romeo und Julia")
+                .headline("Die größte Liebesgeschichte aller Zeiten!")
+                .description("Die tragische Romanze von Romeo und Julia erwacht in einer eindrucksvollen Inszenierung zum Leben – voller Leidenschaft, Dramatik und zeitloser Poesie.")
                 .address(address6)
                 .categories(categoryList5)
                 .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(259200000L), ZoneId.systemDefault()))
