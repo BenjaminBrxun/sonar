@@ -8,10 +8,6 @@ export default function Test() {
     async function logoutToList() {
         await navigate('/list');
     }
-    if(cookies.email !== undefined) {
-        removeCookie("email");
-        logoutToList();
-    }
     return <>
         <LoginComponent/>
     </>;

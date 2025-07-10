@@ -5,18 +5,13 @@ import {
     faArrowRightToBracket,
     faBarsStaggered,
     faBookmark,
-    faMapLocationDot,
     faMagnifyingGlass,
-    faArrowRightFromBracket
+    faMapLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {navigate} from "vike/client/router";
-import {useCookies} from "react-cookie";
 
 export function InterfaceFooter({currentPage}) {
-    const [cookies, setCookie, removeCookie] = useCookies(['email']);
-    console.log(cookies.eamil);
-    let loggedIn = (cookies.email !== (undefined));
-    console.log(loggedIn);
+
     async function navigateToFilter() {
         await navigate('/filter');
     }
@@ -34,7 +29,14 @@ export function InterfaceFooter({currentPage}) {
     }
 
     async function navigateToProfile() {
-        await navigate('/profile');
+        console.log("email im localStorager:", localStorage.getItem("email"))
+        if (localStorage.getItem("email") !== null) {
+            localStorage.removeItem("email");
+            localStorage.removeItem("token");
+            await navigate("/")
+        } else {
+            await navigate('/profile');
+        }
     }
 
     return (
@@ -52,7 +54,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="interactivemap" className={currentPage !== "/interactivemap" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="interactivemap"
+                                className={currentPage !== "/interactivemap" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToInteractiveMap}
                         >
                             <FontAwesomeIcon icon={faMapLocationDot}/>
@@ -60,7 +63,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="list" className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="list"
+                                className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToList}
                         >
                             <FontAwesomeIcon icon={faBarsStaggered}/>
@@ -68,7 +72,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="bookmark" className={currentPage !== "/bookmarks" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="bookmark"
+                                className={currentPage !== "/bookmarks" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToBookmarks}
                         >
                             <FontAwesomeIcon icon={faBookmark}/>
@@ -76,13 +81,15 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="account" className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"} onClick={navigateToProfile}>
-                            {loggedIn ? <FontAwesomeIcon icon={faArrowRightFromBracket}/> : <FontAwesomeIcon icon={faArrowRightToBracket}/>}
+                        <button id="account"
+                                className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                onClick={navigateToProfile}>
+                            <FontAwesomeIcon icon={faArrowRightToBracket}/>
                         </button>
                     </li>
                 </ul>
 
             </div>
         </div>
-            )
+    )
 }

@@ -11,7 +11,6 @@ function format_date_to_text(eventdate) {
     const minute = eventdate.substring(14, 16);
     // const second = eventdate.substring(17, 19);
     const erg = day + "." + month + "." + year + " " + hour + ":" + minute + "Uhr";
-    console.log("LOGGGG>>"+erg)
     return erg;
 }
 
@@ -24,7 +23,6 @@ export function ListComponent({link}) {
         fetch(link)
             .then(res => res.json())
             .then(data => setEvents(data))
-            .then(data => console.log(data))
             .catch(err => console.log("Event konnte nicht geladen werden:" +
                 " " + err.message));
     }, []);
