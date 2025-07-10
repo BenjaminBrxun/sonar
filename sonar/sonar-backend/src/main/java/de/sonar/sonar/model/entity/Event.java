@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Event {
 
     public Event(Builder builder) {
