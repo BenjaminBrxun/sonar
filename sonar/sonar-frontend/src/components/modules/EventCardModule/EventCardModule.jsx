@@ -8,6 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "./EventCardModule.scss";
 import {navigate} from "vike/client/router";
+import {costsWithCurrency,dateToDateSpan, restrictedToString} from "../TagsAndTime/TagsAndTime.js"
 
 export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
 
@@ -16,40 +17,6 @@ export default function EventCardModule({title, date, date_text, costs, image, r
     //     return Buffer.from(data, 'binary').toString('base64');
     // }
 
-    function restrictedToString(restricted) {
-        if (restricted) {
-            return "Mit Anmeldung";
-        } else {
-            return "Ohne Anmeldung";
-        }
-    }
-
-    function costsWithCurrency(costs) {
-        return costs + " €";
-    }
-
-    function dateToDateSpan(date) {
-        let dateFormat = new Date(date);
-        let milliseconds = dateFormat.getTime();
-        let today = new Date();
-        let difference = today.getTime() - milliseconds;
-
-        if (difference > 0) {
-            return ["vergangen", "_past"]
-        }
-
-        if (difference <= 86400000 && difference >= -86400000) {
-            return ["heute", "_today"]
-        }
-
-        if (difference < 0 && difference >= -259200000) {
-            return ["in kürze", "_next"]
-        }
-
-        if (difference < -259200000) {
-            return ["zukünftig", "_soon"]
-        }
-    }
 
     function showDetails() {
         navigate(`/event?eventId=${encodeURIComponent(id)}`);
@@ -102,7 +69,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                                 Datum: {date_text}
                             </p>
                             <p className="sonar-eventcard_content_text-costs">
-                                {costsWithCurrency(costs)}
+                                Preis: {costsWithCurrency(costs)}
                             </p>
                         </div>
                     </CardContent>
