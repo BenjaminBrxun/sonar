@@ -2,11 +2,13 @@ import React from "react";
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import "./LoginComponent.scss"
 import {navigate} from "vike/client/router";
+import {CookiesProvider, useCookies} from "react-cookie";
 
 
 export function LoginComponent({onCloseClick}) {
 
     const [email, setEmail] = React.useState("");
+    const [cookies, setCookie, removeCookie] = useCookies(['email']);
     const [password, setPassword] = React.useState("");
 
     async function handleSubmit(e) {
@@ -34,6 +36,7 @@ export function LoginComponent({onCloseClick}) {
 
                 alert("Login erfolgreich!");
 
+                setCookie("email", email);
                 await navigate(`/list`);
 
                 // TODO: Weiterleitung oder App-Zustand ändern
@@ -49,6 +52,7 @@ export function LoginComponent({onCloseClick}) {
     }
 
     return (
+        <CookiesProvider>
         <div className="login-overlay">
             <div className="login-header">
                 <label>Login</label>
@@ -84,6 +88,6 @@ export function LoginComponent({onCloseClick}) {
                 <button className="register-button" type="button">Registrieren</button>
             </div>
         </div>
-
+        </CookiesProvider>
     )
 }

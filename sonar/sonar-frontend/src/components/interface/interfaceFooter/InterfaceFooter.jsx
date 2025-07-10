@@ -1,18 +1,22 @@
 import "./InterfaceFooter.scss"
-
+import React from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faArrowRightToBracket,
     faBarsStaggered,
     faBookmark,
     faMapLocationDot,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faArrowRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 import {navigate} from "vike/client/router";
+import {useCookies} from "react-cookie";
 
 export function InterfaceFooter({currentPage}) {
-
-
+    const [cookies, setCookie, removeCookie] = useCookies(['email']);
+    console.log(cookies.eamil);
+    let loggedIn = (cookies.email !== (undefined));
+    console.log(loggedIn);
     async function navigateToFilter() {
         await navigate('/filter');
     }
@@ -73,12 +77,12 @@ export function InterfaceFooter({currentPage}) {
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button id="account" className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"} onClick={navigateToProfile}>
-                            <FontAwesomeIcon icon={faArrowRightToBracket}/>
+                            {loggedIn ? <FontAwesomeIcon icon={faArrowRightFromBracket}/> : <FontAwesomeIcon icon={faArrowRightToBracket}/>}
                         </button>
                     </li>
                 </ul>
 
             </div>
         </div>
-    )
+            )
 }

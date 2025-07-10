@@ -30,7 +30,7 @@ export function ListComponent({link}) {
     }, []);
 
 
-    return <>
+    return
         <div className="sonar-body">
 
             <div className="sonar-content card-container">
@@ -42,6 +42,4 @@ export function ListComponent({link}) {
                 <div className="sonar-content-buffer-end"></div>
             </div>
         </div>
-    </>;
-
 }
