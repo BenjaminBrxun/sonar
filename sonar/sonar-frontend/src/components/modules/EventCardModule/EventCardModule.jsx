@@ -6,8 +6,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 import "./EventCardModule.scss";
 import {navigate} from "vike/client/router";
+import {useState} from "react";
 
 export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
 
@@ -55,6 +59,30 @@ export default function EventCardModule({title, date, date_text, costs, image, r
         navigate(`/event?eventId=${encodeURIComponent(id)}`);
     }
 
+    //SHARE
+    const [snackbarMessage, setSnackbarMessage] = useState("Link kopiert!");
+    const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(`${window.location.origin}/event?eventId=${encodeURIComponent(id)}`);
+            setSnackbarMessage("Link kopiert!");
+            setSnackbarSeverity("success");
+        } catch (err) {
+            setSnackbarMessage("Fehler beim Kopieren");
+            setSnackbarSeverity("error");
+            console.error("Fehler beim Kopieren", err);
+        }
+        setSnackbarOpen(true);
+    };
+
+    const handleSnackbarClose = (_, reason) => {
+        if (reason === 'clickaway') return;
+        setSnackbarOpen(false);
+    };
+
+
     return (
         <Card className="sonar-eventcard">
             <div className="sonar-eventcard_container">
@@ -67,7 +95,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                     <div className="sonar-eventcard_header">
                         <CardActions className="sonar-eventcard_top-icons">
                             <div className="sonar-eventcard_top-icon">
-                                <Button size="small"><ShareIcon/></Button>
+                                <Button size="small" onClick={handleCopy}><ShareIcon/></Button>
                             </div>
                             <div className="sonar-eventcard_top-icon">
                                 <Button size="small"><BookmarkIcon/></Button>
@@ -108,6 +136,16 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                     </CardContent>
                 </div>
             </div>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            >
+                <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </MuiAlert>
+            </Snackbar>
         </Card>
     );
 }
