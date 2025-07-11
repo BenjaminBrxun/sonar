@@ -11,17 +11,18 @@ export {Layout}
 function Layout({ children }) {
     const pageContext = usePageContext();
     const isFilterPage = pageContext.urlPathname.startsWith("/filter");
-    const isSearchPage = pageContext.urlPathname.startsWith("/search");
     const isMapPage = pageContext.urlPathname.startsWith("/interactivemap");
+    const isLoginPage = pageContext.urlPathname.startsWith("/profile");
 
     return (
         <div className="layout-wrapper">
             {!isMapPage && <Background  />}
             <div className="ui">
-                {!isFilterPage && !isSearchPage && <InterfaceHeader />}
+                {!isFilterPage && !isLoginPage && <InterfaceHeader />}
                 <div className="current-component">{children}</div>
-                {!isFilterPage && !isSearchPage && <InterfaceFooter />}
+                {!isFilterPage && !isLoginPage && <InterfaceFooter />}
             </div>
         </div>
     );
+
 }

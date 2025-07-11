@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080", "https://nominatim.openstreetmap.org/search"})
 public class EventController {
     private final EventService eventService;
 

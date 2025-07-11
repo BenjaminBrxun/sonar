@@ -4,8 +4,10 @@ import de.sonar.sonar.model.entity.*;
 import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -24,6 +26,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final AdministrativeUserRepository administrativeUserRepository;
     private final UserRepository userRepository;
     private final InterestsProfileRepository interestsProfileRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
@@ -273,6 +278,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .username("MichaDerHühne")
                 .birthDate(new Date())
                 .profile(interestsProfile1)
+                .password(passwordEncoder.encode("test"))
+                .email("test@test.de")
                 .build();
 
         User user2 = User.builder()

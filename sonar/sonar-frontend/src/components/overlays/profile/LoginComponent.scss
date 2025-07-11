@@ -1,0 +1,151 @@
+.login-overlay {
+  width: 26vw;
+  min-width: 351px;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: white;
+  opacity: 0.95;
+  border-radius: 4vh;
+  height: 100vh;
+}
+
+.login-header {
+  height: 10%;
+  width: 100%;
+  position: relative;
+  margin-top: 4vh;
+  > label{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: underline #FABB22;
+    font-weight: bolder;
+    font-size: 4vh;
+  }
+  .icon-container{
+    position: absolute;
+    right: 2vw;
+  }
+}
+
+.form-container{
+  top: -3vh;
+  height: 85%;
+  display:flex;
+}
+
+
+.login-button {
+  margin: 0.5rem;
+  padding: 0.4rem 1rem;
+  width: 90%;
+  border: 1px solid #888;
+  background-color: #FABB22;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #FABB22;
+  }
+
+  &:active {
+    background-color: #FABB22;
+    border-color: black;
+  }
+}
+
+.login-body {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.login-footer {
+  left: 0;
+  bottom: 25px;
+  right: 0;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%
+}
+
+.credentials-container {
+  display: flex;
+  flex-direction: column;
+  height: 15vh;
+  justify-content: space-around;
+}
+
+.login-label {
+  font-size: 12px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-password-button {
+  color: blue;
+  background: none;
+  border: none;
+  text-align: start;
+  font-size: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.separator {
+  height: 1px;
+  width: 90%;
+  background-color: gray;
+  border: none;
+}
+
+.register-button {
+  margin: 0.3rem;
+  padding: 0.4rem 1rem;
+  width: 90%;
+  border: 1px solid #888;
+  background-color: #FABB22;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #FABB22;
+  }
+
+  &:active {
+    background-color: #FABB22;
+    border-color: black;
+  }
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-account-text {
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 1px
+}
