@@ -33,7 +33,6 @@ export function LoginComponent({onCloseClick}) {
                 alert("Login erfolgreich!");
                 await navigate(`/list`);
 
-                // TODO: Weiterleitung oder App-Zustand ändern
             } else if (response.status === 401) {
                 alert("Falsche E-Mail oder Passwort");
             } else {
