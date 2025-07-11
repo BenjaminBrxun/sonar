@@ -47,48 +47,4 @@ public class JwtUtils {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
-//    // 🔐 Mindestens 256-bit Key (32 Byte)
-//    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(
-//            "ein-sehr-sicherer-und-langer-jwt-signatur-schluessel!".getBytes()
-//    );
-//
-//    // ⏳ Gültigkeit: 2h
-//    private static final long EXPIRATION_MILLIS = 1000 * 60 * 60 * 2;
-//
-//    public String generateToken(String email) {
-//        Instant now = Instant.now();
-//        return Jwts.builder()
-//                .issuer("sonar-app") // optional
-//                .subject(email)
-//                .issuedAt(Date.from(now))
-//                .expiration(Date.from(now.plusMillis(EXPIRATION_MILLIS)))
-//                .signWith(SECRET_KEY, Jwts.SIG.HS256)
-//                .compact();
-//    }
-//
-//    public String extractEmail(String token) {
-//        return Jwts.parser()
-//                .verifyWith(SECRET_KEY)
-//                .build()
-//                .parseSignedClaims(token)
-//                .getPayload()
-//                .getSubject();
-//    }
-//
-//    public boolean isTokenValid(String token, String email) {
-//        try {
-//            Claims claims = Jwts.parser()
-//                    .verifyWith(SECRET_KEY)
-//                    .build()
-//                    .parseSignedClaims(token)
-//                    .getPayload();
-//
-//            return claims.getSubject().equals(email)
-//                    && !claims.getExpiration().before(new Date());
-//
-//        } catch (JwtException e) {
-//            return false;
-//        }
-//    }
 }
