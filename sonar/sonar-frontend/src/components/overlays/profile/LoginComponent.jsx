@@ -1,15 +1,86 @@
 import React from "react";
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import "./LoginComponent.scss"
+import {navigate} from "vike/client/router";
 
 
-export function LoginComponent({sendDataToParent}) {
+export function LoginComponent({onCloseClick}) {
+
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:8081/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.token;
+                localStorage.setItem("email", email);
+                localStorage.setItem("token", token);
+
+                alert("Login erfolgreich!");
+                await navigate(`/list`);
+
+            } else if (response.status === 401) {
+                alert("Falsche E-Mail oder Passwort");
+            } else {
+                alert("Fehler beim Login");
+            }
+        } catch (error) {
+            console.error("Netzwerkfehler:", error);
+            alert("Netzwerkfehler beim Login");
+        }
+    }
+
     return (
-        <>
-            <BaseComponent sendDataToParent={sendDataToParent}/>
-            <div className="placeholder-container">
-                <p className="placeholder">Hier kommt eine Loginfunktion hin <br></br>:)</p>
+        <div className="login-overlay">
+            <div className="login-header">
+                <label>Login</label>
+                <BaseComponent sendDataToParent={onCloseClick}/>
             </div>
-        </>
+            <div className="login-container">
+                <form onSubmit={handleSubmit}>
+                    <div className="login-body">
+                        <fieldset>
+                            <legend>Login-Daten</legend>
+                            <div className="credentials-container">
+                                <div className="input-container">
+                                    <label className="login-label" htmlFor="email-input">Email</label>
+                                    <input id="email-input" type="email" value={email} required onChange={e => setEmail(e.target.value)}/>
+                                </div>
+                                <div className="input-container">
+                                    <label className="login-label" htmlFor="password-input">Passwort</label>
+                                    <input id="password-input" type="password" value={password} required
+                                           onChange={e => setPassword(e.target.value)}/>
+                                    <button className="forgot-password-button" type="submit">Passwort vergessen?</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div className="button-container">
+                            <button className="login-button" type="submit">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div className="button-container register-container">
+                <hr className="separator"/>
+                <p className="create-account-text">Du hast noch keinen Account?</p>
+                <button className="register-button" type="button">Registrieren</button>
+            </div>
+        </div>
     )
 }

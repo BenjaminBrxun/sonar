@@ -1,12 +1,18 @@
 package de.sonar.sonar.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @MappedSuperclass
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 public abstract class BasicUser {
 
     @Id

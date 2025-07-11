@@ -86,6 +86,29 @@
             <artifactId>spring-integration-mqtt</artifactId>
         </dependency>
 
+        <!-- Required for Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId> <!-- alternativ: jjwt-gson -->
+            <version>0.12.3</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- API documentation and manual testing -->
         <dependency>
             <groupId>org.springdoc</groupId>
