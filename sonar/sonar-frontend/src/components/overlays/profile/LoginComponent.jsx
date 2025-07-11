@@ -27,7 +27,6 @@ export function LoginComponent({onCloseClick}) {
             if (response.ok) {
                 const data = await response.json();
                 const token = data.token;
-                console.log(response);
                 localStorage.setItem("email", email);
                 localStorage.setItem("token", token);
 
