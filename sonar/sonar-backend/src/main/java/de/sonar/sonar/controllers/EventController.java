@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
@@ -62,8 +63,8 @@ public class EventController {
      * @return alle Events mit passendem Titel.
      */
     @Operation(
-            summary = "Get all events with a given name.",
-            description = "Get all events with a given name and state DEPLOYED and CANCELLED.",
+            summary = "Search all events which name contains the given string.",
+            description = "Search all events which name contains the given string and state DEPLOYED and CANCELLED.",
             tags = "Event")
     @GetMapping("/events/search")
     public List<Event> getAllEventsByName(@RequestParam String name) {
@@ -90,8 +91,16 @@ public class EventController {
                     """,
             tags = "Event")
     @GetMapping("/events/filter")
-    public List<Event> findAllByCategoriesAndNameAndDateBetween(@RequestParam(required = false) List<Long> categories, @RequestParam(required = false) String name, @RequestParam(required = false) Long startDate, @RequestParam(required = false) Long endDate, @RequestParam(required = false) Float price, @RequestParam(required = false) Boolean restricted, @RequestParam(required = false) Integer minAge) {
-        return eventService.findAllWithMatchingCriteria(categories, name, startDate, endDate, price, restricted, minAge);
+    public List<Event> findAllByCategoriesAndNameAndDateBetween(
+            @RequestParam(required = false) List<Long> categories,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) OffsetDateTime startDate,
+            @RequestParam(required = false) OffsetDateTime endDate,
+            @RequestParam(required = false) Float price,
+            @RequestParam(required = false) Boolean restricted,
+            @RequestParam(required = false) Integer minAge) {
+        return eventService.findAllWithMatchingCriteria(
+                categories, name, startDate, endDate, price, restricted, minAge);
     }
 
 }

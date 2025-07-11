@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -61,15 +61,20 @@ public class EventService {
                     predicates.add(cb.or(
                             cb.equal(root.get("status"), EventStatus.DEPLOYED),
                             cb.equal(root.get("status"), EventStatus.CANCELLED)));
-                    predicates.add(cb.like(cb.lower(root.get("name")), name.toLowerCase()));
+                    predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
                     return cb.and(predicates.toArray(new Predicate[0]));
                 };
         return eventRepository.findAll(eventSpecification);
     }
 
-    public List<Event> findAllWithMatchingCriteria(List<Long> categories, String name, Long startDateInMilliseconds, Long endDateInMilliseconds, Float price, Boolean restricted, Integer minAge) {
-        Date startDate = (startDateInMilliseconds == null) ? null : new Date(startDateInMilliseconds);
-        Date endDate = (endDateInMilliseconds == null) ? null : new Date(endDateInMilliseconds);
+    public List<Event> findAllWithMatchingCriteria(
+            List<Long> categories,
+            String name,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            Float price,
+            Boolean restricted,
+            Integer minAge) {
         return eventRepository.findAll(
                 buildEventFilter(name, categories, startDate, endDate, price, restricted, minAge)
         );
@@ -92,8 +97,8 @@ public class EventService {
     private Specification<Event> buildEventFilter(
             String name,
             List<Long> categoryIds,
-            Date startDate,
-            Date endDate,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
             Float price,
             Boolean restricted,
             Integer minAge

@@ -147,7 +147,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .startDate(OffsetDateTime.now().plusDays(7))
                 .endDate(OffsetDateTime.now().plusDays(7).plusHours(5))
                 .applicant(applicant1)
-                .status(EventStatus.DECLINED)
+                .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
                 .build();
         Event event2 = new Event.Builder()
