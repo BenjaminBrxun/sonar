@@ -38,13 +38,12 @@ public class AuthController {
             tags = "Auth")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-
+        log.info("Try to register new user: {}", request.getEmail());
         User user;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedBirthDate = formatter.parse(request.getBirthDate());
             user = User.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).username(request.getUsername()).birthDate(parsedBirthDate).build();
-            log.info(user.getPassword());
             userService.registerUser(user);
         } catch (ParseException e) {
             return ResponseEntity.status(500).body("Fehler bei der Registrierung: " + e.getMessage());
@@ -57,7 +56,7 @@ public class AuthController {
             tags = "Auth")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        log.info(request.toString());
+        log.info("Try to login user: {}", request.getEmail());
         User user = userService.getUserByEmail(request.getEmail());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falsche E-Mail");
@@ -67,6 +66,7 @@ public class AuthController {
         }
 
         String token = jwtUtils.generateToken(user.getEmail());
+        log.info("Login successful for user {}", request.getEmail());
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
