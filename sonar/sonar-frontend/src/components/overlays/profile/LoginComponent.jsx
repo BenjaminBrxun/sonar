@@ -75,9 +75,11 @@ export function LoginComponent({onCloseClick}) {
                         </div>
                     </div>
                 </form>
+
             </div>
-            <hr className="separator"/>
+
             <div className="button-container register-container">
+                <hr className="separator"/>
                 <p className="create-account-text">Du hast noch keinen Account?</p>
                 <button className="register-button" type="button">Registrieren</button>
             </div>
