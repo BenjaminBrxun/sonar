@@ -2,6 +2,7 @@ package de.sonar.sonar.services;
 
 import de.sonar.sonar.model.entity.Category;
 import de.sonar.sonar.model.entity.Event;
+import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.EventRepository;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
@@ -24,25 +25,46 @@ public class EventService {
 
     /**
      * Ruft alle Events aus der Datenbank ab.
+     * <p>
+     * Ruft nur die Events mit dem Status DEPLOYED und CANCELLED ab.
      *
      * @return alle Events.
      */
     public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+        Specification<Event> eventSpecification =
+                (root, query, cb) -> {
+                    List<Predicate> predicates = new ArrayList<>();
+                    predicates.add(cb.or(
+                            cb.equal(root.get("status"), EventStatus.DEPLOYED),
+                            cb.equal(root.get("status"), EventStatus.CANCELLED)));
+                    return cb.and(predicates.toArray(new Predicate[0]));
+                };
+        return eventRepository.findAll(eventSpecification);
     }
 
     public Event getEventById(Long id) {
         return eventRepository.getEventById(id);
-    };
+    }
 
     /**
      * Ruft für alle Events mit passendem Namen aus der Datenbank ab.
+     * <p>
+     * Ruft nur die Events mit dem Status DEPLOYED und CANCELLED ab.
      *
      * @param name Begriff, der im Titel der Events enthalten ist
      * @return alle Events mit passendem Namen.
      */
     public List<Event> findAllByName(String name) {
-        return eventRepository.findAllByNameContainingIgnoreCase(name);
+        Specification<Event> eventSpecification =
+                (root, query, cb) -> {
+                    List<Predicate> predicates = new ArrayList<>();
+                    predicates.add(cb.or(
+                            cb.equal(root.get("status"), EventStatus.DEPLOYED),
+                            cb.equal(root.get("status"), EventStatus.CANCELLED)));
+                    predicates.add(cb.like(cb.lower(root.get("name")), name.toLowerCase()));
+                    return cb.and(predicates.toArray(new Predicate[0]));
+                };
+        return eventRepository.findAll(eventSpecification);
     }
 
     public List<Event> findAllWithMatchingCriteria(List<Long> categories, String name, Long startDateInMilliseconds, Long endDateInMilliseconds, Float price, Boolean restricted, Integer minAge) {
@@ -55,6 +77,8 @@ public class EventService {
 
     /**
      * Erzeugt abhängig der übergebenen Parameter eine SQL-Abfrage, welche dann zurückgegeben wird.
+     * <p>
+     * Ruft nur die Events mit dem Status DEPLOYED und CANCELLED ab.
      *
      * @param name        Begriff, der im Titel der Events enthalten ist
      * @param categoryIds IDs der Kategorien
@@ -105,6 +129,10 @@ public class EventService {
             if (minAge != null) {
                 predicates.add(cb.lessThanOrEqualTo(root.get("minAge"), minAge));
             }
+
+            predicates.add(cb.or(
+                    cb.equal(root.get("status"), EventStatus.DEPLOYED),
+                    cb.equal(root.get("status"), EventStatus.CANCELLED)));
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };

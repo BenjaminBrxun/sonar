@@ -3,7 +3,10 @@ package de.sonar.sonar.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.sonar.sonar.model.enums.EventStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -14,22 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-
-    public Event(Builder builder) {
-        this.name = builder.name;
-        this.description = builder.description;
-        this.headline = builder.headline;
-        this.address = builder.address;
-        this.categories = builder.categories;
-        this.startDate = builder.startDate;
-        this.endDate = builder.endDate;
-        this.applicant = builder.applicant;
-        this.processor = builder.processor;
-        this.deletedStateAt = builder.deletedStateAt;
-        this.price = builder.price;
-        this.minAge = builder.minAge;
-        this.restricted = builder.restricted;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,6 +57,23 @@ public class Event {
     private int minAge;
 
     private boolean restricted;
+
+    public Event(Builder builder) {
+        this.name = builder.name;
+        this.description = builder.description;
+        this.headline = builder.headline;
+        this.address = builder.address;
+        this.categories = builder.categories;
+        this.startDate = builder.startDate;
+        this.endDate = builder.endDate;
+        this.applicant = builder.applicant;
+        this.processor = builder.processor;
+        this.status = builder.status;
+        this.deletedStateAt = builder.deletedStateAt;
+        this.price = builder.price;
+        this.minAge = builder.minAge;
+        this.restricted = builder.restricted;
+    }
 
     public boolean isNew() {
         return this.id <= 0;
