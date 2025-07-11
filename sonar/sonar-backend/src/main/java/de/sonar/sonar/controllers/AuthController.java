@@ -6,8 +6,9 @@ import de.sonar.sonar.dto.RegisterRequest;
 import de.sonar.sonar.model.entity.User;
 import de.sonar.sonar.security.JwtUtils;
 import de.sonar.sonar.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,17 +24,18 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/auth")
 @Log4j2
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
+    @Operation(
+            summary = "Register a new user.",
+            tags = "Auth")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
 
@@ -50,6 +52,9 @@ public class AuthController {
         return ResponseEntity.ok("Registrierung erfolgreich");
     }
 
+    @Operation(
+            summary = "Login with username and password.",
+            tags = "Auth")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         log.info(request.toString());
@@ -64,4 +69,5 @@ public class AuthController {
         String token = jwtUtils.generateToken(user.getEmail());
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
 }
