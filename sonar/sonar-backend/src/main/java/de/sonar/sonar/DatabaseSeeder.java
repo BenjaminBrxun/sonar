@@ -129,6 +129,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .organisation("Tanz- und Turnclub Herne")
                 .build();
 
+        applicant1.setEmail("ap1@email.de");
+        applicant2.setEmail("ap2@email.de");
+        applicant3.setEmail("ap3@email.de");
+        applicant4.setEmail("ap4@email.de");
+
         organizerRepository.save(applicant1);
         organizerRepository.save(applicant2);
         organizerRepository.save(applicant3);
@@ -285,6 +290,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         User user2 = User.builder()
                 .username("FischmenschNils")
                 .birthDate(new Date())
+                .email("nils@dlrg.de")
+                .password(passwordEncoder.encode("hallo"))
                 .profile(interestsProfile2)
                 .build();
 

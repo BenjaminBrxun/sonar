@@ -15,6 +15,8 @@ import {useState} from "react";
 
 export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
 
+    let bookmarked = localStorage.getItem("bookmarks")?.includes(id);
+    console.log(bookmarked)
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
     // function dataToImage(data) {
     //     return Buffer.from(data, 'binary').toString('base64');
@@ -82,6 +84,29 @@ export default function EventCardModule({title, date, date_text, costs, image, r
         setSnackbarOpen(false);
     };
 
+    const handleBookmarking = () => {
+        let bookmarkedEvents = JSON.parse(localStorage.getItem("bookmarks"));
+        console.log(bookmarkedEvents);
+        if (bookmarkedEvents === null) bookmarkedEvents = []
+        // Event zu Favoriten hinzufügen
+        if(!bookmarkedEvents.includes(id)) {
+            bookmarked = true;
+            document.getElementById("bookmark-icon").className = "sonar-eventcard_top-icon bookmarked"
+            bookmarkedEvents.push(id);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarkedEvents));
+            const link = "http://localhost:8081/api/v1/user/favourites?email=" + localStorage.getItem("email") + "&eventId=" + id;
+            fetch(link, {method: "POST"} )
+                .catch(err => console.log("Event konnte nicht gespeichert werden:" +
+                    " " + err.message));
+        } else {
+            bookmarked = false;
+            document.getElementById("bookmark-icon").className = "sonar-eventcard_top-icon"
+            const newBookmarks = bookmarkedEvents.filter(ev => ev !== id);
+            localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+            console.log(localStorage.getItem("bookmarks"));
+        }
+        console.log(bookmarked);
+    }
 
     return (
         <Card className="sonar-eventcard">
@@ -98,7 +123,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                                 <Button size="small" onClick={handleCopy}><ShareIcon/></Button>
                             </div>
                             <div className="sonar-eventcard_top-icon">
-                                <Button size="small"><BookmarkIcon/></Button>
+                                <Button size="small" onClick={handleBookmarking}><BookmarkIcon/></Button>
                             </div>
                             <div id="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-details">
