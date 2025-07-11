@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class EventLifecycleService {
@@ -90,12 +92,14 @@ public class EventLifecycleService {
     }
 
     private void validateExistingEvent(Event event) {
-        if (!eventExists(event.getId())) {
+        Optional<Event> optionalEvent = eventRepository.findById(event.getId());
+        if (optionalEvent.isEmpty()) {
             throw new InvalidEventStateException("Event with ID " + event.getId() + " does not exist.");
+        }
+        Event existingEvent = optionalEvent.get();
+        if (!existingEvent.getStatus().equals(event.getStatus())) {
+            throw new InvalidEventStateException("Incoming event has an invalid event state. The event state should be " + existingEvent.getStatus() + " but is " + event.getStatus() + ".");
         }
     }
 
-    private boolean eventExists(Long eventId) {
-        return eventRepository.existsById(eventId);
-    }
 }
