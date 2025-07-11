@@ -59,25 +59,25 @@ export function FilterComponent({onCloseClick}) {
             queryParams.append('categories', id);
         });
 
-        if(dateFrom) {
-            const startTimestamp = new Date(dateFrom).getTime();
-            queryParams.append("startDate", startTimestamp);
+        if (dateFrom) {
+            const startTimestamp = new Date(dateFrom + 'T00:00:00');
+            queryParams.append("startDate", startTimestamp.toISOString());
         }
 
-        if(dateTo) {
-            const endTimestamp = new Date(dateTo).getTime();
-            queryParams.append("endDate", endTimestamp);
+        if (dateTo) {
+            const endTimestamp = new Date(dateTo + 'T23:59:59');
+            queryParams.append("endDate", endTimestamp.toISOString());
         }
 
-        if(priceSelected) {
-            queryParams.append("price", priceToFloat(priceSelected));
+        if (priceSelected) {
+            queryParams.append("price", priceToFloat(priceSelected).toString());
         }
 
-        if(restrictedSelected) {
-            queryParams.append("restricted", (restrictedSelected === "mit Anmeldung"));
+        if (restrictedSelected) {
+            queryParams.append("restricted", (restrictedSelected === "mit Anmeldung").toString());
         }
 
-        if(minAgeSelected) {
+        if (minAgeSelected) {
             queryParams.append("minAge", minAgeSelected);
         }
 
@@ -93,67 +93,71 @@ export function FilterComponent({onCloseClick}) {
                 <BaseComponent sendDataToParent={onCloseClick}/>
             </div>
             <div className="form-container">
-            <form onSubmit={handleSubmit}>
-                <div className="filter-body">
-                    <fieldset>
-                        <legend>Suchbegriff</legend>
-                        <input className="search-input" placeholder="Eventname" minLength={3} required={true} onChange={(e) => setSearchTerm(e.target.value)}/>
-                    </fieldset>
-                <fieldset>
-                    <legend>
-                        Zeitraum
-                    </legend>
-                    <div>
-                        <span><label>Von <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}/></label></span>
-                        <span><label>   Bis <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}/></label></span>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Preisspanne</legend>
-                    <div>
-                        <HighlightGroup
-                            options={prices}
-                            selected={priceSelected}
-                            setSelected={setPriceSelected}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Teilnahmebeschränkung</legend>
-                    <div>
-                        <HighlightGroup
-                            options={restricted}
-                            selected={restrictedSelected}
-                            setSelected={setRestrictedSelected}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Mein Alter</legend>
-                    <LiveSlider name={"age"} text={" Jahre"} minAge={minAgeSelected} setMinAge={setMinAgeSelected}/>
+                <form onSubmit={handleSubmit}>
+                    <div className="filter-body">
+                        <fieldset>
+                            <legend>Suchbegriff</legend>
+                            <input className="search-input" placeholder="Eventname" minLength={3}
+                                   onChange={(e) => setSearchTerm(e.target.value)}/>
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                Zeitraum
+                            </legend>
+                            <div>
+                                <span><label>Von <input type="date" value={dateFrom}
+                                                        onChange={e => setDateFrom(e.target.value)}/></label></span>
+                                <span><label>   Bis <input type="date" value={dateTo}
+                                                           onChange={e => setDateTo(e.target.value)}/></label></span>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Preisspanne</legend>
+                            <div>
+                                <HighlightGroup
+                                    options={prices}
+                                    selected={priceSelected}
+                                    setSelected={setPriceSelected}
+                                />
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Teilnahmebeschränkung</legend>
+                            <div>
+                                <HighlightGroup
+                                    options={restricted}
+                                    selected={restrictedSelected}
+                                    setSelected={setRestrictedSelected}
+                                />
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Mein Alter</legend>
+                            <LiveSlider name={"age"} text={" Jahre"} minAge={minAgeSelected}
+                                        setMinAge={setMinAgeSelected}/>
 
-                </fieldset>
-                <fieldset>
-                    <legend>Kategorien</legend>
-                    <div>
-                        <MultiSelectHighlightGroup
-                            options={categories}
-                            selected={multiSelected}
-                            setSelected={setMultiSelected}
-                        />
+                        </fieldset>
+                        <fieldset>
+                            <legend>Kategorien</legend>
+                            <div>
+                                <MultiSelectHighlightGroup
+                                    options={categories}
+                                    selected={multiSelected}
+                                    setSelected={setMultiSelected}
+                                />
+                            </div>
+                        </fieldset>
                     </div>
-                </fieldset>
-                </div>
-                <div className="filter-footer">
-                    <fieldset>
-                        <legend></legend>
-                        <div>
-                            <input type="reset" value="Filter zurücksetzen" className="reset-button"/>
-                            <input type="submit" value="Filter anwenden" className="send-button"/>
-                        </div>
-                    </fieldset>
-                </div>
-            </form>
+                    <div className="filter-footer">
+                        <fieldset>
+                            <legend></legend>
+                            <div>
+                                <input type="reset" value="Filter zurücksetzen" className="reset-button"/>
+                                <input type="submit" value="Filter anwenden" className="send-button"/>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
             </div>
 
         </div>
