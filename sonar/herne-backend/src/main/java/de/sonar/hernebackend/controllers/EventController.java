@@ -17,9 +17,9 @@ public class EventController {
     private final EventDeclineService eventDeclineService;
     private final EventDeletionService eventDeletionService;
 
-
     @Operation(
             summary = "Registers a new event.",
+            tags = "Event",
             description = """
                     Registers a new event over MQTT in the sonar backend.
                     
@@ -49,6 +49,7 @@ public class EventController {
 
     @Operation(
             summary = "Proceeds the event lifecycle.",
+            tags = "Event",
             description = """
                     Proceeds the event lifecycle for a given event.
                     
@@ -72,6 +73,7 @@ public class EventController {
 
     @Operation(
             summary = "Deletes an event.",
+            tags = "Event",
             description = """
                     Deletes an event.
                     
@@ -88,6 +90,7 @@ public class EventController {
 
     @Operation(
             summary = "Declines an event in review.",
+            tags = "Event",
             description = """
                     Declines an event in review.
                     
@@ -102,6 +105,7 @@ public class EventController {
 
     @Operation(
             summary = "Cancels an deployed event.",
+            tags = "Event",
             description = """
                     Cancels an deployed event.
                     

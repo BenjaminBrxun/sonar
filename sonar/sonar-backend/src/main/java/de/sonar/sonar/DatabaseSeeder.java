@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -151,8 +149,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .price(0.0f)
                 .minAge(6)
                 .restricted(true)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(7))
+                .endDate(OffsetDateTime.now().plusDays(7).plusHours(5))
                 .applicant(applicant1)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
@@ -166,8 +164,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .price(0.0f)
                 .minAge(0)
                 .restricted(false)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749405600000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(14))
+                .endDate(OffsetDateTime.now().plusDays(14).plusHours(8))
                 .applicant(applicant2)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
@@ -182,10 +180,10 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .price(19.00f)
                 .minAge(8)
                 .restricted(true)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749384000000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749751200000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(21))
+                .endDate(OffsetDateTime.now().plusDays(35))
                 .applicant(applicant3)
-                .status(EventStatus.DEPLOYED)
+                .status(EventStatus.CANCELLED)
                 .processor(administrativeUser2)
                 .build();
 
@@ -195,8 +193,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .description("Beim Großfeld-Turnier kämpfen ambitionierte Mannschaften um den Sieg – mit Taktik, Teamgeist und packenden Zweikämpfen auf dem großen Spielfeld.")
                 .address(address4)
                 .categories(categoryList1)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(172800000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(194400000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(28))
+                .endDate(OffsetDateTime.now().plusDays(28).plusHours(5))
                 .price(5.00f)
                 .minAge(12)
                 .restricted(true)
@@ -211,8 +209,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .description("Der praxisorientierte Computerkurs vermittelt Grundlagen im Umgang mit PC, Internet und Office-Programmen – ideal für Einsteiger und alle, die ihr Wissen auffrischen möchten.")
                 .address(address5)
                 .categories(categoryList4)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(14400000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(36000000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(3))
+                .endDate(OffsetDateTime.now().plusDays(3).plusHours(5))
                 .price(5.00f)
                 .minAge(12)
                 .restricted(true)
@@ -227,17 +225,25 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .description("Die tragische Romanze von Romeo und Julia erwacht in einer eindrucksvollen Inszenierung zum Leben – voller Leidenschaft, Dramatik und zeitloser Poesie.")
                 .address(address6)
                 .categories(categoryList5)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(259200000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(288000000L), ZoneId.systemDefault()))
                 .price(2.00f)
                 .minAge(6)
                 .restricted(false)
-                .startDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749119967000L), ZoneId.systemDefault()))
-                .endDate(OffsetDateTime.ofInstant(Instant.ofEpochMilli(1749148767000L), ZoneId.systemDefault()))
+                .startDate(OffsetDateTime.now().plusDays(9))
+                .endDate(OffsetDateTime.now().plusDays(9).plusHours(3))
                 .applicant(applicant4)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
                 .build();
+
+        Event event7 = new Event.Builder()
+                .name("Event in Bearbeitung")
+                .startDate(OffsetDateTime.now().plusDays(1))
+                .endDate(OffsetDateTime.now().plusDays(2))
+                .applicant(applicant4)
+                .status(EventStatus.UNDER_EDITING)
+                .processor(administrativeUser1)
+                .build();
+
         // Events speichern
         eventRepository.save(event1);
         eventRepository.save(event2);
@@ -245,6 +251,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         eventRepository.save(event4);
         eventRepository.save(event5);
         eventRepository.save(event6);
+        eventRepository.save(event7);
 
         List<Event> eventList1 = new ArrayList<>();
         eventList1.add(event1);
