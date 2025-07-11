@@ -13,7 +13,6 @@ export function LoginComponent({onCloseClick}) {
         e.preventDefault();
 
         try {
-            console.log(email + " " + password);
             const response = await fetch("http://localhost:8081/api/auth/login", {
                 method: "POST",
                 headers: {
@@ -64,7 +63,7 @@ export function LoginComponent({onCloseClick}) {
                                     <input id="email-input" type="email" value={email} required onChange={e => setEmail(e.target.value)}/>
                                 </div>
                                 <div className="input-container">
-                                    <la9bel className="login-label" htmlFor="password-input">Passwort</la9bel>
+                                    <label className="login-label" htmlFor="password-input">Passwort</label>
                                     <input id="password-input" type="password" value={password} required
                                            onChange={e => setPassword(e.target.value)}/>
                                     <button className="forgot-password-button" type="submit">Passwort vergessen?</button>

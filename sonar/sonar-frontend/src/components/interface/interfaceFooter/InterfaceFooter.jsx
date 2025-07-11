@@ -29,7 +29,6 @@ export function InterfaceFooter({currentPage}) {
     }
 
     async function navigateToProfile() {
-        console.log("email im localStorager:", localStorage.getItem("email"))
         if (localStorage.getItem("email") !== null) {
             localStorage.removeItem("email");
             localStorage.removeItem("token");
