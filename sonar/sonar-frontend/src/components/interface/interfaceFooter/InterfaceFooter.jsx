@@ -25,6 +25,9 @@ export function InterfaceFooter({currentPage}) {
     }
 
     async function navigateToBookmarks() {
+        if (localStorage.getItem("email") === null) {
+           await navigate("/profile");
+        }
         await navigate('/bookmarks');
     }
 

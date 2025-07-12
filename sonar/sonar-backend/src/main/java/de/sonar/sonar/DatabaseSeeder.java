@@ -1,23 +1,35 @@
 package de.sonar.sonar;
 
 import de.sonar.sonar.model.entity.*;
+import de.sonar.sonar.model.entity.Event;
 import de.sonar.sonar.model.enums.EventStatus;
 import de.sonar.sonar.repositories.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @Profile("!test")
 @RequiredArgsConstructor
+@Log4j2
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final EventRepository eventRepository;
@@ -31,7 +43,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws IOException {
 
         Category category1 = Category.builder()
                 .name("Sport")
@@ -129,6 +141,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .organisation("Tanz- und Turnclub Herne")
                 .build();
 
+        applicant1.setEmail("ap1@email.de");
+        applicant2.setEmail("ap2@email.de");
+        applicant3.setEmail("ap3@email.de");
+        applicant4.setEmail("ap4@email.de");
+
         organizerRepository.save(applicant1);
         organizerRepository.save(applicant2);
         organizerRepository.save(applicant3);
@@ -154,6 +171,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant1)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
+                .image("fussball.jpg")
                 .build();
         Event event2 = new Event.Builder()
                 .name("Familienfest im Stadtpark")
@@ -169,6 +187,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant2)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser2)
+                .image("family.png")
                 .build();
 
         Event event3 = new Event.Builder()
@@ -185,6 +204,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant3)
                 .status(EventStatus.CANCELLED)
                 .processor(administrativeUser2)
+//                .image("park.png")
                 .build();
 
         Event event4 = new Event.Builder()
@@ -201,6 +221,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant4)
                 .processor(administrativeUser1)
                 .status(EventStatus.DEPLOYED)
+                .image("fussball.jpg")
                 .build();
 
         Event event5 = new Event.Builder()
@@ -217,6 +238,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant4)
                 .processor(administrativeUser1)
                 .status(EventStatus.DEPLOYED)
+                .image("gaming.png")
                 .build();
 
         Event event6 = new Event.Builder()
@@ -233,6 +255,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant4)
                 .status(EventStatus.DEPLOYED)
                 .processor(administrativeUser1)
+                .image("theater.jpg")
                 .build();
 
         Event event7 = new Event.Builder()
@@ -242,6 +265,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .applicant(applicant4)
                 .status(EventStatus.UNDER_EDITING)
                 .processor(administrativeUser1)
+                .image("party.png")
                 .build();
 
         // Events speichern
@@ -285,6 +309,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         User user2 = User.builder()
                 .username("FischmenschNils")
                 .birthDate(new Date())
+                .email("nils@dlrg.de")
+                .password(passwordEncoder.encode("hallo"))
                 .profile(interestsProfile2)
                 .build();
 

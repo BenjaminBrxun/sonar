@@ -23,6 +23,7 @@ public abstract class BasicUser {
 
     private String firstname;
 
+    @Column(unique = true,  nullable = false)
     private String email;
 
     private String password;
