@@ -42,7 +42,7 @@ services:
       - env/sonar-backend-credentials.env
     environment:
       MQTT_SERVER_URI: "tcp://mqtt-broker:1883"
-      CORS_ALLOWED_ORIGINS_SONAR_FRONTEND_URL: "http://localhost:8080"
+      CORS_ALLOWED_ORIGINS_SONAR_FRONTEND_URL: "http://localhost:8080,http://localhost:3000"
     ports:
       - "8081:8081"
     networks:
