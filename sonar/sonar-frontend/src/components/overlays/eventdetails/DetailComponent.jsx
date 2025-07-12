@@ -17,7 +17,7 @@ import {navigate} from "vike/client/router";
 export function DetailComponent({eventId}) {
 
     const [event, setEvent] = useState([]);
-    let bookmarked = localStorage.getItem("bookmarks")?.includes(parseInt(eventId));
+    let bookmarked = false;
     console.log(event)
     useEffect(() => {
         if (eventId !== null && eventId !== undefined) {
@@ -34,6 +34,7 @@ export function DetailComponent({eventId}) {
                         document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
                     });
                 })
+                .then(() => (bookmarked = localStorage.getItem("bookmarks")?.includes(parseInt(eventId))))
                 .catch(err => {
                     console.log("Event mit ID ", eventId, " konnte nicht geladen werden:" +
                         " " + err.message);
