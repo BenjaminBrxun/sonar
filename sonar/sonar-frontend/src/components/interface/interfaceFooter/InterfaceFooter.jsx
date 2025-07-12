@@ -21,7 +21,7 @@ export function InterfaceFooter({currentPage}) {
     }
 
     async function navigateToList() {
-        await navigate('/list');
+        await navigate('/');
     }
 
     async function navigateToBookmarks() {
