@@ -19,7 +19,7 @@ Members:
 - Fabian Serves (Architektur-Experte)
 - Max van Lier (Infrastruktur-Experte)
 - Nils Palberg (Frontend-Experte / UML-Experte)
-- Micha keiten (Projektleiter)
+- Micha Keiten (Projektleiter)
 - Benjamin Braun (SCRUM-Experte)
 - ~~Patrick Drechsel (Frontend-Experte)~~
 
