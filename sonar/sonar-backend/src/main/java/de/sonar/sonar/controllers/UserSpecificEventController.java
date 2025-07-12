@@ -26,9 +26,17 @@ public class UserSpecificEventController {
     @Operation(
             summary = "Add a new event to favourite events for a user by its email.",
             tags = "Custom Event")
-    @PostMapping("/favourites")
+    @PostMapping("/favourites/add")
     public void addFavourites(@RequestParam Long eventId, @RequestParam String email) {
         userService.addToFavouritesForEmail(email, eventId);
+    }
+
+    @Operation(
+            summary = "Remove an existing event to favourite events for a user by its email.",
+            tags = "Custom Event")
+    @PostMapping("/favourites/remove")
+    public void removeFavourites(@RequestParam Long eventId, @RequestParam String email) {
+        userService.removeFromFavouritesForEmail(email, eventId);
     }
 
 }

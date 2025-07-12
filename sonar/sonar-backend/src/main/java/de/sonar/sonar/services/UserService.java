@@ -35,9 +35,34 @@ public class UserService {
 
     public void addToFavouritesForEmail(String email, long eventId) {
         User user = userRepository.findByEmail(email);
-        Event event = eventRepository.getOne(eventId);
-        user.getProfile().getFavorites().add(event);
-        userRepository.save(user);
+        Event event = eventRepository.getEventById(eventId);
+        List<Event> favorites = user.getProfile().getFavorites();
+        boolean douplicated = false;
+        for (Event favorite : favorites) {
+            if (favorite.getId() == event.getId()) {
+                douplicated = true;
+                break;
+            }
+        }
+        if(!douplicated) {
+            favorites.add(event);
+            user.getProfile().setFavorites(favorites);
+            userRepository.save(user);
+        }
+    }
+
+    public void removeFromFavouritesForEmail(String email, long eventId) {
+        User user = userRepository.findByEmail(email);
+        Event event = eventRepository.getEventById(eventId);
+        List<Event> favorites = user.getProfile().getFavorites();
+        for (Event favorite : favorites) {
+            if (favorite.getId() == event.getId()) {
+                favorites.remove(event);
+                user.getProfile().setFavorites(favorites);
+                userRepository.save(user);
+                break;
+            }
+        }
     }
 
     public User registerUser(User user) {
