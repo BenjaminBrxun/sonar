@@ -3,6 +3,8 @@ import "./ListComponent.scss"
 import EventCardModule from "../../modules/EventCardModule/EventCardModule.jsx";
 import eventCardImagePark from "../../../assets/images/event-mocks/park.png";
 import {usePageContext} from "vike-react/usePageContext";
+import {navigate} from "vike/client/router";
+
 
 function format_date_to_text(eventdate) {
     const year = eventdate.substring(0, 4);
@@ -11,19 +13,20 @@ function format_date_to_text(eventdate) {
     const hour = eventdate.substring(11, 13);
     const minute = eventdate.substring(14, 16);
     // const second = eventdate.substring(17, 19);
-    const erg = day + "." + month + "." + year + " " + hour + ":" + minute + "Uhr";
-    return erg;
+    return day + "." + month + "." + year + " " + hour + ":" + minute + "Uhr";
 }
 
 
 export function ListComponent({link, isFav}) {
     const [loadedLink] = useState(null);
     const [events, setEvents] = useState([]);
-    const pageContext = usePageContext();
 
     useEffect(() => {
         if(isFav) {
             link = "http://localhost:8081/api/v1/user/favourites?email=" + localStorage.getItem("email");
+            if(localStorage.getItem("email") === null) {
+                navigate("/profile");
+            }
             console.log(link)
         }
         if (link === loadedLink) return;

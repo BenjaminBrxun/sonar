@@ -51,6 +51,20 @@ public class UserService {
         }
     }
 
+    public void removeFromFavouritesForEmail(String email, long eventId) {
+        User user = userRepository.findByEmail(email);
+        Event event = eventRepository.getEventById(eventId);
+        List<Event> favorites = user.getProfile().getFavorites();
+        for (Event favorite : favorites) {
+            if (favorite.getId() == event.getId()) {
+                favorites.remove(event);
+                user.getProfile().setFavorites(favorites);
+                userRepository.save(user);
+                break;
+            }
+        }
+    }
+
     public User registerUser(User user) {
         if(user.getProfile() == null) {
             InterestsProfile interestsProfile = InterestsProfile.builder().build();

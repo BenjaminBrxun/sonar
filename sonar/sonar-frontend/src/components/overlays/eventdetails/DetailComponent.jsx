@@ -11,11 +11,13 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import image from "../../../assets/images/event-mocks/gaming.png"
+import {navigate} from "vike/client/router";
 
 
 export function DetailComponent({eventId}) {
 
     const [event, setEvent] = useState([]);
+    let bookmarked = localStorage.getItem("bookmarks")?.includes(parseInt(eventId));
     console.log(event)
     useEffect(() => {
         if (eventId !== null && eventId !== undefined) {
@@ -39,7 +41,45 @@ export function DetailComponent({eventId}) {
                 });
         }
     }, [eventId]);
-    
+
+    const handleBookmarking = () => {
+        let loggedIn = (localStorage.getItem("email") !== null);
+        if (!loggedIn) {
+            navigate("/profile")
+        } else {
+            let bookmarkedEvents = JSON.parse(localStorage.getItem("bookmarks"));
+            console.log(bookmarkedEvents);
+            if (bookmarkedEvents === null) bookmarkedEvents = []
+            // Event zu Favoriten hinzufügen
+            if (!bookmarkedEvents.includes(parseInt(eventId))) {
+                bookmarked = true;
+                bookmarkedEvents.push(parseInt(eventId));
+                document.getElementById(parseInt(eventId)).className = "sonar-eventcard_top-icon bookmarked"
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarkedEvents));
+                const link = "http://localhost:8081/api/v1/user/favourites/add?email=" + localStorage.getItem("email") + "&eventId=" + parseInt(eventId);
+                fetch(link, {method: "POST"})
+                    .catch(err => console.log("Event konnte nicht gespeichert werden:" +
+                        " " + err.message));
+            } else {
+                bookmarked = false;
+                document.getElementById(parseInt(eventId)).className = "sonar-eventcard_top-icon"
+                const newBookmarks = bookmarkedEvents.filter(ev => ev !== parseInt(eventId));
+                localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+                console.log(localStorage.getItem("bookmarks"));
+                const link = "http://localhost:8081/api/v1/user/favourites/remove?email=" + localStorage.getItem("email") + "&eventId=" + parseInt(eventId);
+                fetch(link, {method: "POST"})
+                    .catch(err => console.log("Event konnte nicht aus den Favoriten entfernt werden:" +
+                        " " + err.message));
+            }
+        }
+        console.log(bookmarked);
+    }
+
+    function renderBookmarkedIcons() {
+        if (bookmarked) {
+            document.getElementById(parseInt(eventId)).className = "sonar-eventcard_top-icon bookmarked";
+        }
+    }
 
     function goBack() {
         history.back();
@@ -100,7 +140,7 @@ export function DetailComponent({eventId}) {
     };
 
     return (
-        <Card className="sonar-eventcard">
+        <Card className="sonar-eventcard" onLoad={renderBookmarkedIcons}>
             <div className="sonar-eventcard_container">
                 <div className="sonar-eventcard_media-div">
                     <CardMedia className="sonar-eventcard_media"
@@ -113,8 +153,8 @@ export function DetailComponent({eventId}) {
                             <div className="sonar-eventcard_top-icon">
                                 <Button size="small" onClick={handleCopy}><ShareIcon/></Button>
                             </div>
-                            <div className="sonar-eventcard_top-icon">
-                                <Button size="small"><BookmarkIcon/></Button>
+                            <div className="sonar-eventcard_top-icon" id={eventId}>
+                                <Button size="small" onClick={handleBookmarking}><BookmarkIcon/></Button>
                             </div>
                             <div className="sonar-eventcard_top-icon-buffer"></div>
                             <div className="sonar-eventcard_top-cancel">

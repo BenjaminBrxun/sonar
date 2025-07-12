@@ -12,9 +12,12 @@ import MuiAlert from '@mui/material/Alert';
 import "./EventCardModule.scss";
 import {navigate} from "vike/client/router";
 import {useState} from "react";
+import {usePageContext} from "vike-react/usePageContext";
+
 
 export default function EventCardModule({title, date, date_text, costs, image, restricted, id}) {
-
+    const pageContext = usePageContext();
+    const isFavoritesPage = pageContext.urlPathname.startsWith("/bookmarks");
     let bookmarked = localStorage.getItem("bookmarks")?.includes(id);
     console.log(bookmarked)
     // Diese Funktion codiert einen Base64 String wieder als Bilddatei
@@ -85,31 +88,50 @@ export default function EventCardModule({title, date, date_text, costs, image, r
     };
 
     const handleBookmarking = () => {
-        let bookmarkedEvents = JSON.parse(localStorage.getItem("bookmarks"));
-        console.log(bookmarkedEvents);
-        if (bookmarkedEvents === null) bookmarkedEvents = []
-        // Event zu Favoriten hinzufügen
-        if(!bookmarkedEvents.includes(id)) {
-            bookmarked = true;
-            document.getElementById("bookmark-icon").className = "sonar-eventcard_top-icon bookmarked"
-            bookmarkedEvents.push(id);
-            localStorage.setItem("bookmarks", JSON.stringify(bookmarkedEvents));
-            const link = "http://localhost:8081/api/v1/user/favourites?email=" + localStorage.getItem("email") + "&eventId=" + id;
-            fetch(link, {method: "POST"} )
-                .catch(err => console.log("Event konnte nicht gespeichert werden:" +
-                    " " + err.message));
+        let loggedIn = (localStorage.getItem("email") !== null);
+        if (!loggedIn) {
+            navigate("/profile")
         } else {
-            bookmarked = false;
-            document.getElementById("bookmark-icon").className = "sonar-eventcard_top-icon"
-            const newBookmarks = bookmarkedEvents.filter(ev => ev !== id);
-            localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
-            console.log(localStorage.getItem("bookmarks"));
+            let bookmarkedEvents = JSON.parse(localStorage.getItem("bookmarks"));
+            console.log(bookmarkedEvents);
+            if (bookmarkedEvents === null) bookmarkedEvents = []
+            // Event zu Favoriten hinzufügen
+            if (!bookmarkedEvents.includes(id)) {
+                bookmarked = true;
+                bookmarkedEvents.push(id);
+                document.getElementById(id).className = "sonar-eventcard_top-icon bookmarked"
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarkedEvents));
+                const link = "http://localhost:8081/api/v1/user/favourites/add?email=" + localStorage.getItem("email") + "&eventId=" + id;
+                fetch(link, {method: "POST"})
+                    .catch(err => console.log("Event konnte nicht gespeichert werden:" +
+                        " " + err.message));
+            } else {
+                bookmarked = false;
+                document.getElementById(id).className = "sonar-eventcard_top-icon"
+                const newBookmarks = bookmarkedEvents.filter(ev => ev !== id);
+                localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+                console.log(localStorage.getItem("bookmarks"));
+                const link = "http://localhost:8081/api/v1/user/favourites/remove?email=" + localStorage.getItem("email") + "&eventId=" + id;
+                fetch(link, {method: "POST"})
+                    .catch(err => console.log("Event konnte nicht aus den Favoriten entfernt werden:" +
+                        " " + err.message));
+
+                if (isFavoritesPage) {
+                    document.getElementById(id + "card").style.display = "none";
+                }
+            }
         }
         console.log(bookmarked);
     }
 
+    function renderBookmarkedIcons() {
+        if (bookmarked) {
+            document.getElementById(id).className = "sonar-eventcard_top-icon bookmarked";
+        }
+    }
+
     return (
-        <Card className="sonar-eventcard">
+        <Card id={id + "card"} className="sonar-eventcard" onLoad={renderBookmarkedIcons}>
             <div className="sonar-eventcard_container">
                 <div className="sonar-eventcard_media-div">
                     <CardMedia className="sonar-eventcard_media"
@@ -122,7 +144,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                             <div className="sonar-eventcard_top-icon">
                                 <Button size="small" onClick={handleCopy}><ShareIcon/></Button>
                             </div>
-                            <div className="sonar-eventcard_top-icon">
+                            <div className="sonar-eventcard_top-icon" id={id}>
                                 <Button size="small" onClick={handleBookmarking}><BookmarkIcon/></Button>
                             </div>
                             <div id="sonar-eventcard_top-icon-buffer"></div>
@@ -165,9 +187,9 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                 open={snackbarOpen}
                 autoHideDuration={3000}
                 onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
             >
-                <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{width: '100%'}}>
                     {snackbarMessage}
                 </MuiAlert>
             </Snackbar>

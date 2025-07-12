@@ -30,6 +30,8 @@ export function LoginComponent({onCloseClick}) {
                 localStorage.setItem("email", email);
                 localStorage.setItem("token", token);
 
+                // fetch auf User.favourites und so: alle Favoriten in den LocalStorage schreiben
+
                 alert("Login erfolgreich!");
                 await navigate(`/list`);
 
