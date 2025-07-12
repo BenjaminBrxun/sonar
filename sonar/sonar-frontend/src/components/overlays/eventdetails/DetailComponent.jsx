@@ -146,7 +146,7 @@ export function DetailComponent({eventId}) {
                     <CardMedia className="sonar-eventcard_media"
                                component="img"
                                alt="family"
-                               image={image}
+                               src={`http://localhost:8081/images/${event.image}`}
                     />
                     <div className="sonar-eventcard_header">
                         <CardActions className="sonar-eventcard_top-icons">

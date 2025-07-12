@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.Base64;
 import java.util.List;
 
 @Getter
@@ -30,6 +31,8 @@ public class Event {
 
     @Embedded
     private Address address;
+
+    private String image = "placeholder.png";
 
     @ManyToMany
     private List<Category> categories;
@@ -73,6 +76,7 @@ public class Event {
         this.price = builder.price;
         this.minAge = builder.minAge;
         this.restricted = builder.restricted;
+        this.image = builder.image;
     }
 
     public boolean isNew() {
@@ -95,6 +99,7 @@ public class Event {
         private float price;
         private int minAge;
         private boolean restricted;
+        private String image = "placeholder.png";
 
         public Builder name(String name) {
             this.name = name;
@@ -163,6 +168,11 @@ public class Event {
 
         public Builder restricted(boolean restricted) {
             this.restricted = restricted;
+            return this;
+        }
+
+        public Builder image(String image) {
+            this.image = image;
             return this;
         }
 

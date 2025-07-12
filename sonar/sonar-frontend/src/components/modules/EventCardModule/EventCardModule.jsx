@@ -20,10 +20,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
     const isFavoritesPage = pageContext.urlPathname.startsWith("/bookmarks");
     let bookmarked = localStorage.getItem("bookmarks")?.includes(id);
     console.log(bookmarked)
-    // Diese Funktion codiert einen Base64 String wieder als Bilddatei
-    // function dataToImage(data) {
-    //     return Buffer.from(data, 'binary').toString('base64');
-    // }
+    console.log("image:", image);
 
     function restrictedToString(restricted) {
         if (restricted) {
@@ -137,7 +134,7 @@ export default function EventCardModule({title, date, date_text, costs, image, r
                     <CardMedia className="sonar-eventcard_media"
                                component="img"
                                alt="family"
-                               image={image}
+                               src={`http://localhost:8081/images/${image}`}
                     />
                     <div className="sonar-eventcard_header">
                         <CardActions className="sonar-eventcard_top-icons">
