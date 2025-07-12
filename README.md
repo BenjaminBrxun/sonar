@@ -18,10 +18,10 @@ Team Leader:
 Members:
 - Fabian Serves (Architektur-Experte)
 - Max van Lier (Infrastruktur-Experte)
-- Nils Palberg (UML-Experte)
-- Micha keiten (Projektleiter)
+- Nils Palberg (Frontend-Experte / UML-Experte)
+- Micha Keiten (Projektleiter)
 - Benjamin Braun (SCRUM-Experte)
-- Patrick Drechsel (Frontend-Experte)
+- ~~Patrick Drechsel (Frontend-Experte)~~
 
 ## Quickstart
 

@@ -13,9 +13,6 @@ import java.util.Set;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long>, JpaSpecificationExecutor<Event> {
 
-    // Name
-    List<Event> findAllByNameContainingIgnoreCase(String name);
-
     List<Event> findAllByStatusIn(Set<EventStatus> statuses);
 
     @Query("SELECT e FROM Event e WHERE e.status = 'DELETED'")

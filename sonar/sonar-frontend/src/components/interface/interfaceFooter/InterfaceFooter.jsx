@@ -1,18 +1,16 @@
 import "./InterfaceFooter.scss"
-
+import React from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faArrowRightToBracket,
     faBarsStaggered,
     faBookmark,
-    faMapLocationDot,
-    faSliders,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faMapLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {navigate} from "vike/client/router";
 
 export function InterfaceFooter({currentPage}) {
-
 
     async function navigateToFilter() {
         await navigate('/filter');
@@ -23,14 +21,26 @@ export function InterfaceFooter({currentPage}) {
     }
 
     async function navigateToList() {
-        await navigate('/list');
+        await navigate('/');
     }
 
     async function navigateToBookmarks() {
+        if (localStorage.getItem("email") === null) {
+           await navigate("/profile");
+        }
         await navigate('/bookmarks');
     }
 
-    console.log("current page: ", currentPage);
+    async function navigateToProfile() {
+        if (localStorage.getItem("email") !== null) {
+            localStorage.removeItem("email");
+            localStorage.removeItem("token");
+            alert("Logout erfolgreich!");
+            await navigate("/")
+        } else {
+            await navigate('/profile');
+        }
+    }
 
     return (
         <div className="sonar-footer">
@@ -47,7 +57,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="interactivemap" className={currentPage !== "/interactivemap" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="interactivemap"
+                                className={currentPage !== "/interactivemap" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToInteractiveMap}
                         >
                             <FontAwesomeIcon icon={faMapLocationDot}/>
@@ -55,7 +66,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="list" className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="list"
+                                className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToList}
                         >
                             <FontAwesomeIcon icon={faBarsStaggered}/>
@@ -63,7 +75,8 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="bookmark" className={currentPage !== "/bookmarks" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                        <button id="bookmark"
+                                className={currentPage !== "/bookmarks" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
                                 onClick={navigateToBookmarks}
                         >
                             <FontAwesomeIcon icon={faBookmark}/>
@@ -71,7 +84,9 @@ export function InterfaceFooter({currentPage}) {
                     </li>
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
-                        <button id="account" className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}>
+                        <button id="account"
+                                className={currentPage !== "/account" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                onClick={navigateToProfile}>
                             <FontAwesomeIcon icon={faArrowRightToBracket}/>
                         </button>
                     </li>
