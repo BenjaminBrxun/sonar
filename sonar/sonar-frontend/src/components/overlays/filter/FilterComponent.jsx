@@ -1,20 +1,48 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./FilterComponent.scss"
 import {BaseComponent} from "../../base/BaseComponent.jsx";
 import {HighlightGroup, MultiSelectHighlightGroup} from "../../layouts/HighlightGroup.jsx"
 import {LiveSlider} from "../../layouts/LiveSlider.jsx"
 import {navigate} from "vike/client/router";
+import {EventFilter} from "./EventFilter.js";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export function FilterComponent({onCloseClick}) {
-    const [priceSelected, setPriceSelected] = React.useState(null);
-    const [restrictedSelected, setRestrictedSelected] = React.useState(null);
-    const [multiSelected, setMultiSelected] = React.useState([]);
-    const [dateFrom, setDateFrom] = React.useState("");
-    const [dateTo, setDateTo] = React.useState("");
-    const [minAgeSelected, setMinAgeSelected] = React.useState("");
+
+    const [eventFilter, setEventFilter] = useState(new EventFilter());
+
+    // Selected and preset filter options
+    const [priceSelected, setPriceSelected] = React.useState(eventFilter.priceSelected);
+    const [restrictedSelected, setRestrictedSelected] = React.useState(eventFilter.restrictedSelected);
+    const [selectedCategories, setSelectedCategories] = React.useState(eventFilter.selectedCategories);
+    const [dateFrom, setDateFrom] = React.useState(eventFilter.dateFrom);
+    const [dateTo, setDateTo] = React.useState(eventFilter.dateTo);
+    const [minAgeSelected, setMinAgeSelected] = React.useState(eventFilter.minAgeSelected);
+    const [searchTerm, setSearchTerm] = useState(eventFilter.searchTerm);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const eventFilter = JSON.parse(localStorage.getItem("eventFilter"));
+            if (eventFilter) {
+                setEventFilterFromProps(eventFilter);
+            }
+        }
+    }, []);
+
+    function setEventFilterFromProps(eventFilter) {
+        setEventFilter(eventFilter);
+        setPriceSelected(eventFilter.priceSelected);
+        setRestrictedSelected(eventFilter.restrictedSelected);
+        setSelectedCategories(eventFilter.selectedCategories);
+        setDateFrom(eventFilter.dateFrom);
+        setDateTo(eventFilter.dateTo);
+        setMinAgeSelected(eventFilter.minAgeSelected);
+        setSearchTerm(eventFilter.searchTerm);
+    }
+
+    // Constants
     const prices = ['Kostenlos', '€', '€€', '€€€']
     const restricted = ['ohne Anmeldung', 'mit Anmeldung']
     const categories = ['Sport', 'Museum', 'Musik', 'Fest', 'Gaming', 'Natur', 'Kino', 'Theater', 'Workshop', 'Computer', 'Ganze Familie', 'Tiere']
@@ -32,7 +60,6 @@ export function FilterComponent({onCloseClick}) {
         "Ganze Familie": 11,
         "Tiere": 12
     };
-    const [searchTerm, setSearchTerm] = useState("");
 
     function priceToFloat(price) {
         switch (price) {
@@ -49,42 +76,62 @@ export function FilterComponent({onCloseClick}) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const eventFilter = new EventFilter();
 
         const queryParams = new URLSearchParams();
         if (searchTerm) {
             queryParams.append("name", searchTerm);
+            eventFilter.searchTerm = searchTerm;
         }
-        multiSelected.forEach(category => {
-            const id = categoryNameToId[category];
-            queryParams.append('categories', id);
-        });
+        if (selectedCategories) {
+            selectedCategories.forEach(category => {
+                const id = categoryNameToId[category];
+                queryParams.append('categories', id);
+            });
+            eventFilter.selectedCategories = selectedCategories;
+        }
 
         if (dateFrom) {
             const startTimestamp = new Date(dateFrom + 'T00:00:00');
             queryParams.append("startDate", startTimestamp.toISOString());
+            eventFilter.dateFrom = dateFrom;
         }
 
         if (dateTo) {
             const endTimestamp = new Date(dateTo + 'T23:59:59');
             queryParams.append("endDate", endTimestamp.toISOString());
+            eventFilter.dateTo = dateTo;
         }
 
         if (priceSelected) {
             queryParams.append("price", priceToFloat(priceSelected).toString());
+            eventFilter.priceSelected = priceSelected;
         }
 
         if (restrictedSelected) {
             queryParams.append("restricted", (restrictedSelected === "mit Anmeldung").toString());
+            eventFilter.restrictedSelected = restrictedSelected;
         }
 
         if (minAgeSelected) {
             queryParams.append("minAge", minAgeSelected);
+            eventFilter.minAgeSelected = minAgeSelected;
         }
 
+        localStorage.setItem("eventFilter", JSON.stringify(eventFilter));
         const filterUrl = `http://localhost:8081/api/v1/events/filter?${queryParams.toString()}`;
         await navigate(`/list?link=${encodeURIComponent(filterUrl)}`);
-
     }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        const eventFilter = new EventFilter();
+        setEventFilterFromProps(eventFilter);
+
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("eventFilter");
+        }
+    };
 
     return (
         <div className="filter-overlay">
@@ -97,7 +144,10 @@ export function FilterComponent({onCloseClick}) {
                     <div className="filter-body">
                         <fieldset>
                             <legend>Suchbegriff</legend>
-                            <input className="search-input" placeholder="Eventname" minLength={3}
+                            <input className="search-input"
+                                   placeholder="Eventname"
+                                   minLength={3}
+                                   value={searchTerm}
                                    onChange={(e) => setSearchTerm(e.target.value)}/>
                         </fieldset>
                         <fieldset>
@@ -105,10 +155,21 @@ export function FilterComponent({onCloseClick}) {
                                 Zeitraum
                             </legend>
                             <div>
-                                <span><label>Von <input type="date" value={dateFrom}
-                                                        onChange={e => setDateFrom(e.target.value)}/></label></span>
-                                <span><label>   Bis <input type="date" value={dateTo}
-                                                           onChange={e => setDateTo(e.target.value)}/></label></span>
+                                <span>
+                                    <label>Von
+                                    <input
+                                        type="date"
+                                        value={dateFrom}
+                                        onChange={e => setDateFrom(e.target.value)}/>
+                                </label>
+                                </span>
+                                <span>
+                                    <label>Bis
+                                        <input type="date"
+                                               value={dateTo}
+                                               onChange={e => setDateTo(e.target.value)}/>
+                                    </label>
+                                </span>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -142,8 +203,8 @@ export function FilterComponent({onCloseClick}) {
                             <div>
                                 <MultiSelectHighlightGroup
                                     options={categories}
-                                    selected={multiSelected}
-                                    setSelected={setMultiSelected}
+                                    selected={selectedCategories}
+                                    setSelected={setSelectedCategories}
                                 />
                             </div>
                         </fieldset>
@@ -152,7 +213,7 @@ export function FilterComponent({onCloseClick}) {
                         <fieldset>
                             <legend></legend>
                             <div>
-                                <input type="reset" value="Filter zurücksetzen" className="reset-button"/>
+                                <input type="reset" onClick={handleReset} value="Filter zurücksetzen" className="reset-button"/>
                                 <input type="submit" value="Filter anwenden" className="send-button"/>
                             </div>
                         </fieldset>
@@ -162,4 +223,5 @@ export function FilterComponent({onCloseClick}) {
 
         </div>
     )
+
 }
