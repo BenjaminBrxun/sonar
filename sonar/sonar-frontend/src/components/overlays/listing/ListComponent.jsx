@@ -29,7 +29,7 @@ export function ListComponent({link, isFav}) {
             }
             console.log(link)
         }
-        if (link === loadedLink) return;
+        // if (link === loadedLink) return;
         fetch(link)
             .then(res => res.json())
             .then(data => setEvents(data))
