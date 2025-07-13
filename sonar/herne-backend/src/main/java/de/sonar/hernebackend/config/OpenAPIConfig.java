@@ -12,7 +12,7 @@ public class OpenAPIConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Herne Backend API")
+                        .title("Herne Backend API Documentation")
                         .description("""
                                 REST and MQTT are used for communication in the project.
                                 
@@ -20,6 +20,9 @@ public class OpenAPIConfig {
                                 
                                 The following documentation describes the available MQTT topics for the event lifecycle management.
                                 Each operation consists of a pair of two topics. One topic is used for sending a request and the other for receiving a response.
+                                
+                                The MQTT topics are triggered via the Herne Backend using the REST API for event management (see ‘Event’ tag in Herne Backend API documentation).
+                                The Sonar Backend subscribes to the corresponding request topics, processes the payload accordingly and sends a suitable response to the corresponding reply topic.
                                 
                                 <h3>Register Event</h3>
                                 <ul>
@@ -53,6 +56,8 @@ public class OpenAPIConfig {
                                 </ul>
                                 
                                 <h2>REST API Documentation</h2>
+                                
+                                The following documentation describes the available REST APIs.
                                 """
                         ));
     }
