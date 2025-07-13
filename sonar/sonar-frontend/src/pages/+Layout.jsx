@@ -20,7 +20,7 @@ function Layout({ children }) {
             <div className="ui">
                 {!isFilterPage && !isLoginPage && <InterfaceHeader />}
                 <div className="current-component">{children}</div>
-                {!isFilterPage && !isLoginPage && <InterfaceFooter />}
+                {!isFilterPage && !isLoginPage && <InterfaceFooter currentPage={pageContext.urlPathname}/>}
             </div>
         </div>
     );

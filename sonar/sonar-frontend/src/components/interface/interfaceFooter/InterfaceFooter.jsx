@@ -11,7 +11,7 @@ import {
 import {navigate} from "vike/client/router";
 
 export function InterfaceFooter({currentPage}) {
-
+    console.log("currentPage: " + currentPage);
     async function navigateToFilter() {
         await navigate('/filter');
     }

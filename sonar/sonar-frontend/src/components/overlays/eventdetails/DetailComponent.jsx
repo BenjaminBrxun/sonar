@@ -29,7 +29,7 @@ export function DetailComponent({eventId}) {
                         const iframelink = `https://www.openstreetmap.org/export/embed.html?bbox=${position.lon-0.01004219055176}%2C${position.lat-0.00432886683549}%2C${position.lon + 0.01004219055176}%2C${position.lat + 0.00432886683549}&amp;layer=mapnik&amp;marker=${position.lat}%2C${position.lon}`;
                         console.log(iframelink);
                         console.log(position);
-                        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`;
+                        const linktomaps = `https://www.google.com/maps/dir/?api=1&destination=${position.street}+${position.houseNumber},+${position.postcode}+${position.city}`.replace(" ", "+");
                         document.getElementById("sonar-eventcard_content_text-button").innerHTML = `<a href=${linktomaps}>Route auf Google Maps</a>`;
                         document.getElementById("sonar-eventcard_map-container").innerHTML = `<iframe src=${iframelink}>`;
                     });
