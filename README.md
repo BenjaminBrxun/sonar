@@ -125,7 +125,7 @@ Sonar/
   ├── herne-backend            # Dummy Backend
     ├── src/main/              # Source code
     └── src/test/              # Test cases
-  ├── mosquitto                # MQTT Broker
+  └── mosquitto                # MQTT Broker
 ├── documentation/             # Documentation
 └── README.md                  # This file
 ```
