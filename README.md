@@ -10,12 +10,15 @@ Soziales Online Aktivitäten Register
 ```                                        
 
 ## Team
+
 List the team members involved in the project:
 
-Team Leader: 
+Team Leader:
+
 - Till Patron (Backend-Experte)
 
 Members:
+
 - Fabian Serves (Architektur-Experte)
 - Max van Lier (Infrastruktur-Experte)
 - Nils Palberg (Frontend-Experte / UML-Experte)
@@ -34,9 +37,12 @@ $ docker compose up -d
 
 The frontend application should run locally at the following address: http://localhost:8080
 
-The communication interfaces are documented with a Swagger UI, these can be accessed at:
-- Sonar-Backend: http://localhost:8081/swagger-ui/index.html
-- Herne-Backend: http://localhost:9091/swagger-ui/index.html
+The communication interfaces are documented with a Swagger UI (REST & MQTT), these can be accessed at:
+
+- Sonar-Backend: http://localhost:8081/swagger-ui/index.html  
+  (port:8081 when started without docker compose)
+- Herne-Backend: http://localhost:9091/swagger-ui/index.html  
+  (port:8080 when started without docker compose)
 
 ## Prerequisites
 
@@ -49,10 +55,11 @@ Software: Docker
 Prototyp: [Figma Prototyp](https://www.figma.com/proto/G1wOTb3iaOJeZSlVaQ27tN/SWT1-Prototype?page-id=132%3A558&node-id=153-560&viewport=343%2C-544%2C0.44&t=oGkMymRAoTJUZyHt-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=153%3A560&show-proto-sidebar=1)
 Passwort: swt1
 
-### Tech-Stack: 
-  - React (Frontend) https://react.dev
-  - Springboot (Backend): https://start.spring.io/
-  - PostgreSQL (Database): https://postgresql.org
+### Tech-Stack:
+
+- React (Frontend) https://react.dev
+- Springboot (Backend): https://start.spring.io/
+- PostgreSQL (Database): https://postgresql.org
 
 Ports: 8081 (Sonar-Backend), 8080 (Sonar-Frontend), 5432 (Database), 9091 (Herne-Backend), 1883 (MQTT), 9001 (MQTT)
 
@@ -61,11 +68,13 @@ Ports: 8081 (Sonar-Backend), 8080 (Sonar-Frontend), 5432 (Database), 9091 (Herne
 Provide step-by-step instructions on how to clone the repository, install the project, and configure it:
 
 1. Clone the repository:
+
 ```bash,ignore
 $ git clone https://github.com/tpatron-fhdo/sonar.git
 ```
 
 2. Navigate to the project directory:
+
 ```bash,ignore
 $ cd sonar
 ```
@@ -112,7 +121,9 @@ $ docker compose up -d
 ```
 
 ## Project structure
+
 Provide an overview of the directory structure to help contributors navigate the project:
+
 ```bash,ignore
 Sonar/
 ├── sonar/                     # Description of this subproject
@@ -137,5 +148,6 @@ Sonar/
 - The feature branch is only merged into the main branch once the Definition of Done of a user story has been fulfilled
 
 ### Branch Naming
+
 - feature/[Ticket-Nr z.B. 20]-[Ticket-Name]
 - e.g.: feature/20-datenmodell
