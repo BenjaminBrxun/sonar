@@ -1,24 +1,24 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
-.sonar-eventcard{
-  //position: absolute;
-  min-height: 60vh;
+.detail-sonar-eventcard{
+  position: absolute;
+  height: 73vh;
   min-width: var.$appWidth;
   max-width: 40vw;
   z-index: 5;
   margin-bottom: 2.7vh;
   border-radius: 4vh !important;
   padding-bottom: 1.5vh;
-  //top: 12vh;
+  top: 12vh;
 }
 
-.sonar-eventcard_container {
+.detail-sonar-eventcard_container {
   height: 100%;
   position: relative;
   overflow: scroll;
 }
 
-.sonar-eventcard_media {
+.detail-sonar-eventcard_media {
   position: relative;
   display: flex !important;
   height: 35vh;
@@ -33,7 +33,7 @@
   background: var.$accent !important;
 }
 
-.sonar-eventcard_header{
+.detail-sonar-eventcard_header{
   height: 100%;
   z-index: 10;
   border-radius: 30vh;
@@ -43,7 +43,7 @@
   width: 100%;
 }
 
-.sonar-eventcard_top-icons {
+.detail-sonar-eventcard_top-icons {
   position: relative;
   z-index: 5;
   width: 100%;
@@ -51,7 +51,7 @@
   padding: 1vh 0 0 0 !important;
 }
 
-.sonar-eventcard_top-icon {
+.detail-sonar-eventcard_top-icon {
   background: white;
   width: 4.7vh;
   height: 4.7vh;
@@ -76,7 +76,7 @@
   }
 }
 
-.sonar-eventcard_top-cancel{
+.detail-sonar-eventcard_top-cancel{
   width: 6.6vh;
   height: 4.7vh;
   min-width: 5vh;
@@ -99,14 +99,14 @@
   }
 }
 
-.sonar-eventcard_tags{
+.detail-sonar-eventcard_tags{
   position: relative;
   top:23vh;
   z-index: 5;
   padding: 1vh !important;
 }
 
-.sonar-eventcard_tag-icon{
+.detail-sonar-eventcard_tag-icon{
   max-width: 50%;
   height: auto;
   border-radius: 1vh;
@@ -128,11 +128,14 @@
   }
 }
 
-#sonar-eventcard_content_text-div{
+#detail-sonar-eventcard_content_text-div{
   padding: 2.1vh 2vw 2.1vh 2vw;
 }
+.detail-sonar-eventcard_content_text{
+  padding: 0 !important;
+}
 
-.sonar-eventcard_content{
+.detail-sonar-eventcard_content{
   height: 42%;
   position: relative;
   top: 35vh;
@@ -167,7 +170,7 @@
   }
 }
 
-#sonar-eventcard_content_text-button{
+#detail-sonar-eventcard_content_text-button{
   height: 6vh;
   width: auto;
   padding-top: 2vh;
@@ -185,32 +188,15 @@
   }
 }
 
-.sonar-eventcard_categorys{
+#detail-sonar-eventcard_categorys{
   z-index: 5;
-  padding: 1vh !important;
+  padding: 2vh 0 2vh 0 !important;
 }
 
-.sonar-eventcard_category{
-  max-width: 50%;
-  height: auto;
-  border-radius: 1vh;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  left: 0;
-  background: orange;
-  label{
-    font-size: 1.9vh;
-    margin: 0.27vh 0.65vw 0.27vh 0.65vw;
-    font-weight: bolder;
-    color: black;
-    overflow: hidden;
-  }
-}
-
-.sonar-eventcard_map-container{
+#detail-sonar-eventcard_map-container{
   height: 30vh;
-  width: 33vw;
+  width: 36vw;
+  min-width: 320px;
   iframe{
     width: 100%;
     height: 100%;
