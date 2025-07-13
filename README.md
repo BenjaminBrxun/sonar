@@ -35,8 +35,8 @@ $ docker compose up -d
 The frontend application should run locally at the following address: http://localhost:8080
 
 The communication interfaces are documented with a Swagger UI, these can be accessed at:
-- Sonar-Backend: http://localhost:8081/swagger-ui.html
-- Herne-Backend: http://localhost:9091/swagger-ui.html
+- Sonar-Backend: http://localhost:8081/swagger-ui/index.html
+- Herne-Backend: http://localhost:9091/swagger-ui/index.html
 
 ## Prerequisites
 

@@ -1,4 +1,4 @@
-package de.sonar.sonar.config;
+package de.sonar.hernebackend.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -12,7 +12,7 @@ public class OpenAPIConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Sonar Backend API")
+                        .title("Herne Backend API")
                         .description("""
                                 REST and MQTT are used for communication in the project.
                                 
