@@ -32,6 +32,12 @@ This section outlines the steps required to get your project up and running quic
 $ docker compose up -d
 ```
 
+The frontend application should run locally at the following address: http://localhost:8080
+
+The communication interfaces are documented with a Swagger UI, these can be accessed at:
+- Sonar-Backend: http://localhost:8081/swagger-ui.html
+- Herne-Backend: http://localhost:9091/swagger-ui.html
+
 ## Prerequisites
 
 Detail all the necessary prerequisites for running your project, such as:
@@ -48,7 +54,7 @@ Passwort: swt1
   - Springboot (Backend): https://start.spring.io/
   - PostgreSQL (Database): https://postgresql.org
 
-Ports: 8080 (Backend), 8081 (Frontend), 5432 (Database), 9091 (Herne-Backend), 1883 (MQTT), 9001 (MQTT)
+Ports: 8081 (Sonar-Backend), 8080 (Sonar-Frontend), 5432 (Database), 9091 (Herne-Backend), 1883 (MQTT), 9001 (MQTT)
 
 ## Installation and Setup
 
