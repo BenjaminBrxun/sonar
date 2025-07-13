@@ -21,20 +21,6 @@ public class EventController {
     }
 
     /**
-     * Statusschnittstelle.
-     * Gibt an, dass das Backend verfügbar ist.
-     *
-     * @return den Verfügbarkeitsstatus
-     */
-    @Operation(
-            summary = "Returns 'Backend verfügbar'",
-            tags = "Metrics")
-    @GetMapping
-    public String getStatus() {
-        return "Backend verfügbar.";
-    }
-
-    /**
      * Allgemeine Schnittstelle für alle Events
      *
      * @return alle Events
