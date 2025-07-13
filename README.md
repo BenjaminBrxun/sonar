@@ -116,15 +116,16 @@ Provide an overview of the directory structure to help contributors navigate the
 ```bash,ignore
 Sonar/
 ├── sonar/                     # Description of this subproject
+  ├── env/                      # Envorinment Files containing credentials
   ├── docker-compose.yaml      # File to start whole application
   ├── sonar-backend            # Backend for Sonar application
     ├── src/main/              # Source code
-    ├── src/test/              # Test cases
+    └── src/test/              # Test cases
+  ├── sonar-frontend           # WebApp
   ├── herne-backend            # Dummy Backend
     ├── src/main/              # Source code
-    ├── src/test/              # Test cases
-  ├── sonar-frontend           # WebApp
-  ├── mqqt-broker              # MQTT Broker
+    └── src/test/              # Test cases
+  ├── mosquitto                # MQTT Broker
 ├── documentation/             # Documentation
 └── README.md                  # This file
 ```
