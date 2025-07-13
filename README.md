@@ -45,6 +45,9 @@ The communication interfaces are documented with a Swagger UI (REST & MQTT), the
 - Herne-Backend: http://localhost:9091/swagger-ui/index.html  
   (port:8080 when started without docker compose)
 
+If you want to start the applications without docker compose,
+the database and mqtt broker should still run in Docker, as they are necessary for operation.
+
 ## Prerequisites
 
 Detail all the necessary prerequisites for running your project, such as:
