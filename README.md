@@ -28,7 +28,7 @@ Members:
 This section outlines the steps required to get your project up and running quickly:
 
 ```bash,ignore
-# Example: Start the project (./sonar)
+# Start the project (./sonar)
 $ docker compose up -d
 ```
 
