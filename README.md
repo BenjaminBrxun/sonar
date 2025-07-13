@@ -35,7 +35,8 @@ This section outlines the steps required to get your project up and running quic
 $ docker compose up -d
 ```
 
-The frontend application should run locally at the following address: http://localhost:8080
+The frontend application should run at the following address: http://localhost:8080  
+(port:3000 when started without docker compose)
 
 The communication interfaces are documented with a Swagger UI (REST & MQTT), these can be accessed at:
 
