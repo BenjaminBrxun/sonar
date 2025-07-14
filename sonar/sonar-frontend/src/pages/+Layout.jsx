@@ -13,6 +13,7 @@ function Layout({ children }) {
     const isFilterPage = pageContext.urlPathname.startsWith("/filter");
     const isMapPage = pageContext.urlPathname.startsWith("/interactivemap");
     const isLoginPage = pageContext.urlPathname.startsWith("/profile");
+    console.log(pageContext.urlOriginal);
 
     return (
         <div className="layout-wrapper">
@@ -20,7 +21,7 @@ function Layout({ children }) {
             <div className="ui">
                 {!isFilterPage && !isLoginPage && <InterfaceHeader />}
                 <div className="current-component">{children}</div>
-                {!isFilterPage && !isLoginPage && <InterfaceFooter currentPage={pageContext.urlPathname}/>}
+                {!isFilterPage && !isLoginPage && <InterfaceFooter pageContext={pageContext}/>}
             </div>
         </div>
     );

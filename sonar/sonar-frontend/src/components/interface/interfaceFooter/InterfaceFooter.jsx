@@ -10,7 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {navigate} from "vike/client/router";
 
-export function InterfaceFooter({currentPage}) {
+export function InterfaceFooter({pageContext}) {
+    let currentPage = pageContext.urlPathname;
+    let highlightFilter = currentPage == "/list" && pageContext.urlOriginal != "/list";
+    let highlightList = currentPage == "/list" && !highlightFilter;
+
     async function navigateToFilter() {
         await navigate('/filter');
     }
@@ -48,7 +52,7 @@ export function InterfaceFooter({currentPage}) {
                     <li className="sonar-footer_menu-item">
                         <button
                             id="filter"
-                            className={currentPage !== "/filter" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                            className={highlightFilter ? "sonar-footer_menu-button active" : "sonar-footer_menu-button"}
                             onClick={navigateToFilter}
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass}/>
@@ -66,7 +70,7 @@ export function InterfaceFooter({currentPage}) {
                     <li className="sonar-footer_menu-seperator"></li>
                     <li className="sonar-footer_menu-item">
                         <button id="list"
-                                className={currentPage !== "/list" ? "sonar-footer_menu-button" : "sonar-footer_menu-button active"}
+                                className={highlightList ? "sonar-footer_menu-button active" : "sonar-footer_menu-button"}
                                 onClick={navigateToList}
                         >
                             <FontAwesomeIcon icon={faBarsStaggered}/>
