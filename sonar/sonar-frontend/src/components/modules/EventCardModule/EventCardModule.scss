@@ -1,9 +1,9 @@
 @use "../../../assets/scss/_variables.scss" as var;
 
 .sonar-eventcard{
-    min-height: 60vh;
+    min-height: 55vh;
     min-width: var.$appWidth;
-    max-width: 40vw;
+    width: 25vw;
     z-index: 5;
     margin-bottom: 2.7vh;
     border-radius: 4vh !important;
