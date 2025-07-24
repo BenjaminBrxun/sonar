@@ -320,6 +320,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         userRepository.save(user1);
         userRepository.save(user2);
 
+
         System.out.println("Datenbank wurde befüllt.");
     }
 }
