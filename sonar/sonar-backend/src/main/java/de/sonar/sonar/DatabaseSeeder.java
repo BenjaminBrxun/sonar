@@ -242,7 +242,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .build();
 
         Event event6 = new Event.Builder()
-                .name("Shakespears Romeo und Julia")
+                .name("Shakespeares Romeo und Julia")
                 .headline("Die größte Liebesgeschichte aller Zeiten!")
                 .description("Die tragische Romanze von Romeo und Julia erwacht in einer eindrucksvollen Inszenierung zum Leben – voller Leidenschaft, Dramatik und zeitloser Poesie.")
                 .address(address6)
@@ -278,7 +278,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         eventRepository.save(event7);
 
         List<Event> eventList1 = new ArrayList<>();
-        eventList1.add(event1);
+        //eventList1.add(event1);
 
         List<Event> eventList2 = new ArrayList<>();
         eventList2.add(event2);
