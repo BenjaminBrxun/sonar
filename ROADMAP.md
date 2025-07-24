@@ -1,5 +1,6 @@
 # Roadmap für Sonar
-Diese Roadmap ist eine kurze Zusammenfassung der gepanten Features
+Diese Roadmap ist eine kurze Zusammenfassung der geplanten Features.
+Die Roadmap ist keine geordnete Liste und nicht nach Prioritäten sortiert.
 
 ## Account-System
 Das Account-System wird erweitert, sodass Nutzer:innen ein vollwertiges Profil haben, welches sie anpassen können.
@@ -19,3 +20,17 @@ Dieser Sicherheitsmechanismus schützt vor Mobbing, lässt unbekannte Dritte dra
 Die Chat Funktion für alle erweitert die für Kinder. 
 Hier ist der Fokus auf den Eltern und den Lehrer:innen.
 Die Kommunikation wird hier auch erst möglich, wenn sich beide Parteien persönlich getroffen haben und einen QR-Code zur Verknüfpung gescanned haben.
+
+## Feedback Möglichkeit
+Die Kinder haben einen Kanal für Feedback, welches an die Stadt Herne oder an das Sonar Team gesendet werden kann.
+Auf diesem Wege wird die App stetig verbessert und steigert die Nutzerzufriedenheit.
+
+## Mehrsprachigkeit durch DeepL
+Übersetzungen der Text-Inhalte durch die KI von DeepL trägt zum Abbau von möglichen Sprachbarrieren bei.
+
+## Barrierefreiheit
+Besonderer Fokus liegt auch auf der Barrierefreiheit. Als öffentlich zugängliche Anwendung unterliegt Sonar dem Barrierefreiheitsstärkungsgesetz (BFSG).
+
+## Verwaltungsansicht für die Stadt
+Auch Mitarbeitende der Stadt sollen die Möglichkeit haben, bestehende Events zu verwalten und Feedback einzusehen. 
+Zusätzlich zur bestehenden Schnittstelle, die wir der Stadt zur Verfügung stellen, wird es eine Oberfläche geben, über die Inhalte der App verwaltet werden können.
