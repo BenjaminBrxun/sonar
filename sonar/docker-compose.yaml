@@ -31,9 +31,7 @@ services:
 
 
   sonar-backend:
-    build:
-      context: ./sonar-backend
-      dockerfile: Dockerfile
+    image: ghcr.io/benjaminbrxun/sonar-backend:latest
     depends_on:
       sonar-db:
         condition: service_healthy
@@ -52,9 +50,10 @@ services:
 
 
   sonar-frontend:
-    build:
-      context: ./sonar-frontend
-      dockerfile: Dockerfile
+    image: ghcr.io/benjaminbrxun/sonar-frontend:latest
+    environment:
+      - HOST=0.0.0.0
+      - VITE_HOST=0.0.0.0
     depends_on:
       - sonar-backend
     container_name: sonar-frontend
