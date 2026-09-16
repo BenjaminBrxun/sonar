@@ -1,0 +1,75 @@
+name: SONAR PoC Pipeline
+
+on: 
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  backend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Quellcode auschecken
+        uses: actions/checkout@v4
+
+      - name: Java JDK 21 einrichten
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Build und Test mit Maven
+        working-directory: ./sonar/sonar-backend
+        run: mvn clean package
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Quellcode auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: './sonar/sonar-frontend/package-lock.json'
+      
+      - name: Abhaengigkeiten installieren und Build ausführen
+        working-directory: ./sonar/sonar-frontend
+        run: |
+          npm install
+          npm run build
+      
+  docker-build:
+    needs: [backend-build, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Quellcode auschecken
+        uses: actions/checkout@v4
+      
+      - name: Login in GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Docker Image für backend
+        run: docker build -t ghcr.io/mkeiten/sonar-backend:latest ./sonar/sonar-backend
+
+      - name: Docker Image für Frontend bauen
+        run: docker build -t ghcr.io/mkeiten/sonar-frontend:latest ./sonar/sonar-frontend  
+
+      - name: Images in die Registry pushen
+        run: |
+          docker push ghcr.io/mkeiten/sonar-backend:latest
+          docker push ghcr.io/mkeiten/sonar-frontend:latest
+      
