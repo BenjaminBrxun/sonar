@@ -64,13 +64,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Docker Image für backend
-        run: docker build -t ghcr.io/mkeiten/sonar-backend:latest ./sonar/sonar-backend
+        run: docker build -t ghcr.io/BenjaminBrxun/sonar-backend:latest ./sonar/sonar-backend
 
       - name: Docker Image für Frontend bauen
-        run: docker build -t ghcr.io/mkeiten/sonar-frontend:latest ./sonar/sonar-frontend  
+        run: docker build -t ghcr.io/BenjaminBrxun/sonar-frontend:latest ./sonar/sonar-frontend  
 
       - name: Images in die Registry pushen
         run: |
-          docker push ghcr.io/mkeiten/sonar-backend:latest
-          docker push ghcr.io/mkeiten/sonar-frontend:latest
+          docker push ghcr.io/BenjaminBrxun/sonar-backend:latest
+          docker push ghcr.io/BenjaminBrxun/sonar-frontend:latest
       
