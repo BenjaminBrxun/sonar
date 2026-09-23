@@ -141,3 +141,6 @@ sketch
 
 # Mosquitto DB must be ignored, because its always updated when local tested
 mosquitto.db
+
+#Env Ordner
+sonar/env/
